@@ -1,15 +1,12 @@
 import { Color, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Form } from "react-bootstrap";
+import { TypingDataContext } from "./TypeFeedAreaDisplay";
 
-interface Props {
-  typedSoFar: String,
-  toType: String
-}
+const FeedbackDisplay = () => {
+  const typingData = useContext(TypingDataContext);
 
-const FeedbackDisplay = ({ typedSoFar, toType }: Props) => {
-
-  let typedChars: String[] = typedSoFar.split('');
+  let typedChars: String[] = typingData.typedSoFar.split('');
   const colouredRows: any[] = [];
 
   const getColouredSpan = (char: String, colour: String) => {
@@ -18,13 +15,13 @@ const FeedbackDisplay = ({ typedSoFar, toType }: Props) => {
 
   for(let i = 0; i < typedChars.length; i++) {
 
-    if (typedChars.length > toType.length) {
+    if (typedChars.length > typingData.toType.length) {
       break;
     }
 
-    if (typedChars[i].charAt(0) === toType.charAt(i)) {
+    if (typedChars[i].charAt(0) === typingData.toType.charAt(i)) {
       colouredRows.push(getColouredSpan(typedChars[i], 'green'));
-    } else if (typedChars[i].charAt(0) !== toType.charAt(i)) {
+    } else if (typedChars[i].charAt(0) !== typingData.toType.charAt(i)) {
       colouredRows.push(getColouredSpan(typedChars[i], 'red'));
     } else {
       colouredRows.push(getColouredSpan(typedChars[i], 'white'));

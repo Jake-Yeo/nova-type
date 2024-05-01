@@ -2,3 +2,22 @@ To get the value and text of a select element on change.
 Somethings are blue, some things are red, at the end of the day, they are just colours.
 Colour or color?
 Typing is dexterious.
+What are the different types of sentences?In English grammar, sentences can be classified based on their structure and function.
+Here’s a brief overview of the different types of sentences:
+Based on Structure:
+Simple Sentence: Contains one independent clause.
+For example, “The dog barks.”
+Compound Sentence: Contains two or more independent clauses joined by a conjunction or punctuation.
+For example, “The sun is high, so put on some sunscreen.”
+Complex Sentence: Contains one independent clause and at least one dependent clause.
+For example, “Because the cake was delicious, it disappeared quickly.”
+Compound-Complex Sentence: Contains two or more independent clauses and at least one dependent clause.
+For example, “Though Mitchell prefers watching romantic films, he rented the latest spy thriller, and he enjoyed it very much.”
+Based on Function:
+Declarative Sentence: Makes a statement or provides information and ends with a period. For example, “I will go to the store.”
+Interrogative Sentence: Asks a question and ends with a question mark. For example, “Are you going to the store?”
+Imperative Sentence: Gives a command or makes a request and can end with a period or an exclamation point.
+For example, “Please go to the store.”
+Exclamatory Sentence: Expresses strong emotion and ends with an exclamation point.
+For example, “What a beautiful day!”
+Understanding these types can help you vary your sentence structure and enhance the clarity and effectiveness of your writing.

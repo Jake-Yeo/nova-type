@@ -1,18 +1,15 @@
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Form } from "react-bootstrap";
+import { TypingDataContext } from "./TypeFeedAreaDisplay";
 
-interface Props {
-  toType: String;
-}
-
-const ToTypeDisplay = ({toType}: Props) => {
-  const [value, setValue] = useState(toType);
+const ToTypeDisplay = () => {
+  const typingData = useContext(TypingDataContext);
 
   return (
     <>
-        <Form.Control as="textarea" placeholder="Leave a comment here" value={toType.toString()} disabled/>
+        <Form.Control as="textarea" placeholder="Leave a comment here" value={typingData.toType.toString()} disabled/>
     </>
   );
 }
