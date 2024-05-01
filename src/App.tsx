@@ -1,17 +1,14 @@
-import React from 'react';
-import logo from './logo.svg';
-import TypeArea from './components/TypeArea';
 import './App.css';
-import TextDisplay from './components/TextDisplay';
+import TypeFeedAreaDisplay from './components/TypeFeedAreaDisplay';
+
 
 function App() {
-  let text: string = "Hi type me!";
+
 
   return (
-     <>
-     <TextDisplay textToType={text}/>
-     <TypeArea textToType={text}/>
-     </>
+    <>
+      <TypeFeedAreaDisplay></TypeFeedAreaDisplay>
+    </>
   );
 }
 
