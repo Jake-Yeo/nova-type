@@ -35,11 +35,11 @@ const TypingArea = ({ setToType, toType, typedSoFar, setTypedSoFar }: Props) => 
   }
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    if (!keyReleased) {
+    if (!keyReleased) { // If the user presses down a key, then do not allow them to spam letters.
       setTypedSoFar(typedSoFar.toString());
       return;
     }
-    if (isGettingNewText) {
+    if (isGettingNewText) { // Do not allow the user to change or update text when the program is getting new text
       return;
     }
     setTypedSoFar(e.target.value);
