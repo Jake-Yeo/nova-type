@@ -1,0 +1,4 @@
+To get the value and text of a select element on change.
+Somethings are blue, some things are red, at the end of the day, they are just colours.
+Colour or color?
+Typing is dexterious.

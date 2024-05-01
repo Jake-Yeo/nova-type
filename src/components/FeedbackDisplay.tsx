@@ -22,8 +22,6 @@ const FeedbackDisplay = ({ typedSoFar, toType }: Props) => {
       break;
     }
 
-    console.log(typedChars[i], toType.charAt(i));
-    console.log(typedChars[i].charAt(0) === toType.charAt(i));
     if (typedChars[i].charAt(0) === toType.charAt(i)) {
       colouredRows.push(getColouredSpan(typedChars[i], 'green'));
     } else if (typedChars[i].charAt(0) !== toType.charAt(i)) {
