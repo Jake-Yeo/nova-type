@@ -3,14 +3,17 @@ export async function getNewSentence(): Promise<string> {
     let libraryText: String = await response.text(); // Then you need to get the text from the response
     console.log(libraryText);
     const sentenceArray: String[] = libraryText.split("\n");
-    const randomIndex: number =  Math.ceil(Math.random() * sentenceArray.length) - 1;
+    const randomIndex: number = Math.ceil(Math.random() * sentenceArray.length) - 1;
     return sentenceArray[randomIndex].trim(); // must trim, im guessing \n character was still on the sentence which changed its length messing with the logic
 }
 
 export function getWpm(typedSoFar: String, startTime: number, currentTime: number) {
     const approxWords = typedSoFar.length / 5;
-    const elapsedMins: number = (currentTime - startTime)/60;
+    const elapsedMins: number = (currentTime - startTime) / 60;
 
-    return Math.round(approxWords/elapsedMins);
+    return Math.round(approxWords / elapsedMins);
 }
 
+export function getColouredSpan(char: String, colour: String) {
+    return <span style={{ color: colour.toString() }}>{char}</span>;
+};

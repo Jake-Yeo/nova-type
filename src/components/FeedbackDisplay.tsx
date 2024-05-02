@@ -2,16 +2,13 @@ import { Color, Typography } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { Form } from "react-bootstrap";
 import { TypingDataContext } from "./TypeFeedAreaDisplay";
+import { getColouredSpan } from "../functions/HelperFunction";
 
 const FeedbackDisplay = () => {
   const typingData = useContext(TypingDataContext);
 
   let typedChars: String[] = typingData.typedSoFar.split('');
   const colouredRows: any[] = [];
-
-  const getColouredSpan = (char: String, colour: String) => {
-    return <span style={{ color: colour.toString() }}>{char}</span>;
-  };
 
   for(let i = 0; i < typedChars.length; i++) {
 
