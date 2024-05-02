@@ -15,15 +15,15 @@ const ToTypeDisplay = () => {
 
     for (let i = 0; i < typingData.typedSoFar.length; i++) {
       if (typingData.typedSoFar.charAt(i) === typingData.toType.charAt(i)) {
-        spanElementOnlyArray.push(<span>{getColouredSpan(typingData.toType.charAt(i), 'green')}</span>);
+        spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'green', i));
       } else {
-        spanElementOnlyArray.push(<span>{getColouredSpan(typingData.toType.charAt(i), 'red')}</span>);
+        spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'red', i));
       }
     }
-    spanElementOnlyArray.push(<span>{getColouredSpan(typingData.toType.substring(typingData.typedSoFar.length, typingData.toType.length), 'black')}</span>);
+    spanElementOnlyArray.push(getColouredSpan(typingData.toType.substring(typingData.typedSoFar.length, typingData.toType.length), 'black', 'myUniqueKey'));
 
     return (
-      <div className="anyClass" style={{ whiteSpace: 'pre-wrap', overflowWrap: 'break-word' }}>
+      <div className="scrollCss" key='scrollPane' style={{ whiteSpace: 'pre-wrap', overflowWrap: 'break-word' }}>
       {spanElementOnlyArray}
     </div>
     );

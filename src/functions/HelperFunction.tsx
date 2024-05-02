@@ -1,3 +1,5 @@
+import { Key } from "react";
+
 export async function getNewSentence(): Promise<string> {
     const response = await fetch('/constants/library.txt'); // this gets the response (probably in like a json format)
     let libraryText: String = await response.text(); // Then you need to get the text from the response
@@ -14,6 +16,6 @@ export function getWpm(typedSoFar: String, startTime: number, currentTime: numbe
     return Math.round(approxWords / elapsedMins);
 }
 
-export function getColouredSpan(char: String, colour: String) {
-    return <span style={{ color: colour.toString() }}>{char}</span>;
+export function getColouredSpan(char: String, colour: String, keyProp: Key) {
+    return <span key={keyProp} style={{ color: colour.toString() }}>{char}</span>;
 };
