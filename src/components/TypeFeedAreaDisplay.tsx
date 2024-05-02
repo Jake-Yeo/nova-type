@@ -3,12 +3,14 @@ import ToTypeDisplay from "./ToTypeDisplay";
 import TypingArea from "./TypingArea";
 import FeedbackDisplay from "./FeedbackDisplay";
 import { getNewSentence } from "../functions/HelperFunction";
+import WpmDisplay from "./WpmDisplay";
+import { Divider } from "@mui/material";
 
 type TypingData = {
     typedSoFar: String,
     toType: String,
-    elapsedTime: Number,
-    totalTime: Number,
+    wpm: Number,
+    setWpm: React.Dispatch<React.SetStateAction<number>>,
     setToType: React.Dispatch<React.SetStateAction<string>>,
     setTypedSoFar: React.Dispatch<React.SetStateAction<string>>
 }
@@ -16,8 +18,8 @@ type TypingData = {
 export var TypingDataContext = createContext<TypingData>({ // initalize
     typedSoFar: '',
     toType: '',
-    elapsedTime: 0,
-    totalTime: 0,
+    wpm: 0,
+    setWpm: () => {},
     setToType: () => {},
     setTypedSoFar: () => {}
 });
@@ -28,11 +30,13 @@ const TypeFeedAreaDisplay = () => {
 
     const [typedSoFar, setTypedSoFar] = useState("");
 
+    const [wpm, setWpm] = useState(0);
+
     const typingData: TypingData = {
         typedSoFar: typedSoFar,
         toType: toType,
-        elapsedTime: 0,
-        totalTime: 0,
+        wpm: wpm,
+        setWpm: setWpm,
         setToType: setToType,
         setTypedSoFar: setTypedSoFar
     }
@@ -47,12 +51,13 @@ const TypeFeedAreaDisplay = () => {
     }, []);
 
     //Need to pass in setToType function into typing area so we can update the display and set to type!
-    // TypingDataContext.Provider passes down all the data from typingData using useContext hook!
+    // TypingDataContext.Provider passes down all the data from typingData to its child elements using useContext hook!
     return (<>
         <TypingDataContext.Provider value={typingData}> 
             <ToTypeDisplay></ToTypeDisplay>
             <TypingArea></TypingArea>
             <FeedbackDisplay></FeedbackDisplay>
+            <Divider><WpmDisplay></WpmDisplay></Divider>
         </TypingDataContext.Provider>
     </>);
 }

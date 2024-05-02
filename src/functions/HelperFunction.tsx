@@ -7,3 +7,10 @@ export async function getNewSentence(): Promise<string> {
     return sentenceArray[randomIndex].trim(); // must trim, im guessing \n character was still on the sentence which changed its length messing with the logic
 }
 
+export function getWpm(typedSoFar: String, startTime: number, currentTime: number) {
+    const approxWords = typedSoFar.length / 5;
+    const elapsedMins: number = (currentTime - startTime)/60;
+
+    return Math.round(approxWords/elapsedMins);
+}
+
