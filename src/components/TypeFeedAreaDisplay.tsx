@@ -61,9 +61,6 @@ const TypeFeedAreaDisplay = () => {
             <TypingArea></TypingArea>
             <FeedbackDisplay></FeedbackDisplay>
             <Divider><WpmDisplay></WpmDisplay></Divider>
-            <div className="anyClass" style={{ whiteSpace: 'pre-wrap', overflowWrap: 'break-word' }}>
-                <p>Hello there Hello there Hello there Hello there Hello there Hello there Hello there Hello there Hello there Hello there Hello there Hello there Hello there Hello there Hello there Hello there Hello there Hello there <span>Bell</span><span>ello there</span> </p>
-            </div>
         </TypingDataContext.Provider>
     </>);
 }

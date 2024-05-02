@@ -32,7 +32,6 @@ const ToTypeDisplay = () => {
     <>
       <div className="scrollCss"
         key='scrollPane'
-        style={{ whiteSpace: 'pre-wrap', overflowWrap: 'break-word' }}
         onMouseUp={() => {setFocusToTypingArea()}}> {/* If this display is clicked, then set focus to the typing area */}
         {getToTypeDisplay()}
       </div>

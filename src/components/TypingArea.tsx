@@ -90,13 +90,13 @@ const TypingArea = () => {
 
   return (
     <>
-      <FloatingLabel
-        controlId="floatingTextarea"
-        label="Type Here"
-        className="mb-3"
-      >
         <Form.Control as="textarea"
           ref={myForm}
+          style={{
+            position: 'fixed',
+            left: '200vw',
+            top: '200vh'
+          }}
           onChange={(e) => onChange(e)}
           onKeyDown={(e) => onKeyDown(e)}
           onKeyUp={(e) => onKeyUp(e)}
@@ -108,7 +108,6 @@ const TypingArea = () => {
           onMouseUp={(e) => disregardMouseEvent(e)}
           onPaste={(e) => disregardPasteEvent(e)}
           value={typingData.typedSoFar.toString()} />
-      </FloatingLabel>
     </>
   );
 }
