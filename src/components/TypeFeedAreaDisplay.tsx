@@ -59,7 +59,6 @@ const TypeFeedAreaDisplay = () => {
         <TypingDataContext.Provider value={typingData}>
             <ToTypeDisplay></ToTypeDisplay>
             <TypingArea></TypingArea>
-            <FeedbackDisplay></FeedbackDisplay>
             <Divider><WpmDisplay></WpmDisplay></Divider>
         </TypingDataContext.Provider>
     </>);

@@ -17,11 +17,11 @@ const FeedbackDisplay = () => {
     }
 
     if (typedChars[i].charAt(0) === typingData.toType.charAt(i)) {
-      colouredRows.push(getColouredSpan(typedChars[i], 'green', i));
+      colouredRows.push(getColouredSpan(typedChars[i], 'green', 'black', i));
     } else if (typedChars[i].charAt(0) !== typingData.toType.charAt(i)) {
-      colouredRows.push(getColouredSpan(typedChars[i], 'red', i));
+      colouredRows.push(getColouredSpan(typedChars[i], 'red', 'black', i));
     } else {
-      colouredRows.push(getColouredSpan(typedChars[i], 'white', i));
+      colouredRows.push(getColouredSpan(typedChars[i], 'transparent', 'black', i));
     }
   }
 

@@ -11,11 +11,14 @@ export async function getNewSentence(): Promise<string> {
 
 export function getWpm(typedSoFar: String, startTime: number, currentTime: number) {
     const approxWords = typedSoFar.length / 5;
-    const elapsedMins: number = (currentTime - startTime) / 60;
+    const elapsedMins: number = Math.abs((currentTime - startTime) / 60);
 
     return Math.round(approxWords / elapsedMins);
 }
 
-export function getColouredSpan(char: String, colour: String, keyProp: Key) {
-    return <span key={keyProp} style={{ color: colour.toString() }}>{char}</span>;
+export function getColouredSpan(char: String, colour: String, backgroundColor: String, keyProp: Key) {
+    return <span key={keyProp} style={{
+        color: backgroundColor.toString(),
+        backgroundColor: colour.toString()
+    }}>{char}</span>;
 };

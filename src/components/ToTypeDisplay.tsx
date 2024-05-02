@@ -16,12 +16,12 @@ const ToTypeDisplay = () => {
 
     for (let i = 0; i < typingData.typedSoFar.length; i++) {
       if (typingData.typedSoFar.charAt(i) === typingData.toType.charAt(i)) {
-        spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'green', i));
+        spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'green', 'white', i));
       } else {
-        spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'red', i));
+        spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'red', 'white', i));
       }
     }
-    spanElementOnlyArray.push(getColouredSpan(typingData.toType.substring(typingData.typedSoFar.length, typingData.toType.length), 'black', 'myUniqueKey'));
+    spanElementOnlyArray.push(getColouredSpan(typingData.toType.substring(typingData.typedSoFar.length, typingData.toType.length), 'transparent', 'black', 'myUniqueKey'));
 
     return (
       <>{spanElementOnlyArray}</>
