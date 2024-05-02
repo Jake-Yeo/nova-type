@@ -14,11 +14,17 @@ var startTime: Number = 0;
 
 var endTime: Number = 0;
 
+var myForm: React.RefObject<HTMLTextAreaElement>;
+
+export function setFocusToTypingArea() {
+  myForm.current?.focus(); // ? checks if myForm.current is not null before performing .focus()
+}
+
 const TypingArea = () => {
 
   const typingData = useContext(TypingDataContext);
 
-  const myForm = useRef<HTMLTextAreaElement>(null);
+  myForm = useRef<HTMLTextAreaElement>(null);
 
   const getNewText = async (): Promise<void> => {
     isGettingNewText = true; // asynchronous function, stop the user from typing while we get new text.
@@ -94,6 +100,7 @@ const TypingArea = () => {
           onChange={(e) => onChange(e)}
           onKeyDown={(e) => onKeyDown(e)}
           onKeyUp={(e) => onKeyUp(e)}
+          // disregard functions are mainly to stop user from moving their carret
           onMouseMove={(e) => disregardMouseEvent(e)}
           onMouseDown={(e) => onMouseDown(e)}
           onMouseEnter={(e) => disregardMouseEvent(e)}
