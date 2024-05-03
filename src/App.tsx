@@ -1,5 +1,5 @@
 import './App.css';
-import TypeFeedAreaDisplay from './components/TypeFeedAreaDisplay';
+import TypingPage from './Pages/TypingPage';
 
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <TypeFeedAreaDisplay></TypeFeedAreaDisplay>
+      <TypingPage></TypingPage>
     </>
   );
 }

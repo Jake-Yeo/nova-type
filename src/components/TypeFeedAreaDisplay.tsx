@@ -4,10 +4,11 @@ import TypingArea from "./TypingArea";
 import FeedbackDisplay from "./FeedbackDisplay";
 import { getNewSentence } from "../functions/HelperFunction";
 import WpmDisplay from "./WpmDisplay";
-import { Divider } from "@mui/material";
+import { Divider, Grid } from "@mui/material";
 import TimerDisplay from "./TimerDisplay";
 import "../css/scrollCssTest.css";
 import { FloatingLabel, Form } from "react-bootstrap";
+import LogoNavBar from "./LogoNavBar";
 
 type TypingData = {
     typedSoFar: String,
@@ -56,11 +57,20 @@ const TypeFeedAreaDisplay = () => {
     //Need to pass in setToType function into typing area so we can update the display and set to type!
     // TypingDataContext.Provider passes down all the data from typingData to its child elements using useContext hook!
     return (<>
-        <TypingDataContext.Provider value={typingData}>
-            <ToTypeDisplay></ToTypeDisplay>
-            <TypingArea></TypingArea>
-            <Divider><WpmDisplay></WpmDisplay></Divider>
-        </TypingDataContext.Provider>
+        {/*This grid here will hold the typing area, wpm etc, we will arrange the structure in the app.css function i think*/}
+        <Grid
+            container
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="start"
+        >
+            <TypingDataContext.Provider value={typingData}>
+                <Divider><WpmDisplay></WpmDisplay></Divider>
+                <ToTypeDisplay></ToTypeDisplay>
+                <TypingArea></TypingArea>
+            </TypingDataContext.Provider>
+        </Grid>
+
     </>);
 }
 
