@@ -40,11 +40,14 @@ const LogoNavBar = () => {
                     backgroundColor: '#635985',
                     '&:hover': { //When you use &:hover, you’re saying: “Apply the following styles to the current selector when it’s being hovered.”
                         backgroundColor: '#9287B7',
-                      },
+                    },
                 }}
             >Menu</Button>
 
-            <Drawer anchor="right" open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
+            <Drawer
+                anchor="right"
+                open={isDrawerOpen}
+                onClose={() => setIsDrawerOpen(false)}>
                 "test"
             </Drawer>
         </Grid>
