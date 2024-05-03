@@ -35,7 +35,7 @@ const ToTypeDisplay = () => {
           height: '150px',
           width: +typingData.scrollPaneWidth, // + converts a data type object Number to primitive type number
           overflow: 'hidden',
-          overflowY: 'scroll' // Use camelCase for hyphenated CSS properties
+          overflowY: 'hidden' // Use camelCase for hyphenated CSS properties
         }}
         onMouseUp={() => { setFocusToTypingArea() }}> {/* If this display is clicked, then set focus to the typing area */}
         {getToTypeDisplay()}

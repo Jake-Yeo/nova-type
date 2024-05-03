@@ -18,26 +18,36 @@ var myForm: React.RefObject<HTMLTextAreaElement>;
 
 export function setFocusToTypingArea() {
   myForm.current?.focus(); // ? checks if myForm.current is not null before performing .focus()
+  console.log(myForm.current?.value)
 }
 
-export var restartPractice = () => {};
+export var restartPractice = () => { };
 
 const TypingArea = () => {
 
-   const typingData = useContext(TypingDataContext);
+  const typingData = useContext(TypingDataContext);
 
   myForm = useRef<HTMLTextAreaElement>(null);
+
+ // React.useEffect(() => { // uncomment this if you want it to automatically focus when the app starts
+//    myForm.current?.focus();
+  //  console.log("mounted");
+//  }, []); // for some reason, this is running twice, (Turns out it's running twice because of strick mode in index.tsx, it's breaking my program) https://stackoverflow.com/questions/72238175/why-useeffect-running-twice-and-how-to-handle-it-well-in-react
+  // Apparently if your program breaks when useEffect runs twice, then there's a bug, so you have to fix it so it works when it runs twice
+  // I didn't know how to fix it so I turned off react strict mode
 
   const getNewText = async (): Promise<void> => {
     isGettingNewText = true; // asynchronous function, stop the user from typing while we get new text.
     endTime = (new Date()).getSeconds();// also set the end time when the user finishes typing the sentence and we have to type a new sentence
     const newSentence: String = await getNewSentence();
-    console.log("New sentence is:", newSentence);
+    //console.log("New sentence is:", newSentence);
     typingData.setToType(newSentence.toString());
     typingData.setTypedSoFar("");
     userHasTyped = false; // indicate that a new text was generated so the user has not typed yet
     isGettingNewText = false;
   }
+
+  restartPractice = getNewText;
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     if (e.key.includes('Arrow')) {
@@ -47,7 +57,7 @@ const TypingArea = () => {
   }
 
   const onKeyUp = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    console.log("key has been upped");
+    //console.log("key has been upped");
     keyReleased = true; // Indicate that the key has been released
   }
 
@@ -67,7 +77,8 @@ const TypingArea = () => {
   }
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-
+    //debug();
+    myForm.current?.setSelectionRange(typingData.toType.length, typingData.toType.length);
     if (!keyReleased) { // If the user presses down a key, then do not allow them to spam letters.
       typingData.setTypedSoFar(typingData.typedSoFar.toString());
       return;
@@ -86,30 +97,32 @@ const TypingArea = () => {
     if (typingData.toType.length == e.target.value.length) {
       getNewText();
       typingData.setTypedSoFar("");
-      console.log("got new text and reset it");
+      //console.log("got new text and reset it");
     }
+    //console.log("reached end of statement");
   }
 
   return (
     <>
-        <Form.Control as="textarea"
-          ref={myForm}
-          style={{
-            position: 'fixed',
-            left: '200vw',
-            top: '200vh'
-          }}
-          onChange={(e) => onChange(e)}
-          onKeyDown={(e) => onKeyDown(e)}
-          onKeyUp={(e) => onKeyUp(e)}
-          // disregard functions are mainly to stop user from moving their carret
-          onMouseMove={(e) => disregardMouseEvent(e)}
-          onMouseDown={(e) => onMouseDown(e)}
-          onMouseEnter={(e) => disregardMouseEvent(e)}
-          onMouseOut={(e) => disregardMouseEvent(e)}
-          onMouseUp={(e) => disregardMouseEvent(e)}
-          onPaste={(e) => disregardPasteEvent(e)}
-          value={typingData.typedSoFar.toString()} />
+      <Form.Control as="textarea"
+        ref={myForm}
+        style={{
+          position: 'fixed',
+          left: '0vw',
+          top: '0vh'
+        }}
+        onChange={(e) => onChange(e)}
+        onKeyDown={(e) => onKeyDown(e)}
+        onKeyUp={(e) => onKeyUp(e)}
+        //  disregard functions are mainly to stop user from moving their carret
+        onMouseMove={(e) => disregardMouseEvent(e)}
+        onMouseDown={(e) => onMouseDown(e)}
+        onMouseEnter={(e) => disregardMouseEvent(e)}
+        onMouseOut={(e) => disregardMouseEvent(e)}
+        onMouseUp={(e) => disregardMouseEvent(e)}
+        onPaste={(e) => disregardPasteEvent(e)}
+        value={typingData.typedSoFar.toString()}
+      />
     </>
   );
 }
