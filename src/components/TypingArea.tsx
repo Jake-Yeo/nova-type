@@ -78,7 +78,7 @@ const TypingArea = () => {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     //debug();
-    myForm.current?.setSelectionRange(typingData.toType.length, typingData.toType.length);
+
     if (!keyReleased) { // If the user presses down a key, then do not allow them to spam letters.
       typingData.setTypedSoFar(typingData.typedSoFar.toString());
       return;
@@ -108,8 +108,8 @@ const TypingArea = () => {
         ref={myForm}
         style={{
           position: 'fixed',
-          left: '0vw',
-          top: '0vh'
+          left: '200vw',
+          top: '200vh'
         }}
         onChange={(e) => onChange(e)}
         onKeyDown={(e) => onKeyDown(e)}
