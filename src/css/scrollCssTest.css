@@ -1,7 +1,0 @@
-.scrollCss {
-    height: 150px;
-    width: 500px;
-    overflow-y: scroll;
-    whiteSpace: pre-wrap;
-    overflowWrap: 'break-word';
-  }

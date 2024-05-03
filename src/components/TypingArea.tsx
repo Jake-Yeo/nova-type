@@ -20,9 +20,11 @@ export function setFocusToTypingArea() {
   myForm.current?.focus(); // ? checks if myForm.current is not null before performing .focus()
 }
 
+export var restartPractice = () => {};
+
 const TypingArea = () => {
 
-  const typingData = useContext(TypingDataContext);
+   const typingData = useContext(TypingDataContext);
 
   myForm = useRef<HTMLTextAreaElement>(null);
 

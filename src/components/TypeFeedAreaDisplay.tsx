@@ -1,19 +1,18 @@
 import React, { createContext, useEffect, useState } from "react";
 import ToTypeDisplay from "./ToTypeDisplay";
 import TypingArea from "./TypingArea";
-import FeedbackDisplay from "./FeedbackDisplay";
 import { getNewSentence } from "../functions/HelperFunction";
-import WpmDisplay from "./WpmDisplay";
-import { Divider, Grid } from "@mui/material";
-import TimerDisplay from "./TimerDisplay";
-import "../css/scrollCssTest.css";
-import { FloatingLabel, Form } from "react-bootstrap";
-import LogoNavBar from "./LogoNavBar";
+import { Grid } from "@mui/material";
+//import "../css/scrollCssTest.css"; // keep so you know how to get paths from the /css folder
+import RestartButton from "./RestartButton";
+import RealTimeStatDisplay from "./RealTimeStatDisplay";
 
 type TypingData = {
     typedSoFar: String,
     toType: String,
     wpm: Number,
+    scrollPaneWidth: Number,
+    setScrollPaneWidth: React.Dispatch<React.SetStateAction<number>>,
     setWpm: React.Dispatch<React.SetStateAction<number>>,
     setToType: React.Dispatch<React.SetStateAction<string>>,
     setTypedSoFar: React.Dispatch<React.SetStateAction<string>>
@@ -23,6 +22,8 @@ export var TypingDataContext = createContext<TypingData>({ // initalize
     typedSoFar: '',
     toType: '',
     wpm: 0,
+    scrollPaneWidth: 0,
+    setScrollPaneWidth: () => {},
     setWpm: () => { },
     setToType: () => { },
     setTypedSoFar: () => { }
@@ -36,10 +37,14 @@ const TypeFeedAreaDisplay = () => {
 
     const [wpm, setWpm] = useState(0);
 
+    const [scrollPaneWidth, setScrollPaneWidth] = useState(500);
+
     const typingData: TypingData = {
         typedSoFar: typedSoFar,
         toType: toType,
         wpm: wpm,
+        scrollPaneWidth: scrollPaneWidth,
+        setScrollPaneWidth: setScrollPaneWidth,
         setWpm: setWpm,
         setToType: setToType,
         setTypedSoFar: setTypedSoFar
@@ -62,12 +67,15 @@ const TypeFeedAreaDisplay = () => {
             container
             direction="column"
             justifyContent="flex-start"
-            alignItems="start"
+            alignItems="center"
+            padding='30px'
         >
             <TypingDataContext.Provider value={typingData}>
-                <Divider><WpmDisplay></WpmDisplay></Divider>
                 <ToTypeDisplay></ToTypeDisplay>
+                {/*TypingArea is purposfully put off the screen*/}
                 <TypingArea></TypingArea>
+                <RestartButton></RestartButton>
+                <RealTimeStatDisplay></RealTimeStatDisplay>
             </TypingDataContext.Provider>
         </Grid>
 

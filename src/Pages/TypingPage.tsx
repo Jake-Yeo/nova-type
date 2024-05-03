@@ -1,10 +1,18 @@
+import { Grid } from "@mui/material"
 import LogoNavBar from "../components/LogoNavBar"
+import SettingsIsland from "../components/SettingsIsland"
 import TypeFeedAreaDisplay from "../components/TypeFeedAreaDisplay"
 
 const TypingPage = () => {
     return (<>
-        <LogoNavBar></LogoNavBar>
-        <TypeFeedAreaDisplay></TypeFeedAreaDisplay>
+        <Grid
+        container
+        justifyContent='center'
+        >
+            <LogoNavBar></LogoNavBar>
+            <SettingsIsland></SettingsIsland>
+            <TypeFeedAreaDisplay></TypeFeedAreaDisplay>
+        </Grid>
     </>)
 }
 

@@ -5,31 +5,8 @@ import { TypingDataContext } from "./TypeFeedAreaDisplay";
 import { getColouredSpan } from "../functions/HelperFunction";
 
 const FeedbackDisplay = () => {
-  const typingData = useContext(TypingDataContext);
 
-  let typedChars: String[] = typingData.typedSoFar.split('');
-  const colouredRows: any[] = [];
 
-  for(let i = 0; i < typedChars.length; i++) {
-
-    if (typedChars.length > typingData.toType.length) {
-      break;
-    }
-
-    if (typedChars[i].charAt(0) === typingData.toType.charAt(i)) {
-      colouredRows.push(getColouredSpan(typedChars[i], 'green', 'black', i));
-    } else if (typedChars[i].charAt(0) !== typingData.toType.charAt(i)) {
-      colouredRows.push(getColouredSpan(typedChars[i], 'red', 'black', i));
-    } else {
-      colouredRows.push(getColouredSpan(typedChars[i], 'transparent', 'black', i));
-    }
-  }
-
-  return (
-    <>
-      {colouredRows}
-    </>
-  );
 }
 
 export default FeedbackDisplay

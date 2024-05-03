@@ -15,12 +15,12 @@ const ToTypeDisplay = () => {
 
     for (let i = 0; i < typingData.typedSoFar.length; i++) {
       if (typingData.typedSoFar.charAt(i) === typingData.toType.charAt(i)) {
-        spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'transparent', 'green', i));
+        spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'transparent', 'white', i));
       } else {
         spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'transparent', 'red', i));
       }
     }
-    spanElementOnlyArray.push(getColouredSpan(typingData.toType.substring(typingData.typedSoFar.length, typingData.toType.length), 'transparent', 'white', 'myUniqueKey'));
+    spanElementOnlyArray.push(getColouredSpan(typingData.toType.substring(typingData.typedSoFar.length, typingData.toType.length), 'transparent', '#9287B7', 'myUniqueKey'));
 
     return (
       <>{spanElementOnlyArray}</>
@@ -31,7 +31,13 @@ const ToTypeDisplay = () => {
     <>
       <div className="scrollCss"
         key='scrollPane'
-        onMouseUp={() => {setFocusToTypingArea()}}> {/* If this display is clicked, then set focus to the typing area */}
+        style={{
+          height: '150px',
+          width: +typingData.scrollPaneWidth, // + converts a data type object Number to primitive type number
+          overflow: 'hidden',
+          overflowY: 'scroll' // Use camelCase for hyphenated CSS properties
+        }}
+        onMouseUp={() => { setFocusToTypingArea() }}> {/* If this display is clicked, then set focus to the typing area */}
         {getToTypeDisplay()}
       </div>
     </>

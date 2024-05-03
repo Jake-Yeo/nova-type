@@ -1,6 +1,7 @@
 import { Box, Button, ButtonBase, ButtonTypeMap, Drawer, Grid } from "@mui/material";
 import { ClassNameConfigurator } from '@mui/base/utils';
 import { useRef, useState } from "react";
+import DrawerItems from "./DrawerItems";
 
 const widthOfLogo = 200;
 const heightOfLogo = widthOfLogo * 0.348;
@@ -33,7 +34,6 @@ const LogoNavBar = () => {
             <Button
                 onClick={() => setIsDrawerOpen(true)}
                 variant="contained"
-                color="success"
                 sx={{
                     color: '#292140',
                     textEmphasisColor: '#292140',
@@ -47,8 +47,14 @@ const LogoNavBar = () => {
             <Drawer
                 anchor="right"
                 open={isDrawerOpen}
+                PaperProps={{ // This is the giving properties to the PaperProp that is used in the drawer (it's the part that slides out) read the documentation of the component apis to know which components makes up another component so you can add colour to those different parts
+                    sx: { backgroundColor: '#9287B7' },
+                }}
+                sx={{
+                    color: '#635985',
+                }}
                 onClose={() => setIsDrawerOpen(false)}>
-                "test"
+                <DrawerItems setIsDrawerOpen={setIsDrawerOpen}></DrawerItems>
             </Drawer>
         </Grid>
     </>);
