@@ -32,7 +32,7 @@ const ToTypeDisplay = () => {
     }
     spanElementOnlyArray.push(getColouredSpan(typingData.toType.substring(typingData.typedSoFar.length, typingData.toType.length), 'transparent', '#9287B7', 'myUniqueKey'));
 
-    setCarretPos(typingData.typedSoFar.length);
+    setCarretPos(typingData.typedSoFar.length); // Put it here because we need to set the Carret everytime the user types, getToTypeDisplay() runs everytime the user types
 
     return (
       <>{spanElementOnlyArray}</>

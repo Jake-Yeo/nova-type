@@ -21,7 +21,7 @@ const RestartButton = () => {
                             backgroundColor: '#393055',
                         },
                     }}>
-                    Reset
+                    Restart
                 </Button>
             </Grid>
         </>

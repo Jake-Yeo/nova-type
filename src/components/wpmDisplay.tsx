@@ -4,6 +4,10 @@ import { TypingDataContext } from "./TypeFeedAreaDisplay";
 const WpmDisplay = () => {
     const typingData = useContext(TypingDataContext);
 
+    const colourUnit = 255/100;
+    const greenValue = colourUnit * +typingData.wpm;
+    const redValue = 255 - greenValue; // color changes to a redder colour the lower your wpm is
+
     return (
         <>
             <span>
@@ -15,7 +19,7 @@ const WpmDisplay = () => {
                 >WPM:&nbsp;</span>
                 <span
                     style={{
-                        color: '#3BBA00'// the colour will change to red if the wpm is low
+                        color: `rgb(${redValue}, ${greenValue}, 0)` // use backticks so you can use variables in the style
                     }}
                 >
                     {typingData.wpm.toString()}</span>
