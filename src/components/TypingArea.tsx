@@ -39,6 +39,7 @@ const TypingArea = () => {
   const getNewText = async (): Promise<void> => {
     isGettingNewText = true; // asynchronous function, stop the user from typing while we get new text.
     endTime = (new Date()).getSeconds();// also set the end time when the user finishes typing the sentence and we have to type a new sentence
+    pauseAndResetAllIntervalFuncs();
     const newSentence: String = await getNewSentence();
     //console.log("New sentence is:", newSentence);
     typingData.setToType(newSentence.toString());
@@ -46,6 +47,14 @@ const TypingArea = () => {
     typingData.setWpm(0);
     userHasTyped = false; // indicate that a new text was generated so the user has not typed yet
     isGettingNewText = false;
+  }
+
+  const pauseAndResetAllIntervalFuncs = () => { // wrapping it in a function so it's easier to understand 
+    typingData.setTimersArePaused(true);
+  }
+
+  const startAllIntervalFuncs = () => { // wrapping it in a function so it's easier to understand 
+    typingData.setTimersArePaused(false);
   }
 
   restartPractice = getNewText;
@@ -91,6 +100,7 @@ const TypingArea = () => {
     if (!userHasTyped) {
       userHasTyped = true; // indicate that if the user types after getting new text that the user did type
       startTime = (new Date()).getSeconds();// also set the start time when the user first starts typing.
+      startAllIntervalFuncs(); // also start all interval functions (ex counter functions that run every second)
     }
     typingData.setTypedSoFar(e.target.value);
     typingData.setWpm(getWpm(typingData.typedSoFar, +startTime, +(new Date()).getSeconds())); // update wpm everytime the user types

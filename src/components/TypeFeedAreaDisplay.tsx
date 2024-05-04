@@ -14,6 +14,8 @@ type TypingData = {
     scrollPaneWidth: Number,
     accuracy: Number,
     duration: Number,
+    timersArePaused: Boolean,
+    setTimersArePaused: React.Dispatch<React.SetStateAction<boolean>>,
     setDuration: React.Dispatch<React.SetStateAction<number>>,
     setAccuracy: React.Dispatch<React.SetStateAction<number>>,
     setScrollPaneWidth: React.Dispatch<React.SetStateAction<number>>,
@@ -29,6 +31,8 @@ export var TypingDataContext = createContext<TypingData>({ // initalize
     scrollPaneWidth: 0,
     accuracy: 0,
     duration: 0,
+    timersArePaused: true,
+    setTimersArePaused: () => {},
     setDuration: () => {},
     setAccuracy: () => {},
     setScrollPaneWidth: () => {},
@@ -51,6 +55,8 @@ const TypeFeedAreaDisplay = () => {
 
     const [duration, setDuration] = useState(0);
 
+    const [timersArePaused, setTimersArePaused] = useState(true);
+
     const typingData: TypingData = {
         typedSoFar: typedSoFar,
         toType: toType,
@@ -58,6 +64,8 @@ const TypeFeedAreaDisplay = () => {
         scrollPaneWidth: scrollPaneWidth,
         accuracy: accuracy,
         duration: duration,
+        timersArePaused: timersArePaused,
+        setTimersArePaused: setTimersArePaused,
         setDuration: setDuration,
         setAccuracy: setAccuracy,
         setScrollPaneWidth: setScrollPaneWidth,
