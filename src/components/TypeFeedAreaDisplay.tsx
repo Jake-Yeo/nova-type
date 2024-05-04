@@ -6,6 +6,7 @@ import { Grid } from "@mui/material";
 //import "../css/scrollCssTest.css"; // keep so you know how to get paths from the /css folder
 import RestartButton from "./RestartButton";
 import RealTimeStatDisplay from "./RealTimeStatDisplay";
+import SettingsIsland from "./SettingsIsland";
 
 type TypingData = {
     typedSoFar: String,
@@ -34,7 +35,7 @@ export var TypingDataContext = createContext<TypingData>({ // initalize
     accuracy: 0,
     duration: 0,
     timersArePaused: true,
-    fontSize: 20,
+    fontSize: 0,
     setFontSize: () => { },
     setTimersArePaused: () => { },
     setDuration: () => { },
@@ -101,6 +102,7 @@ const TypeFeedAreaDisplay = () => {
             padding='30px'
         >
             <TypingDataContext.Provider value={typingData}>
+                <SettingsIsland></SettingsIsland>
                 <ToTypeDisplay parentRendered={parentRendered}></ToTypeDisplay>
                 {/*TypingArea is purposfully put off the screen*/}
                 <TypingArea></TypingArea>

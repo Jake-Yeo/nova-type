@@ -52,7 +52,7 @@ const ToTypeDisplay = ({ parentRendered }: prop) => {
 
   React.useEffect(() => { // This ensures that the display is only updated if fontsize, toType, or typedSoFar are changes, this is so the display does not update every tick which causes the child component to update before the parent component which causes an error
     setDisplay(getToTypeDisplay());
-    console.log("ran");
+    console.log(typingData.fontSize);
   }, [typingData.fontSize, typingData.toType, typingData.typedSoFar])
 
   return (

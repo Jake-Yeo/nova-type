@@ -10,7 +10,6 @@ const TypingPage = () => {
         justifyContent='center'
         >
             <LogoNavBar></LogoNavBar>
-            <SettingsIsland></SettingsIsland>
             <TypeFeedAreaDisplay></TypeFeedAreaDisplay>
         </Grid>
     </>)
