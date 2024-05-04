@@ -43,6 +43,7 @@ const TypingArea = () => {
     //console.log("New sentence is:", newSentence);
     typingData.setToType(newSentence.toString());
     typingData.setTypedSoFar("");
+    typingData.setWpm(0);
     userHasTyped = false; // indicate that a new text was generated so the user has not typed yet
     isGettingNewText = false;
   }

@@ -1,8 +1,13 @@
 import { Button, Grid } from "@mui/material"
-import { restartPractice } from "./TypingArea"
+import { restartPractice, setFocusToTypingArea } from "./TypingArea"
 
 
 const RestartButton = () => {
+
+    const onClick = () => {
+        restartPractice();
+        setFocusToTypingArea();
+    }
 
     return (
         <>
@@ -12,7 +17,7 @@ const RestartButton = () => {
                 justifyContent='center'
             >
                 <Button
-                    onClick={() => restartPractice()}
+                    onClick={() => onClick()}
                     sx={{
                         color: '#635985',
                         backgroundColor: '#292140',
