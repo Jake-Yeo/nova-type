@@ -10,10 +10,6 @@ var keyReleased: Boolean = true; // this is to keep track of wether the user let
 
 var userHasTyped = false;
 
-var startTime: Number = 0;
-
-var endTime: Number = 0;
-
 var myForm: React.RefObject<HTMLTextAreaElement>;
 
 export function setFocusToTypingArea() {
@@ -38,7 +34,6 @@ const TypingArea = () => {
 
   const getNewText = async (): Promise<void> => {
     isGettingNewText = true; // asynchronous function, stop the user from typing while we get new text.
-    endTime = (new Date()).getSeconds();// also set the end time when the user finishes typing the sentence and we have to type a new sentence
     pauseAndResetAllIntervalFuncs();
     const newSentence: String = await getNewSentence();
     //console.log("New sentence is:", newSentence);
@@ -99,7 +94,6 @@ const TypingArea = () => {
     }
     if (!userHasTyped) {
       userHasTyped = true; // indicate that if the user types after getting new text that the user did type
-      startTime = (new Date()).getSeconds();// also set the start time when the user first starts typing.
       startAllIntervalFuncs(); // also start all interval functions (ex counter functions that run every second)
     }
     typingData.setTypedSoFar(e.target.value);

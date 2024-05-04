@@ -5,11 +5,17 @@ import { TypingDataContext } from "./TypeFeedAreaDisplay";
 import { getColouredSpan } from "../functions/HelperFunction";
 import { setFocusToTypingArea } from "./TypingArea";
 
-const ToTypeDisplay = () => {
+interface prop {
+  parentRendered: Boolean
+}
+
+const ToTypeDisplay = ({ parentRendered }: prop) => {
 
   const typingData = useContext(TypingDataContext);
 
   const divRef = useRef<HTMLDivElement>(null);
+
+  const [display, setDisplay] = useState(<></>);
 
   const setCarretPos = (nthSpan: number) => {
 
@@ -23,28 +29,31 @@ const ToTypeDisplay = () => {
     }
   };
 
-  var spanElementOnlyArray: any[] = [];
-
   const getToTypeDisplay = () => {
+    var spanElementOnlyArray: any[] = [];
     var numCorrect: number = 0;
     for (let i = 0; i < typingData.typedSoFar.length; i++) {
       if (typingData.typedSoFar.charAt(i) === typingData.toType.charAt(i)) {
-        spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'transparent', 'white', i));
+        spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'transparent', 'white', i, +typingData.fontSize));
         numCorrect++;
       } else {
-        spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'transparent', 'red', i));
+        spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'transparent', 'red', i, +typingData.fontSize));
       }
     }
-    spanElementOnlyArray.push(getColouredSpan(typingData.toType.substring(typingData.typedSoFar.length, typingData.toType.length), 'transparent', '#9287B7', 'myUniqueKey'));
+    spanElementOnlyArray.push(getColouredSpan(typingData.toType.substring(typingData.typedSoFar.length, typingData.toType.length), 'transparent', '#9287B7', 'myUniqueKey', +typingData.fontSize));
 
     typingData.setAccuracy(Math.round(numCorrect / typingData.typedSoFar.length * 100)); // Here we are calculating and setting the accuracy
 
     setCarretPos(typingData.typedSoFar.length); // Put it here because we need to set the Carret everytime the user types, getToTypeDisplay() runs everytime the user types
-
     return (
       <>{spanElementOnlyArray}</>
     );
   }
+
+  React.useEffect(() => { // This ensures that the display is only updated if fontsize, toType, or typedSoFar are changes, this is so the display does not update every tick which causes the child component to update before the parent component which causes an error
+    setDisplay(getToTypeDisplay());
+    console.log("ran");
+  }, [typingData.fontSize, typingData.toType, typingData.typedSoFar])
 
   return (
     <>
@@ -59,7 +68,7 @@ const ToTypeDisplay = () => {
           overflowY: 'hidden' // Use camelCase for hyphenated CSS properties
         }}
         onMouseUp={() => { setFocusToTypingArea() }}> {/* If this display is clicked, then set focus to the typing area */}
-        {getToTypeDisplay()}
+        {display}
       </div>
     </>
   );

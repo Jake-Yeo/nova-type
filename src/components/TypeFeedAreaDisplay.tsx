@@ -15,6 +15,8 @@ type TypingData = {
     accuracy: Number,
     duration: Number,
     timersArePaused: Boolean,
+    fontSize: Number,
+    setFontSize: React.Dispatch<React.SetStateAction<number>>,
     setTimersArePaused: React.Dispatch<React.SetStateAction<boolean>>,
     setDuration: React.Dispatch<React.SetStateAction<number>>,
     setAccuracy: React.Dispatch<React.SetStateAction<number>>,
@@ -32,46 +34,49 @@ export var TypingDataContext = createContext<TypingData>({ // initalize
     accuracy: 0,
     duration: 0,
     timersArePaused: true,
-    setTimersArePaused: () => {},
-    setDuration: () => {},
-    setAccuracy: () => {},
-    setScrollPaneWidth: () => {},
+    fontSize: 20,
+    setFontSize: () => { },
+    setTimersArePaused: () => { },
+    setDuration: () => { },
+    setAccuracy: () => { },
+    setScrollPaneWidth: () => { },
     setWpm: () => { },
     setToType: () => { },
     setTypedSoFar: () => { }
 });
 
+
 const TypeFeedAreaDisplay = () => {
 
-    const [toType, setToType] = useState("");
-
-    const [typedSoFar, setTypedSoFar] = useState("");
-
+    const [toType, setToType] = useState('');
+    const [typedSoFar, setTypedSoFar] = useState('');
     const [wpm, setWpm] = useState(0);
-
     const [scrollPaneWidth, setScrollPaneWidth] = useState(65);
-
     const [accuracy, setAccuracy] = useState(100);
-
     const [duration, setDuration] = useState(0);
-
     const [timersArePaused, setTimersArePaused] = useState(true);
+    const [fontSize, setFontSize] = useState(20);
+
+    const [parentRendered, setParentRendered] = useState(false);
+
 
     const typingData: TypingData = {
-        typedSoFar: typedSoFar,
-        toType: toType,
-        wpm: wpm,
-        scrollPaneWidth: scrollPaneWidth,
-        accuracy: accuracy,
-        duration: duration,
-        timersArePaused: timersArePaused,
-        setTimersArePaused: setTimersArePaused,
-        setDuration: setDuration,
-        setAccuracy: setAccuracy,
-        setScrollPaneWidth: setScrollPaneWidth,
-        setWpm: setWpm,
-        setToType: setToType,
-        setTypedSoFar: setTypedSoFar
+        typedSoFar,
+        toType,
+        wpm,
+        scrollPaneWidth,
+        accuracy,
+        duration,
+        timersArePaused,
+        fontSize,
+        setFontSize,
+        setTimersArePaused,
+        setDuration,
+        setAccuracy,
+        setScrollPaneWidth,
+        setWpm,
+        setToType,
+        setTypedSoFar
     }
 
     useEffect(() => { // This will run once when this component is initialized
@@ -81,6 +86,7 @@ const TypeFeedAreaDisplay = () => {
             TypingDataContext = createContext(typingData);
         }
         setInitialSentence(); // call the asynchronous function setInitalSentence
+        setParentRendered(true);
     }, []);
 
     //Need to pass in setToType function into typing area so we can update the display and set to type!
@@ -95,7 +101,7 @@ const TypeFeedAreaDisplay = () => {
             padding='30px'
         >
             <TypingDataContext.Provider value={typingData}>
-                <ToTypeDisplay></ToTypeDisplay>
+                <ToTypeDisplay parentRendered={parentRendered}></ToTypeDisplay>
                 {/*TypingArea is purposfully put off the screen*/}
                 <TypingArea></TypingArea>
                 <RestartButton></RestartButton>

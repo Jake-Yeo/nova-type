@@ -1,4 +1,5 @@
-import { Key } from "react";
+import { Key, useContext } from "react";
+import { TypingDataContext } from "../components/TypeFeedAreaDisplay";
 
 export async function getNewSentence(): Promise<string> {
     const response = await fetch('/constants/library.txt'); // this gets the response (probably in like a json format)
@@ -16,9 +17,11 @@ export function getWpm(typedSoFar: String, duration: number) {
     return Math.round(approxWords / elapsedMins);
 }
 
-export function getColouredSpan(char: String, colour: String, backgroundColor: String, keyProp: Key) {
+export function getColouredSpan(char: String, colour: String, backgroundColor: String, keyProp: Key, fontSize: number) {
+
     return <span key={keyProp} style={{
         color: backgroundColor.toString(),
-        backgroundColor: colour.toString()
+        backgroundColor: colour.toString(),
+        fontSize: fontSize
     }}>{char}</span>;
 };
