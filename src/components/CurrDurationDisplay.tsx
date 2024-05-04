@@ -1,6 +1,7 @@
 import { Context, Dispatch, SetStateAction, useContext } from "react";
 import { TypingDataContext } from "./TypeFeedAreaDisplay";
 import React from "react";
+import { getWpm } from "../functions/HelperFunction";
 
 const CurrDuratiionDisplay = () => {
 
@@ -9,7 +10,10 @@ const CurrDuratiionDisplay = () => {
     const timerCount = () => {
         if (!typingData.timersArePaused) {
             const milliPerUpdate = 70; // This means wait 0.5 seconds before updating the duration timer
-            setTimeout(() => typingData.setDuration(+typingData.duration + milliPerUpdate), milliPerUpdate); // So this will increase the duration by milliPerUpdate every milliPerUpdate milliseconds pass
+            setTimeout(() => {
+                typingData.setDuration(+typingData.duration + milliPerUpdate); // Probably not good practice to just put this here. But this will 
+                typingData.setWpm(getWpm(typingData.typedSoFar, +typingData.duration)); // Probably not good practice to just put this here. But this will update wpm every milliPerUpdate millisecond passes
+            }, milliPerUpdate); // So this will increase the duration by milliPerUpdate every milliPerUpdate milliseconds pass
         } else {
             // Timers are only paused when we get a new sentence! That's why we reset the duration counter
             typingData.setDuration(0);

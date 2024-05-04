@@ -103,7 +103,6 @@ const TypingArea = () => {
       startAllIntervalFuncs(); // also start all interval functions (ex counter functions that run every second)
     }
     typingData.setTypedSoFar(e.target.value);
-    typingData.setWpm(getWpm(typingData.typedSoFar, +startTime, +(new Date()).getSeconds())); // update wpm everytime the user types
 
     if (typingData.toType.length == e.target.value.length) {
       getNewText();
