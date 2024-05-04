@@ -1,9 +1,8 @@
 import { Grid } from "@mui/material"
-import WpmDisplay from "./WpmDisplay"
-import AccuracyDisplay from "./AccuracyDisplay"
 import CurrDuratiionDisplay from "./CurrDurationDisplay"
 import { TypingDataContext } from "./TypeFeedAreaDisplay"
 import { useContext } from "react"
+import DynamicColorNumberDisplay from "./DynamicColorNumberDisplay"
 
 const RealTimeStatDisplay = () => {
 
@@ -14,11 +13,11 @@ const RealTimeStatDisplay = () => {
             <Grid container
                 justifyContent='space-between'
                 sx={{
-                    width: +typingData.scrollPaneWidth
+                    width: `${+typingData.scrollPaneWidth}vw`
                 }}>
-                <WpmDisplay></WpmDisplay>
+                <DynamicColorNumberDisplay stat={typingData.wpm} statName={'WPM:'}></DynamicColorNumberDisplay>
+                <DynamicColorNumberDisplay stat={typingData.accuracy} statName={'Accuracy:'}></DynamicColorNumberDisplay>
                 <CurrDuratiionDisplay></CurrDuratiionDisplay>
-                <AccuracyDisplay></AccuracyDisplay>
             </Grid>
         </>
     )

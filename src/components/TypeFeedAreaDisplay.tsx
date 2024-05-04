@@ -12,6 +12,10 @@ type TypingData = {
     toType: String,
     wpm: Number,
     scrollPaneWidth: Number,
+    accuracy: Number,
+    duration: Number,
+    setDuration: React.Dispatch<React.SetStateAction<number>>,
+    setAccuracy: React.Dispatch<React.SetStateAction<number>>,
     setScrollPaneWidth: React.Dispatch<React.SetStateAction<number>>,
     setWpm: React.Dispatch<React.SetStateAction<number>>,
     setToType: React.Dispatch<React.SetStateAction<string>>,
@@ -23,6 +27,10 @@ export var TypingDataContext = createContext<TypingData>({ // initalize
     toType: '',
     wpm: 0,
     scrollPaneWidth: 0,
+    accuracy: 0,
+    duration: 0,
+    setDuration: () => {},
+    setAccuracy: () => {},
     setScrollPaneWidth: () => {},
     setWpm: () => { },
     setToType: () => { },
@@ -37,13 +45,21 @@ const TypeFeedAreaDisplay = () => {
 
     const [wpm, setWpm] = useState(0);
 
-    const [scrollPaneWidth, setScrollPaneWidth] = useState(500);
+    const [scrollPaneWidth, setScrollPaneWidth] = useState(65);
+
+    const [accuracy, setAccuracy] = useState(100);
+
+    const [duration, setDuration] = useState(0);
 
     const typingData: TypingData = {
         typedSoFar: typedSoFar,
         toType: toType,
         wpm: wpm,
         scrollPaneWidth: scrollPaneWidth,
+        accuracy: accuracy,
+        duration: duration,
+        setDuration: setDuration,
+        setAccuracy: setAccuracy,
         setScrollPaneWidth: setScrollPaneWidth,
         setWpm: setWpm,
         setToType: setToType,

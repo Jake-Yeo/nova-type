@@ -1,4 +1,10 @@
+import { Context, Dispatch, SetStateAction, useContext } from "react";
+import { TypingDataContext } from "./TypeFeedAreaDisplay";
+
 const CurrDuratiionDisplay = () => {
+
+
+
     return (
         <>
             <span
