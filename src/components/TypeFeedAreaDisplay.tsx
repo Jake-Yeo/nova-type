@@ -86,7 +86,7 @@ const TypeFeedAreaDisplay = () => {
 
     useEffect(() => { // This will run once when this component is initialized
         const setInitialSentence = async () => { // must wrap the getNewSentence() in another function because the await keywork must not be used on the function passed into the useEffect() hook.
-            const newSentence: String = await getNewSentence(); // Gets a new sentence
+            const newSentence: String = await getNewSentence(+typingData.wordCount); // Gets a new sentence
             setToType(newSentence.toString());  // Sets the initial sentence
             TypingDataContext = createContext(typingData);
         }

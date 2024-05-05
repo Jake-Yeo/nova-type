@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { FloatingLabel, Form } from "react-bootstrap";
 import { getNewSentence, getWpm } from '../functions/HelperFunction';
 import { TypingDataContext } from "./TypeFeedAreaDisplay";
+import { scrollToTopOfToTypeDisplay } from "./ToTypeDisplay";
 
 var isGettingNewText: Boolean = false;
 
@@ -25,21 +26,22 @@ const TypingArea = () => {
 
   myForm = useRef<HTMLTextAreaElement>(null);
 
- // React.useEffect(() => { // uncomment this if you want it to automatically focus when the app starts
-//    myForm.current?.focus();
+  // React.useEffect(() => { // uncomment this if you want it to automatically focus when the app starts
+  //    myForm.current?.focus();
   //  console.log("mounted");
-//  }, []); // for some reason, this is running twice, (Turns out it's running twice because of strick mode in index.tsx, it's breaking my program) https://stackoverflow.com/questions/72238175/why-useeffect-running-twice-and-how-to-handle-it-well-in-react
+  //  }, []); // for some reason, this is running twice, (Turns out it's running twice because of strick mode in index.tsx, it's breaking my program) https://stackoverflow.com/questions/72238175/why-useeffect-running-twice-and-how-to-handle-it-well-in-react
   // Apparently if your program breaks when useEffect runs twice, then there's a bug, so you have to fix it so it works when it runs twice
   // I didn't know how to fix it so I turned off react strict mode
 
   const getNewText = async (): Promise<void> => {
     isGettingNewText = true; // asynchronous function, stop the user from typing while we get new text.
     pauseAndResetAllIntervalFuncs();
-    const newSentence: String = await getNewSentence();
+    const newSentence: String = await getNewSentence(+typingData.wordCount);
     //console.log("New sentence is:", newSentence);
     typingData.setToType(newSentence.toString());
     typingData.setTypedSoFar("");
     typingData.setWpm(0);
+    scrollToTopOfToTypeDisplay(); // Set carret position to 0 when you get new text
     userHasTyped = false; // indicate that a new text was generated so the user has not typed yet
     isGettingNewText = false;
   }
@@ -52,7 +54,11 @@ const TypingArea = () => {
     typingData.setTimersArePaused(false);
   }
 
-  restartPractice = getNewText;
+  React.useEffect(() => {
+    getNewText();
+  }, [typingData.wordCount]);
+
+  restartPractice = getNewText; // should probably put this in a effect hook since it runs basically every tick
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     if (e.key.includes('Arrow')) {

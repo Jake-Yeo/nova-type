@@ -5,6 +5,8 @@ import { TypingDataContext } from "./TypeFeedAreaDisplay";
 import { getColouredSpan } from "../functions/HelperFunction";
 import { setFocusToTypingArea } from "./TypingArea";
 
+export var scrollToTopOfToTypeDisplay = () => { };
+
 const ToTypeDisplay = () => {
 
   const typingData = useContext(TypingDataContext);
@@ -13,34 +15,42 @@ const ToTypeDisplay = () => {
 
   const [display, setDisplay] = useState(<></>);
 
-  const setCarretPos = (nthSpan: number) => {
+  const setCarretPos = (nthSpan: number, behaviour: String) => {
 
     const nthChildNodeSpan = divRef.current?.childNodes[nthSpan]; //This here will get the nth span child node in the div element (Important to note that you wrapped every single character in a span, all the spans are wrapped by the div, there are only spans in the div)
     if (nthChildNodeSpan instanceof HTMLElement) { // This basically lets us set the type of nthChildNodeSpan kind of
       // Scroll the span into view
       nthChildNodeSpan.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest'
+        behavior: behaviour as ScrollBehavior,
+        block: 'center'
       }); // here we programatically scroll the div so that the nthChildNodeSpan can be seen by the user
+    }
+  };
+
+  scrollToTopOfToTypeDisplay = () => { // function to scroll to the top
+    if (divRef.current !== null && divRef.current !== undefined) {
+      divRef.current.scrollTop = 0;
     }
   };
 
   const getToTypeDisplay = () => {
     var spanElementOnlyArray: any[] = [];
     var numCorrect: number = 0;
-    for (let i = 0; i < typingData.typedSoFar.length; i++) {
-      if (typingData.typedSoFar.charAt(i) === typingData.toType.charAt(i)) {
-        spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'transparent', 'white', i, +typingData.fontSize));
-        numCorrect++;
+    for (let i = 0; i < typingData.toType.length; i++) {
+      if (i >= +typingData.typedSoFar.length) {
+        spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'transparent', '#9287B7', i, +typingData.fontSize))
       } else {
-        spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'transparent', 'red', i, +typingData.fontSize));
+        if (typingData.typedSoFar.charAt(i) === typingData.toType.charAt(i)) {
+          spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'transparent', 'white', i, +typingData.fontSize));
+          numCorrect++;
+        } else {
+          spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'transparent', 'red', i, +typingData.fontSize));
+        }
       }
     }
-    spanElementOnlyArray.push(getColouredSpan(typingData.toType.substring(typingData.typedSoFar.length, typingData.toType.length), 'transparent', '#9287B7', 'myUniqueKey', +typingData.fontSize));
+    //spanElementOnlyArray.push(getColouredSpan(typingData.toType.substring(typingData.typedSoFar.length, typingData.toType.length), 'transparent', '#9287B7', 'myUniqueKey', +typingData.fontSize));
 
     typingData.setAccuracy(Math.round(numCorrect / typingData.typedSoFar.length * 100)); // Here we are calculating and setting the accuracy
-
-    setCarretPos(typingData.typedSoFar.length); // Put it here because we need to set the Carret everytime the user types, getToTypeDisplay() runs everytime the user types
     return (
       <>{spanElementOnlyArray}</>
     );
@@ -48,6 +58,7 @@ const ToTypeDisplay = () => {
 
   React.useEffect(() => { // This ensures that the display is only updated if fontsize, toType, or typedSoFar are changes, this is so the display does not update every tick which causes the child component to update before the parent component which causes an error
     setDisplay(getToTypeDisplay());
+    setCarretPos(typingData.typedSoFar.length, 'smooth'); // Put it here because we need to set the Carret everytime the user types, getToTypeDisplay() runs everytime the user types
     console.log(typingData.fontSize);
   }, [typingData.fontSize, typingData.toType, typingData.typedSoFar])
 
