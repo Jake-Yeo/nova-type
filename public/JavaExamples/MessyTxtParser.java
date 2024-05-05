@@ -37,6 +37,7 @@ public class MessyTxtParser { //Path is at C:\Users\jakey\OneDrive\Documents\Net
         line = line.replace("gooks", "slur words");
         line = line.replace("?", "?."); // then we can also keep ? as sentences
         line = line.replace("!", "!.");
+        line = line.replace("’", "'");
         line = line.trim();
         br.close();
         String[] sentences = line.split("(?<!Mrs|mrs|mr|Mr|miss|Ms|ms|Miss|[.]|al|(\\(p)|U\\.S|U|A|, p)[.](?![.]|(” \\()|\\\"|\\d)"); //https://regex101.com/r/mR89S6/1 test your regex function here!

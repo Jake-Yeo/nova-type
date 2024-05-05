@@ -24,6 +24,7 @@ export function parseMessyTxtFile(txtFileContents: String) { // This method was 
     txtFileContents.replaceAll("	", "");
     txtFileContents.replaceAll("?", "?."); // then we can also keep ? as sentences
     txtFileContents.replaceAll("!", "!.");
+    txtFileContents = txtFileContents.replace("’", "'");
     txtFileContents.trim();
     const sentences = txtFileContents.split(/(?<!Mrs|mrs|mr|Mr|miss|Ms|ms|Miss|[.]|al|(\(p)|U\.S|U|A|, p)[.](?![.]|(” \()|\"|\d)/); //https://regex101.com/r/mR89S6/1 test your regex function here!
     var fixedSentencesArr: String[] = [];
