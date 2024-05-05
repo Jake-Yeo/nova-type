@@ -8,7 +8,7 @@ import RestartButton from "./RestartButton";
 import RealTimeStatDisplay from "./RealTimeStatDisplay";
 import SettingsIsland from "./SettingsIsland";
 
-type TypingData = {
+export type TypingData = {
     typedSoFar: String,
     toType: String,
     wpm: Number,
@@ -84,7 +84,7 @@ const TypeFeedAreaDisplay = () => {
     const [wordCount, setWordCount] = useState(50);
     const [numbersEnabled, setNumbersEnabled] = useState(false);
     const [wordsEnabled, setWordsEnabled] = useState(false);
-    const [sentencesEnabled, setSentencesEnabled] = useState(false);
+    const [sentencesEnabled, setSentencesEnabled] = useState(true);
     const [symbolsEnabled, setSymbolsEnabled] = useState(false);
     const [lowercaseEnabled, setLowercaseEnabled] = useState(false);
 
@@ -121,7 +121,7 @@ const TypeFeedAreaDisplay = () => {
 
     useEffect(() => { // This will run once when this component is initialized
         const setInitialSentence = async () => { // must wrap the getNewSentence() in another function because the await keywork must not be used on the function passed into the useEffect() hook.
-            const newSentence: String = await getNewSentence(+typingData.wordCount); // Gets a new sentence
+            const newSentence: String = await getNewSentence(typingData); // Gets a new sentence
             setToType(newSentence.toString());  // Sets the initial sentence
             TypingDataContext = createContext(typingData);
         }

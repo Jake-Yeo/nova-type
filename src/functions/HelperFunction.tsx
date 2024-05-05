@@ -1,22 +1,45 @@
 import { Key, useContext } from "react";
-import { TypingDataContext } from "../components/TypeFeedAreaDisplay";
+import { TypingData, TypingDataContext } from "../components/TypeFeedAreaDisplay";
 
-export async function getNewSentence(wordCount: number): Promise<string> {
-    const response = await fetch('/constants/library.txt'); // this gets the response (probably in like a json format)
-    let libraryText: String = await response.text(); // Then you need to get the text from the response
-    console.log(libraryText);
-    const sentenceArray: String[] = libraryText.split("\n");
+export async function getNewSentence(typingData: TypingData): Promise<string> {
 
-    const getRandomIndex = (): number => {
-        return Math.ceil(Math.random() * sentenceArray.length) - 1;
-    } 
-
+    const characterCount: number = +typingData.wordCount * 5; // 5 is the average amount of characters in every word
     let charactersToReturn: String = "";
+    const getArray = []; // an array we will put all the getSentence, getWord, getNumber in, then we will generate a random number to choose a random get if we have more than two setting options picked
 
-    const characterCount: number = wordCount * 5; // 5 is the average amount of characters in every word
+
+    const getRandomNumber = (arrayLength: number): number => {
+        const randomNum = Math.ceil(Math.random() * arrayLength) - 1;
+        console.log("rn", randomNum);
+        return randomNum;
+    }
+
+    const getASentence = () => {
+        return sentenceArray[getRandomNumber(sentenceArray.length)]; // sentences already have a space at the end so don't add it
+    }
+
+    const getANumber = () => {
+        const lengthOfNumber = getRandomNumber(11);
+        var stringNumToReturn = "";
+        for (let i = 0; i < lengthOfNumber; i++) {
+            stringNumToReturn += getRandomNumber(10);
+        }
+        return stringNumToReturn + " ";
+    }
+
+    if (typingData.sentencesEnabled) { // surround in if statement, only get it if the sentence option is picked
+        const response = await fetch('/constants/library.txt'); // this gets the response (probably in like a json format)
+        var libraryText: String = await response.text(); // Then you need to get the text from the response
+        var sentenceArray: String[] = libraryText.split("\n");
+        getArray.push(getASentence);
+    }
+
+    if (typingData.numbersEnabled) {
+        getArray.push(getANumber);
+    }
 
     while (charactersToReturn.length < characterCount) {
-        charactersToReturn += sentenceArray[getRandomIndex()] + "";
+        charactersToReturn += getArray[getRandomNumber(getArray.length)]() + "";
     }
 
     return (charactersToReturn + "").trim(); // must trim, im guessing \n character was still on the sentence which changed its length messing with the logic

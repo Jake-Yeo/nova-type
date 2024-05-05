@@ -36,7 +36,7 @@ const TypingArea = () => {
   const getNewText = async (): Promise<void> => {
     isGettingNewText = true; // asynchronous function, stop the user from typing while we get new text.
     pauseAndResetAllIntervalFuncs();
-    const newSentence: String = await getNewSentence(+typingData.wordCount);
+    const newSentence: String = await getNewSentence(typingData);
     //console.log("New sentence is:", newSentence);
     typingData.setToType(newSentence.toString());
     typingData.setTypedSoFar("");

@@ -58,7 +58,7 @@ const ToTypeDisplay = () => {
 
   React.useEffect(() => { // This ensures that the display is only updated if fontsize, toType, or typedSoFar are changes, this is so the display does not update every tick which causes the child component to update before the parent component which causes an error
     setDisplay(getToTypeDisplay());
-    setCarretPos(typingData.typedSoFar.length, 'smooth'); // Put it here because we need to set the Carret everytime the user types, getToTypeDisplay() runs everytime the user types
+    setCarretPos(typingData.typedSoFar.length + 1, 'smooth'); // Put it here because we need to set the Carret everytime the user types, getToTypeDisplay() runs everytime the user types
     console.log(typingData.fontSize);
   }, [typingData.fontSize, typingData.toType, typingData.typedSoFar])
 
