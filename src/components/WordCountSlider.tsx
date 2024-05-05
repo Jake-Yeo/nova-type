@@ -14,7 +14,10 @@ const WordCountSlider = () => {
     return (<>
         <Box sx={{
             padding: '10px',
-            flex: '1'
+            flex: '1',
+            display: 'flex', 
+            alignItems: 'center', 
+            flexDirection: 'column'
         }}>
             <Typography id="input-slider">
                 Word Count
@@ -29,7 +32,6 @@ const WordCountSlider = () => {
                 marks
                 onChange={(e, newValue) => onChange(e, newValue)}
             >
-                {/* gutterBottom just adds padding to the bottom of Font Size */}
             </Slider>
         </Box>
     </>)

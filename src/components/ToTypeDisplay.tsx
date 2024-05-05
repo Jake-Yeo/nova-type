@@ -28,7 +28,7 @@ const ToTypeDisplay = () => {
   };
 
   scrollToTopOfToTypeDisplay = () => { // function to scroll to the top
-    if (divRef.current !== null && divRef.current !== undefined) {
+    if (divRef.current !== null) {
       divRef.current.scrollTop = 0;
     }
   };

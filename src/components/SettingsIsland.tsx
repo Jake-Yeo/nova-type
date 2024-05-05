@@ -1,8 +1,14 @@
 import { Grid, Paper } from "@mui/material"
 import FontSlider from "./FontSlider"
 import WordCountSlider from "./WordCountSlider"
+import WordTypesRadioButton from "./WordTypesRadioButton"
+import { TypingDataContext } from "./TypeFeedAreaDisplay"
+import { useContext } from "react"
 
 const SettingsIsland = () => {
+
+    const typingData = useContext(TypingDataContext);
+
     return (
         <>
             <Paper
@@ -27,6 +33,11 @@ const SettingsIsland = () => {
                     >
                         <FontSlider></FontSlider>
                         <WordCountSlider></WordCountSlider>
+                        <WordTypesRadioButton setting={typingData.numbersEnabled} setSetting={typingData.setNumbersEnabled} settingName={"Numbers"}></WordTypesRadioButton>
+                        <WordTypesRadioButton setting={typingData.sentencesEnabled} setSetting={typingData.setSentencesEnabled} settingName={"Sentences"}></WordTypesRadioButton>
+                        <WordTypesRadioButton setting={typingData.wordsEnabled} setSetting={typingData.setWordsEnabled} settingName={"Words"}></WordTypesRadioButton>
+                        <WordTypesRadioButton setting={typingData.symbolsEnabled} setSetting={typingData.setSymbolsEnabled} settingName={"Symbols"}></WordTypesRadioButton>
+                        <WordTypesRadioButton setting={typingData.lowercaseEnabled} setSetting={typingData.setLowercaseEnabled} settingName={"Lowercase"}></WordTypesRadioButton>
                     </Grid>
                 </span>
             </Paper>

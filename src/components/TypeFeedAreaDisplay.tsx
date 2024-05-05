@@ -18,6 +18,16 @@ type TypingData = {
     timersArePaused: Boolean,
     fontSize: Number,
     wordCount: Number,
+    numbersEnabled: Boolean,
+    wordsEnabled: Boolean,
+    sentencesEnabled: Boolean,
+    symbolsEnabled: Boolean,
+    lowercaseEnabled: Boolean,
+    setLowercaseEnabled: React.Dispatch<React.SetStateAction<boolean>>,
+    setSymbolsEnabled: React.Dispatch<React.SetStateAction<boolean>>,
+    setSentencesEnabled: React.Dispatch<React.SetStateAction<boolean>>,
+    setWordsEnabled: React.Dispatch<React.SetStateAction<boolean>>,
+    setNumbersEnabled: React.Dispatch<React.SetStateAction<boolean>>,
     setWordCount: React.Dispatch<React.SetStateAction<number>>,
     setFontSize: React.Dispatch<React.SetStateAction<number>>,
     setTimersArePaused: React.Dispatch<React.SetStateAction<boolean>>,
@@ -39,6 +49,16 @@ export var TypingDataContext = createContext<TypingData>({ // initalize
     timersArePaused: true,
     fontSize: 0,
     wordCount: 0,
+    numbersEnabled: false,
+    wordsEnabled: false,
+    sentencesEnabled: true,
+    symbolsEnabled: false,
+    lowercaseEnabled: false,
+    setLowercaseEnabled: () => { },
+    setSymbolsEnabled: () => { },
+    setSentencesEnabled: () => { },
+    setWordsEnabled: () => { },
+    setNumbersEnabled: () => { },
     setWordCount: () => { },
     setFontSize: () => { },
     setTimersArePaused: () => { },
@@ -62,6 +82,11 @@ const TypeFeedAreaDisplay = () => {
     const [timersArePaused, setTimersArePaused] = useState(true);
     const [fontSize, setFontSize] = useState(35);
     const [wordCount, setWordCount] = useState(50);
+    const [numbersEnabled, setNumbersEnabled] = useState(false);
+    const [wordsEnabled, setWordsEnabled] = useState(false);
+    const [sentencesEnabled, setSentencesEnabled] = useState(false);
+    const [symbolsEnabled, setSymbolsEnabled] = useState(false);
+    const [lowercaseEnabled, setLowercaseEnabled] = useState(false);
 
     const typingData: TypingData = {
         typedSoFar,
@@ -73,6 +98,16 @@ const TypeFeedAreaDisplay = () => {
         timersArePaused,
         fontSize,
         wordCount,
+        numbersEnabled,
+        wordsEnabled,
+        sentencesEnabled,
+        symbolsEnabled,
+        lowercaseEnabled,
+        setLowercaseEnabled,
+        setSymbolsEnabled,
+        setSentencesEnabled,
+        setWordsEnabled,
+        setNumbersEnabled,
         setWordCount,
         setFontSize,
         setTimersArePaused,
