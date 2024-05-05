@@ -80,6 +80,7 @@ export function getColouredSpan(char: String, colour: String, backgroundColor: S
     return <span key={keyProp} style={{
         color: backgroundColor.toString(),
         backgroundColor: colour.toString(),
-        fontSize: fontSize
+        fontSize: fontSize,
+        whiteSpace: "pre-wrap" // This preserves whitespace, for some reason, white space in the spans that were at the end of the line (where the text wraps to the next line) was not being rendered, but this renders it https://stackoverflow.com/questions/74237764/why-react-doesnt-render-whitespaces#:~:text=You%27ll%20be%20able%20to%20display%20only%20whitespace%20by,%7B%20return%20%3Ch1%20style%3D%7B%7B%20whiteSpace%3A%20%22pre-wrap%22%20%7D%7D%3E%7B%22%20%22%7D%3C%2Fh1%3E%3B
     }}>{char}</span>;
 };
