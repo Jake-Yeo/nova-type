@@ -17,6 +17,8 @@ type TypingData = {
     duration: Number,
     timersArePaused: Boolean,
     fontSize: Number,
+    wordCount: Number,
+    setWordCount: React.Dispatch<React.SetStateAction<number>>,
     setFontSize: React.Dispatch<React.SetStateAction<number>>,
     setTimersArePaused: React.Dispatch<React.SetStateAction<boolean>>,
     setDuration: React.Dispatch<React.SetStateAction<number>>,
@@ -36,6 +38,8 @@ export var TypingDataContext = createContext<TypingData>({ // initalize
     duration: 0,
     timersArePaused: true,
     fontSize: 0,
+    wordCount: 0,
+    setWordCount: () => { },
     setFontSize: () => { },
     setTimersArePaused: () => { },
     setDuration: () => { },
@@ -56,10 +60,8 @@ const TypeFeedAreaDisplay = () => {
     const [accuracy, setAccuracy] = useState(100);
     const [duration, setDuration] = useState(0);
     const [timersArePaused, setTimersArePaused] = useState(true);
-    const [fontSize, setFontSize] = useState(20);
-
-    const [parentRendered, setParentRendered] = useState(false);
-
+    const [fontSize, setFontSize] = useState(35);
+    const [wordCount, setWordCount] = useState(50);
 
     const typingData: TypingData = {
         typedSoFar,
@@ -70,6 +72,8 @@ const TypeFeedAreaDisplay = () => {
         duration,
         timersArePaused,
         fontSize,
+        wordCount,
+        setWordCount,
         setFontSize,
         setTimersArePaused,
         setDuration,
@@ -87,7 +91,6 @@ const TypeFeedAreaDisplay = () => {
             TypingDataContext = createContext(typingData);
         }
         setInitialSentence(); // call the asynchronous function setInitalSentence
-        setParentRendered(true);
     }, []);
 
     //Need to pass in setToType function into typing area so we can update the display and set to type!
@@ -103,7 +106,7 @@ const TypeFeedAreaDisplay = () => {
         >
             <TypingDataContext.Provider value={typingData}>
                 <SettingsIsland></SettingsIsland>
-                <ToTypeDisplay parentRendered={parentRendered}></ToTypeDisplay>
+                <ToTypeDisplay></ToTypeDisplay>
                 {/*TypingArea is purposfully put off the screen*/}
                 <TypingArea></TypingArea>
                 <RestartButton></RestartButton>

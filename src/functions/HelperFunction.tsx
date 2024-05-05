@@ -17,6 +17,28 @@ export function getWpm(typedSoFar: String, duration: number) {
     return Math.round(approxWords / elapsedMins);
 }
 
+export function parseMessyTxtFile(txtFileContents: String) { // This method was converted from the MessyTxtParser.java that you made
+    txtFileContents.replaceAll("”", "\"");
+    txtFileContents.replaceAll("“", "\"");
+    txtFileContents.replaceAll("  ", " ");
+    txtFileContents.replaceAll("	", "");
+    txtFileContents.replaceAll("?", "?."); // then we can also keep ? as sentences
+    txtFileContents.replaceAll("!", "!.");
+    txtFileContents.trim();
+    const sentences = txtFileContents.split(/(?<!Mrs|mrs|mr|Mr|miss|Ms|ms|Miss|[.]|al|(\(p)|U\.S|U|A|, p)[.](?![.]|(” \()|\"|\d)/); //https://regex101.com/r/mR89S6/1 test your regex function here!
+    var fixedSentencesArr: String[] = [];
+    for (let sentence in sentences) {
+        sentence = sentence.trim();
+        sentence = sentence.replaceAll("!.", "!");
+        sentence = sentence.replaceAll("?.", "!");
+        if (sentence.substring(sentence.length - 1) === "!" || sentence.substring(sentence.length - 1) === "?") {
+            fixedSentencesArr.push(sentence + " ");
+        } else {
+            fixedSentencesArr.push(sentence + ". ");
+        }
+    }
+}
+
 export function getColouredSpan(char: String, colour: String, backgroundColor: String, keyProp: Key, fontSize: number) {
 
     return <span key={keyProp} style={{

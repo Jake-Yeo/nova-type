@@ -1,5 +1,6 @@
-import { Paper } from "@mui/material"
+import { Grid, Paper } from "@mui/material"
 import FontSlider from "./FontSlider"
+import WordCountSlider from "./WordCountSlider"
 
 const SettingsIsland = () => {
     return (
@@ -20,7 +21,13 @@ const SettingsIsland = () => {
                     color: '#635985',
                     padding: '10px'
                 }}>
-                    <FontSlider></FontSlider>
+                    <Grid container
+                        direction='row'
+                        justifyContent='space-evenly'
+                    >
+                        <FontSlider></FontSlider>
+                        <WordCountSlider></WordCountSlider>
+                    </Grid>
                 </span>
             </Paper>
         </>

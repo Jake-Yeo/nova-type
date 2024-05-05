@@ -5,11 +5,7 @@ import { TypingDataContext } from "./TypeFeedAreaDisplay";
 import { getColouredSpan } from "../functions/HelperFunction";
 import { setFocusToTypingArea } from "./TypingArea";
 
-interface prop {
-  parentRendered: Boolean
-}
-
-const ToTypeDisplay = ({ parentRendered }: prop) => {
+const ToTypeDisplay = () => {
 
   const typingData = useContext(TypingDataContext);
 

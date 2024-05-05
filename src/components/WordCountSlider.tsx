@@ -1,15 +1,13 @@
-import { Box, Slider, Typography } from "@mui/material"
-import { TypingDataContext } from "./TypeFeedAreaDisplay"
 import { useContext } from "react";
+import { TypingDataContext } from "./TypeFeedAreaDisplay";
+import { Box, Slider, Typography } from "@mui/material";
 
-const FontSlider = () => {
-
+const WordCountSlider = () => {
     const typingData = useContext(TypingDataContext);
 
     const onChange = (e: Event, newValue: number | number[]) => {
         if (typeof newValue == 'number') {
-            typingData.setFontSize(newValue);
-            console.log(newValue);
+            typingData.setWordCount(newValue);
         }
     }
 
@@ -19,14 +17,16 @@ const FontSlider = () => {
             flex: '1'
         }}>
             <Typography id="input-slider">
-                Font Size
+                Word Count
             </Typography>
             <Slider
                 aria-label="FontSize"
                 defaultValue={35}
                 valueLabelDisplay="auto"
                 min={10}
-                max={50}
+                max={100}
+                step={5}
+                marks
                 onChange={(e, newValue) => onChange(e, newValue)}
             >
                 {/* gutterBottom just adds padding to the bottom of Font Size */}
@@ -35,4 +35,4 @@ const FontSlider = () => {
     </>)
 }
 
-export default FontSlider
+export default WordCountSlider
