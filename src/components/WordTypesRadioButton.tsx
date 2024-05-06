@@ -24,15 +24,11 @@ const WordTypesRadioButton = (prop: Props) => {
             optionsSelected++;
         }
 
-        if (typingData.symbolsEnabled) {
-            optionsSelected++;
-        }
-
         if (typingData.sentencesEnabled) {
             optionsSelected++;
         }
 
-        if (optionsSelected >= 2 || prop.setting == false || prop.setSetting == typingData.setLowercaseEnabled) {
+        if (optionsSelected >= 2 || prop.setting == false || prop.setSetting == typingData.setLowercaseEnabled || prop.setSetting == typingData.setSymbolsEnabled) {
             prop.setSetting(!prop.setting);
         }
     }
