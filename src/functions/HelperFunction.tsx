@@ -19,7 +19,11 @@ export async function getNewSentence(typingData: TypingData): Promise<string> {
     }
 
     const getAWord = () => {
-        return words[getRandomNumber(words.length)].trim() + " "; // we trim the word because there's an invisible character at the end that I don't know of
+        let wordToReturn = words[getRandomNumber(words.length)].trim();
+        if (!typingData.lowercaseEnabled && getRandomNumber(4) == 3) { // A 1/4 chance that a word is converted to uppercase
+            wordToReturn = wordToReturn.charAt(0).toUpperCase() + wordToReturn.substring(1);
+        }
+        return wordToReturn + " "; // we trim the word because there's an invisible character at the end that I don't know of
     }
 
     const getANumber = () => {
