@@ -56,7 +56,7 @@ const TypingArea = () => {
 
   React.useEffect(() => {
     getNewText();
-  }, [typingData.wordCount]);
+  }, [typingData.wordCount, typingData.wordsEnabled, typingData.numbersEnabled, typingData.symbolsEnabled, typingData.lowercaseEnabled, typingData.sentencesEnabled]);
 
   restartPractice = getNewText; // should probably put this in a effect hook since it runs basically every tick
 

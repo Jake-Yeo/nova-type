@@ -18,6 +18,10 @@ export async function getNewSentence(typingData: TypingData): Promise<string> {
         return sentenceArray[getRandomNumber(sentenceArray.length)]; // sentences already have a space at the end so don't add it
     }
 
+    const getAWord = () => {
+        return words[getRandomNumber(words.length)].trim() + " "; // we trim the word because there's an invisible character at the end that I don't know of
+    }
+
     const getANumber = () => {
         const lengthOfNumber = getRandomNumber(11);
         var stringNumToReturn = "";
@@ -34,12 +38,27 @@ export async function getNewSentence(typingData: TypingData): Promise<string> {
         getArray.push(getASentence);
     }
 
+    if (typingData.wordsEnabled) { // surround in if statement, only get it if the sentence option is picked
+        const response = await fetch('/constants/words.txt'); // this gets the response (probably in like a json format)
+        var wordsText: String = await response.text(); // Then you need to get the text from the response
+        var words: String[] = wordsText.split("\n");
+        getArray.push(getAWord);
+    }
+
     if (typingData.numbersEnabled) {
         getArray.push(getANumber);
     }
 
     while (charactersToReturn.length < characterCount) {
         charactersToReturn += getArray[getRandomNumber(getArray.length)]() + "";
+    }
+
+    if (typingData.lowercaseEnabled) {
+        charactersToReturn = charactersToReturn.toLowerCase();
+    }
+
+    if (!typingData.symbolsEnabled) {
+        charactersToReturn = charactersToReturn.replaceAll(/[^a-zA-Z0-9 ]/g, "");
     }
 
     return (charactersToReturn + "").trim(); // must trim, im guessing \n character was still on the sentence which changed its length messing with the logic

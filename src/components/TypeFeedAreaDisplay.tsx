@@ -83,8 +83,8 @@ const TypeFeedAreaDisplay = () => {
     const [fontSize, setFontSize] = useState(35);
     const [wordCount, setWordCount] = useState(50);
     const [numbersEnabled, setNumbersEnabled] = useState(false);
-    const [wordsEnabled, setWordsEnabled] = useState(false);
-    const [sentencesEnabled, setSentencesEnabled] = useState(true);
+    const [wordsEnabled, setWordsEnabled] = useState(true);
+    const [sentencesEnabled, setSentencesEnabled] = useState(false);
     const [symbolsEnabled, setSymbolsEnabled] = useState(false);
     const [lowercaseEnabled, setLowercaseEnabled] = useState(false);
 

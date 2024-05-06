@@ -1,5 +1,6 @@
 import { Box, Radio, Typography } from "@mui/material"
-import { ReactElement, useRef } from "react";
+import { ReactElement, useContext, useRef } from "react";
+import { TypingDataContext } from "./TypeFeedAreaDisplay";
 
 interface Props {
     setting: Boolean,
@@ -9,13 +10,40 @@ interface Props {
 
 const WordTypesRadioButton = (prop: Props) => {
 
+    const typingData = useContext(TypingDataContext);
+
+    const onClick = () => {
+
+        let optionsSelected = 0; // if options selected is 2 or greater then let the user perform onClick
+
+        if (typingData.wordsEnabled) {
+            optionsSelected++;
+        }
+
+        if (typingData.numbersEnabled) {
+            optionsSelected++;
+        }
+
+        if (typingData.symbolsEnabled) {
+            optionsSelected++;
+        }
+
+        if (typingData.sentencesEnabled) {
+            optionsSelected++;
+        }
+
+        if (optionsSelected >= 2 || prop.setting == false || prop.setSetting == typingData.setLowercaseEnabled) {
+            prop.setSetting(!prop.setting);
+        }
+    }
+
     return (<>
 
         <Box sx={{
             padding: '10px',
             flex: '1',
-            display: 'flex', 
-            alignItems: 'center', 
+            display: 'flex',
+            alignItems: 'center',
             flexDirection: 'column'
         }}
         >
@@ -23,7 +51,7 @@ const WordTypesRadioButton = (prop: Props) => {
                 {prop.settingName}
             </Typography>
             <Radio
-                onClick={() => { prop.setSetting(!prop.setting) }}
+                onClick={() => onClick()}
                 checked={prop.setting.valueOf()}
                 sx={{
                     color: '#635985',
