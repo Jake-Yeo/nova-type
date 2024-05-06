@@ -27,7 +27,7 @@ export async function getNewSentence(typingData: TypingData): Promise<string> {
     }
 
     const getANumber = () => {
-        const lengthOfNumber = getRandomNumber(11);
+        const lengthOfNumber = getRandomNumber(10) + 1; // + 1 so that length is never zero
         var stringNumToReturn = "";
         for (let i = 0; i < lengthOfNumber; i++) {
             stringNumToReturn += getRandomNumber(10);

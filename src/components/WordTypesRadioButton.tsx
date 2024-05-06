@@ -56,7 +56,7 @@ const WordTypesRadioButton = (prop: Props) => {
                 sx={{
                     color: '#635985',
                     '&.Mui-checked': {
-                        color: '#635985',
+                        color: '#9287B7',
                     },
                 }}
             />
