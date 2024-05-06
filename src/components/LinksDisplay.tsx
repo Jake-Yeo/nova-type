@@ -16,6 +16,7 @@ const LinksDisplay = () => {
                     color: '#9287B7',
                     flex: '1',
                     display: 'flex',
+                    width: 'fit-content',
                     alignItems: 'center',
                     flexDirection: 'row',
                     '&:hover': {
