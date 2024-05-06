@@ -16,6 +16,7 @@ const FontSlider = () => {
     return (<>
         <Box sx={{
             padding: '10px',
+            paddingLeft: '20px',
             flex: '1',
             display: 'flex', // Center the content horizontally
             alignItems: 'center', // Center the content vertically

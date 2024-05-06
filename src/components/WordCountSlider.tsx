@@ -14,12 +14,13 @@ const WordCountSlider = () => {
     return (<>
         <Box sx={{
             padding: '10px',
+            paddingLeft: '30px',
             flex: '1',
             display: 'flex',
             alignItems: 'center',
             flexDirection: 'column'
         }}>
-                        <Box sx={{
+            <Box sx={{  
                 flexDirection: 'row',
                 flex: '1',
                 display: 'flex', // Center the content horizontally
@@ -28,7 +29,7 @@ const WordCountSlider = () => {
                 <Typography
                     id="input-slider"
                     sx={{
-                        color: '#635985'
+                        color: '#635985',
                     }}
                 >
                     Word Count:{'\u00A0'}

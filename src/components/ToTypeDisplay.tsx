@@ -64,6 +64,10 @@ const ToTypeDisplay = () => {
 
   return (
     <>
+    {/** The div below acts as padding since I can't get the padding to work... */}
+    <div style={{
+      height: '20px'
+    }}></div>
       <div className="scrollCss"
         ref={divRef}
         key='scrollPane'

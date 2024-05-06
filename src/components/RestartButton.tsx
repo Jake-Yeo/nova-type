@@ -15,6 +15,9 @@ const RestartButton = () => {
                 container
                 direction="row"
                 justifyContent='center'
+                sx={{
+                    padding: '20px'
+                }}
             >
                 <Button
                     onClick={() => onClick()}
