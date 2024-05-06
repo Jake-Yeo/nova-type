@@ -81,7 +81,7 @@ const TypeFeedAreaDisplay = () => {
     const [duration, setDuration] = useState(0);
     const [timersArePaused, setTimersArePaused] = useState(true);
     const [fontSize, setFontSize] = useState(35);
-    const [wordCount, setWordCount] = useState(50);
+    const [wordCount, setWordCount] = useState(25);
     const [numbersEnabled, setNumbersEnabled] = useState(false);
     const [wordsEnabled, setWordsEnabled] = useState(true);
     const [sentencesEnabled, setSentencesEnabled] = useState(false);

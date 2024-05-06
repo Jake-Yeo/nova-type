@@ -7,6 +7,50 @@ export async function getNewSentence(typingData: TypingData): Promise<string> {
     let charactersToReturn: String = "";
     const getArray = []; // an array we will put all the getSentence, getWord, getNumber in, then we will generate a random number to choose a random get if we have more than two setting options picked
 
+    const symbolfy = (toSymbolfy: string) => {
+
+        if (getRandomNumber(3) != 1) { // 1/3 chance to symbolfy
+            return toSymbolfy;
+        }
+
+        const randomSymbols = ['!', '@', '#', '$', '%','^','&','*','(',')','-','_','+','=', '~', ',', '<', '>', '.', '?', "/", "\\", ';', ':', '"', "'", '{', '}', '[', ']', '|', '`'];
+        const toAppend = randomSymbols[getRandomNumber(randomSymbols.length)];
+
+        const appendSameToBothSides = () => {
+            return toAppend + toSymbolfy + toAppend;
+        }
+
+        const appendDiffToBothSides = () => {
+            const toAppendDiff = randomSymbols[getRandomNumber(randomSymbols.length)];
+            return toAppend + toSymbolfy + toAppendDiff;
+        }
+
+        const appendLogicalToBothSides = () => {
+            const randomLogicalSym1 = ['[', '{', '(', '<'];
+            const randomLogicalSym2 = [']', '}', ')', '>'];
+            const randomIndex = getRandomNumber(randomLogicalSym1.length);
+            return randomLogicalSym1[randomIndex] + toSymbolfy + randomLogicalSym2[randomIndex];
+        }
+
+        const appendToRightSide = () => {
+            return toSymbolfy + toAppend;
+        }
+
+        const appendToLeftSide = () => {
+            return toAppend + toSymbolfy;
+        }
+
+        const symbolfyProcedures = [];
+        symbolfyProcedures.push(appendSameToBothSides);
+        symbolfyProcedures.push(appendToRightSide);
+        symbolfyProcedures.push(appendToLeftSide);
+        symbolfyProcedures.push(appendLogicalToBothSides);
+        symbolfyProcedures.push(appendDiffToBothSides);
+
+        toSymbolfy = symbolfyProcedures[getRandomNumber(symbolfyProcedures.length)]();
+
+        return toSymbolfy;
+    }
 
     const getRandomNumber = (arrayLength: number): number => {
         const randomNum = Math.ceil(Math.random() * arrayLength) - 1;
@@ -16,12 +60,16 @@ export async function getNewSentence(typingData: TypingData): Promise<string> {
 
     const getASentence = () => {
         return sentenceArray[getRandomNumber(sentenceArray.length)]; // sentences already have a space at the end so don't add it
+        // no need to symbolfy since sentences already have symbols
     }
 
     const getAWord = () => {
         let wordToReturn = words[getRandomNumber(words.length)].trim();
         if (!typingData.lowercaseEnabled && getRandomNumber(4) == 3) { // A 1/4 chance that a word is converted to uppercase
             wordToReturn = wordToReturn.charAt(0).toUpperCase() + wordToReturn.substring(1);
+        }
+        if (typingData.symbolsEnabled) {
+            wordToReturn = symbolfy(wordToReturn);
         }
         return wordToReturn + " "; // we trim the word because there's an invisible character at the end that I don't know of
     }
@@ -31,6 +79,9 @@ export async function getNewSentence(typingData: TypingData): Promise<string> {
         var stringNumToReturn = "";
         for (let i = 0; i < lengthOfNumber; i++) {
             stringNumToReturn += getRandomNumber(10);
+        }
+        if (typingData.symbolsEnabled) {
+            stringNumToReturn = symbolfy(stringNumToReturn);
         }
         return stringNumToReturn + " ";
     }

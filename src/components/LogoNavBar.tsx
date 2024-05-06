@@ -19,6 +19,10 @@ const LogoNavBar = () => {
             alignItems="flex-start"
             sx={{
                 padding: '10px',
+                paddingLeft:'100px',
+                paddingTop: '30px',
+                paddingBottom: '20px',
+                paddingRight: '30px'
             }}
         >
             <Box
