@@ -45,7 +45,7 @@ const ToTypeDisplay = () => {
           numCorrect++;
         } else {
           if (typingData.toType.charAt(i)  == ' ') { // This is just so the user knows that they typed the space wrong
-            spanElementOnlyArray.push(getColouredSpan(typingData.typedSoFar.charAt(i), 'transparent', 'red', i, +typingData.fontSize));
+            spanElementOnlyArray.push(getColouredSpan(typingData.typedSoFar.charAt(i), 'transparent', '#FF007A', i, +typingData.fontSize));
           } else {
             spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'transparent', 'red', i, +typingData.fontSize));
           }
