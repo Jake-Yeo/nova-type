@@ -44,7 +44,11 @@ const ToTypeDisplay = () => {
           spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'transparent', 'white', i, +typingData.fontSize));
           numCorrect++;
         } else {
-          spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'transparent', 'red', i, +typingData.fontSize));
+          if (typingData.toType.charAt(i)  == ' ') { // This is just so the user knows that they typed the space wrong
+            spanElementOnlyArray.push(getColouredSpan(typingData.typedSoFar.charAt(i), 'transparent', 'red', i, +typingData.fontSize));
+          } else {
+            spanElementOnlyArray.push(getColouredSpan(typingData.toType.charAt(i), 'transparent', 'red', i, +typingData.fontSize));
+          }
         }
       }
     }
@@ -64,10 +68,10 @@ const ToTypeDisplay = () => {
 
   return (
     <>
-    {/** The div below acts as padding since I can't get the padding to work... */}
-    <div style={{
-      height: '20px'
-    }}></div>
+      {/** The div below acts as padding since I can't get the padding to work... */}
+      <div style={{
+        height: '20px'
+      }}></div>
       <div className="scrollCss"
         ref={divRef}
         key='scrollPane'
@@ -77,6 +81,7 @@ const ToTypeDisplay = () => {
           width: `${+typingData.scrollPaneWidth}vw`, // + converts a data type object Number to primitive type number
           overflow: 'hidden',
           whiteSpace: 'normal', // Enable text wrap
+          wordWrap: 'break-word', // Allow breaking long words
           overflowY: 'hidden' // Use camelCase for hyphenated CSS properties
         }}
         onMouseUp={() => { setFocusToTypingArea() }}> {/* If this display is clicked, then set focus to the typing area */}
