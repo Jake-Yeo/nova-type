@@ -65,7 +65,7 @@ const FontSlider = () => {
                     },
                 }}
                 aria-label="FontSize"
-                defaultValue={currentUser.getSettings().getFontSize()}
+                value={currentUser.getSettings().getFontSize()}
                 valueLabelDisplay="off"
                 min={10}
                 max={50}

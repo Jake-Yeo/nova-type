@@ -63,7 +63,7 @@ const WordCountSlider = () => {
                     },
                 }}
                 aria-label="FontSize"
-                defaultValue={currentUser.getSettings().getWordCount()}
+                value={currentUser.getSettings().getWordCount()}
                 valueLabelDisplay="off"
                 min={10}
                 max={100}
