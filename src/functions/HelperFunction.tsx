@@ -54,7 +54,6 @@ export async function getNewSentence(typingData: TypingData): Promise<string> {
 
     const getRandomNumber = (arrayLength: number): number => {
         const randomNum = Math.ceil(Math.random() * arrayLength) - 1;
-        console.log("rn", randomNum);
         return randomNum;
     }
 

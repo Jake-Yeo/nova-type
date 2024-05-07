@@ -4,6 +4,8 @@ import { FloatingLabel, Form } from "react-bootstrap";
 import { getNewSentence, getWpm } from '../functions/HelperFunction';
 import { TypingDataContext } from "./TypeFeedAreaDisplay";
 import { scrollToTopOfToTypeDisplay } from "./ToTypeDisplay";
+import { currentUser } from "../objects/User";
+import { TypingStat } from "../objects/TypingStat";
 
 var isGettingNewText: Boolean = false;
 
@@ -12,6 +14,8 @@ var keyReleased: Boolean = true; // this is to keep track of wether the user let
 var userHasTyped = false;
 
 var myForm: React.RefObject<HTMLTextAreaElement>;
+
+var startTime = 0;
 
 export function setFocusToTypingArea() {
   myForm.current?.focus(); // ? checks if myForm.current is not null before performing .focus()
@@ -46,6 +50,19 @@ const TypingArea = () => {
     isGettingNewText = false;
   }
 
+  const protocolWhenUserStartsTyping = () => {
+    userHasTyped = true; // indicate that if the user types after getting new text that the user did type
+    startTime = (new Date()).getTime();
+    startAllIntervalFuncs(); // also start all interval functions (ex counter functions that run every second)
+  }
+
+  const protocolWhenUserFinishesPrompt = (typedPrompt: string) => {
+    getNewText();
+    typingData.setTypedSoFar("");
+    currentUser.pushTypingStat(new TypingStat({ wpm: +typingData.wpm, accuracy: +typingData.accuracy, generatedPrompt: typingData.toType.valueOf(), typedPrompt: typedPrompt, duration: +typingData.duration, startTime: startTime, endTime: (new Date()).getTime() }));
+    console.log(currentUser.getTypingStats());
+  }
+
   const pauseAndResetAllIntervalFuncs = () => { // wrapping it in a function so it's easier to understand 
     typingData.setTimersArePaused(true);
   }
@@ -56,6 +73,7 @@ const TypingArea = () => {
 
   React.useEffect(() => {
     getNewText();
+    currentUser.setSettings({ fontSize: +typingData.fontSize, wordCount: +typingData.wordCount, numbersEnabled: typingData.numbersEnabled.valueOf(), sentencesEnabled: typingData.sentencesEnabled.valueOf(), wordsEnabled: typingData.wordsEnabled.valueOf(), symbolsEnabled: typingData.symbolsEnabled.valueOf(), lowercaseEnabled: typingData.lowercaseEnabled.valueOf() }); // this updates the settings if user changes the settings
   }, [typingData.wordCount, typingData.wordsEnabled, typingData.numbersEnabled, typingData.symbolsEnabled, typingData.lowercaseEnabled, typingData.sentencesEnabled]);
 
   restartPractice = getNewText; // should probably put this in a effect hook since it runs basically every tick
@@ -99,14 +117,13 @@ const TypingArea = () => {
       return;
     }
     if (!userHasTyped) {
-      userHasTyped = true; // indicate that if the user types after getting new text that the user did type
-      startAllIntervalFuncs(); // also start all interval functions (ex counter functions that run every second)
+      protocolWhenUserStartsTyping();
     }
     typingData.setTypedSoFar(e.target.value);
 
-    if (typingData.toType.length == e.target.value.length) {
-      getNewText();
-      typingData.setTypedSoFar("");
+    if (typingData.toType.length == e.target.value.length) { // this means user has finished typing
+      // We pass in e.target.value instead of typingData.typedSoFar because for some reason typingData.typedSoFar is always missing the last character
+      protocolWhenUserFinishesPrompt(e.target.value); // what to do when user finishes typing
       //console.log("got new text and reset it");
     }
     //console.log("reached end of statement");
