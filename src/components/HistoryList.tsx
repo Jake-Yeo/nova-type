@@ -2,7 +2,14 @@
 import { FixedSizeList } from 'react-window';
 import { currentUser } from '../objects/User';
 import { Box, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { TypingDataContext } from './TypeFeedAreaDisplay';
+import { useContext, useReducer } from 'react';
+import React from 'react';
 const HistoryList = () => {
+
+    const typingData = useContext(TypingDataContext);
+
+    const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
 
     const ListItemComponent = () => (
         <ListItem key={1} component="div" disablePadding>
@@ -11,6 +18,10 @@ const HistoryList = () => {
             </ListItemButton>
         </ListItem>
     );
+
+    React.useEffect(() => {
+        forceUpdate();
+    }, [typingData.toType]);
 
     return (<>
         <Box
@@ -25,7 +36,7 @@ const HistoryList = () => {
         >
             {ListItemComponent}
         </FixedSizeList>
-        <span style={{color: 'white'}}>{currentUser.getTypingStats.length}</span>
+        <span style={{color: 'white'}}>{currentUser.getTypingStats().length}</span>
         </Box>
     </>)
 }

@@ -1,6 +1,7 @@
 import { Box, Slider, Typography } from "@mui/material"
 import { TypingDataContext } from "./TypeFeedAreaDisplay"
 import { useContext } from "react";
+import { currentUser } from "../objects/User";
 
 const FontSlider = () => {
 
@@ -64,7 +65,7 @@ const FontSlider = () => {
                     },
                 }}
                 aria-label="FontSize"
-                defaultValue={35}
+                defaultValue={currentUser.getSettings().getFontSize()}
                 valueLabelDisplay="off"
                 min={10}
                 max={50}

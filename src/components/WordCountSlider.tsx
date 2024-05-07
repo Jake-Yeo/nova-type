@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { TypingDataContext } from "./TypeFeedAreaDisplay";
 import { Box, Slider, Typography } from "@mui/material";
+import { currentUser } from "../objects/User";
 
 const WordCountSlider = () => {
     const typingData = useContext(TypingDataContext);
@@ -62,7 +63,7 @@ const WordCountSlider = () => {
                     },
                 }}
                 aria-label="FontSize"
-                defaultValue={35}
+                defaultValue={currentUser.getSettings().getWordCount()}
                 valueLabelDisplay="off"
                 min={10}
                 max={100}

@@ -74,7 +74,7 @@ const TypingArea = () => {
   React.useEffect(() => {
     getNewText();
     currentUser.setSettings({ fontSize: +typingData.fontSize, wordCount: +typingData.wordCount, numbersEnabled: typingData.numbersEnabled.valueOf(), sentencesEnabled: typingData.sentencesEnabled.valueOf(), wordsEnabled: typingData.wordsEnabled.valueOf(), symbolsEnabled: typingData.symbolsEnabled.valueOf(), lowercaseEnabled: typingData.lowercaseEnabled.valueOf() }); // this updates the settings if user changes the settings
-  }, [typingData.wordCount, typingData.wordsEnabled, typingData.numbersEnabled, typingData.symbolsEnabled, typingData.lowercaseEnabled, typingData.sentencesEnabled]);
+  }, [typingData.wordCount, typingData.wordsEnabled, typingData.numbersEnabled, typingData.symbolsEnabled, typingData.lowercaseEnabled, typingData.sentencesEnabled, typingData.fontSize]);
 
   restartPractice = getNewText; // should probably put this in a effect hook since it runs basically every tick
 
