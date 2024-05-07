@@ -7,10 +7,10 @@ import LinksDisplay from "../components/LinksDisplay"
 const TypingPage = () => {
     return (<>
         <Grid
-        container
-        direction='column'
-        justifyContent='space-between'
-        height='100vh'
+            container
+            direction='column'
+            justifyContent='space-between'
+            height='100vh'
         >
             <Grid
                 container
@@ -19,6 +19,7 @@ const TypingPage = () => {
             >
                 <LogoNavBar></LogoNavBar>
                 <TypeFeedAreaDisplay></TypeFeedAreaDisplay>
+
             </Grid>
             <LinksDisplay></LinksDisplay>
         </Grid>
