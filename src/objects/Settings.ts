@@ -18,11 +18,11 @@ export class Settings {
     private _lowercaseEnabled: boolean;
 
     constructor() {
-        this._fontSize = 0;
-        this._wordCount = 0;
+        this._fontSize = 35;
+        this._wordCount = 25;
         this._numbersEnabled = false;
         this._sentencesEnabled = false;
-        this._wordsEnabled = false;
+        this._wordsEnabled = true;
         this._symbolsEnabled = false;
         this._lowercaseEnabled = false;
 

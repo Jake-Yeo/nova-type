@@ -7,6 +7,7 @@ import { Grid } from "@mui/material";
 import RestartButton from "./RestartButton";
 import RealTimeStatDisplay from "./RealTimeStatDisplay";
 import SettingsIsland from "./SettingsIsland";
+import { currentUser } from "../objects/User";
 
 export type TypingData = {
     typedSoFar: String,
@@ -80,13 +81,13 @@ const TypeFeedAreaDisplay = () => {
     const [accuracy, setAccuracy] = useState(100);
     const [duration, setDuration] = useState(0);
     const [timersArePaused, setTimersArePaused] = useState(true);
-    const [fontSize, setFontSize] = useState(35);
-    const [wordCount, setWordCount] = useState(25);
-    const [numbersEnabled, setNumbersEnabled] = useState(false);
-    const [wordsEnabled, setWordsEnabled] = useState(true);
-    const [sentencesEnabled, setSentencesEnabled] = useState(false);
-    const [symbolsEnabled, setSymbolsEnabled] = useState(false);
-    const [lowercaseEnabled, setLowercaseEnabled] = useState(false);
+    const [fontSize, setFontSize] = useState(currentUser.getSettings().getFontSize());
+    const [wordCount, setWordCount] = useState(currentUser.getSettings().getWordCount());
+    const [numbersEnabled, setNumbersEnabled] = useState(currentUser.getSettings().getNumbersEnabled());
+    const [wordsEnabled, setWordsEnabled] = useState(currentUser.getSettings().getWordsEnabled());
+    const [sentencesEnabled, setSentencesEnabled] = useState(currentUser.getSettings().getSentencesEnabled());
+    const [symbolsEnabled, setSymbolsEnabled] = useState(currentUser.getSettings().getSymbolsEnabled());
+    const [lowercaseEnabled, setLowercaseEnabled] = useState(currentUser.getSettings().getLowercaseEnabled());
 
     const typingData: TypingData = {
         typedSoFar,
