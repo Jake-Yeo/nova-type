@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material"
+import { Grid, Stack } from "@mui/material"
 import LogoNavBar from "../components/LogoNavBar"
 import SettingsIsland from "../components/SettingsIsland"
 import TypeFeedAreaDisplay from "../components/TypeFeedAreaDisplay"
@@ -6,23 +6,26 @@ import LinksDisplay from "../components/LinksDisplay"
 
 const TypingPage = () => {
     return (<>
-        <Grid
-            container
+        <Stack
             direction='column'
             justifyContent='space-between'
             height='100vh'
+            width='100vw'
         >
             <Grid
                 container
                 direction='column'
                 justifyContent='space-between'
+                width='100vw'
             >
                 <LogoNavBar></LogoNavBar>
                 <TypeFeedAreaDisplay></TypeFeedAreaDisplay>
 
             </Grid>
-            <LinksDisplay></LinksDisplay>
-        </Grid>
+            <Grid item>
+                <LinksDisplay></LinksDisplay>
+            </Grid>
+        </Stack>
     </>)
 }
 
