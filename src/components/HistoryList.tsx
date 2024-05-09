@@ -1,13 +1,14 @@
 //@ts-ignore
 import { FixedSizeList, ListChildComponentProps, VariableSizeList } from 'react-window';
 import { currentUser } from '../objects/User';
-import { Box, Grid, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
+import { Box, Button, Grid, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
 import { TypingDataContext } from './TypeFeedAreaDisplay';
 import { useCallback, useContext, useEffect, useReducer, useRef, useState } from 'react';
 import React from 'react';
 import DynamicColorNumberDisplay from './DynamicColorNumberDisplay';
 import { getToTypeDisplayPublic } from './ToTypeDisplay';
 import HistoryStatComponent from './HistoryStatComponent';
+import HistoryListFontSlider from './HistoryListFontSlider';
 
 
 // Sandbox below to help you understand how to deal with dynamic component heights
@@ -18,31 +19,34 @@ import HistoryStatComponent from './HistoryStatComponent';
 
 //https://codesandbox.io/p/sandbox/react-window-dynamic-row-height-8ftbq?file=%2Fsrc%2FApp.js%3A37%2C10
 // THIS Code is largely modeled off of the sandbox above. Tbh I'm not too sure how this code works
-    // I beleive that when the index or add size function is changed, it calls the addSize function which is able to access the listRef. Then we are able to add the heights to the arry
-    // In the addSize function, it also calls listRef.current?.resetAfterIndex(index); which is effectively just a force re-render of this component
+// I beleive that when the index or add size function is changed, it calls the addSize function which is able to access the listRef. Then we are able to add the heights to the arry
+// In the addSize function, it also calls listRef.current?.resetAfterIndex(index); which is effectively just a force re-render of this component
 
 const width = 85;
 
-//const [ignored, forceUpdate] = useReducer(x => x + 1, 0); // https://stackoverflow.com/questions/46240647/how-to-force-a-functional-react-component-to-render
-
 var listItemComponentSize: number[] = [];
+var listItemComponentRefs: React.RefObject<HTMLDivElement>[] = [];
 
 interface ListItemComponentPropsExtended extends ListChildComponentProps {
     addSize: (height: number, index: number) => void;
+    fontSize: number;
 }
 
 // !!! When using React-Window components don't forget to pass in the props.style!! https://stackoverflow.com/questions/56737563/react-window-and-infinite-loader-scrolling-issue
-const ListItemComponent = ({ index, style, data, addSize }: ListItemComponentPropsExtended) => { // So how this works I think is that the FixSizeList will pass props into this automatically. The props contains an index, we can use this index to get the right stat.
+const ListItemComponent = ({ index, style, addSize, fontSize }: ListItemComponentPropsExtended) => { // So how this works I think is that the FixSizeList will pass props into this automatically. The props contains an index, we can use this index to get the right stat.
     const licRef = useRef<HTMLDivElement>(null);
+
 
 
     const listItem = (
         // So because the div takes on the style of the prop, we don't know what its height is styled to, so we useRef on the ListItem instead to get the height
         <div style={style}>
             <ListItem ref={licRef} onClick={(e) => (console.log(licRef.current?.clientHeight))} key={index} component="div" disablePadding>
-                <ListItemText primary={<HistoryStatComponent index={index} width={width} />} />
+                <ListItemText primary={<HistoryStatComponent index={index} width={width} fontSize={fontSize} />} />
             </ListItem>
         </div>)
+
+    listItemComponentRefs.push(licRef);
 
     React.useEffect(() => {
         addSize(licRef.current?.clientHeight ?? 0, index);
@@ -53,6 +57,10 @@ const ListItemComponent = ({ index, style, data, addSize }: ListItemComponentPro
 
 
 const HistoryList = () => {
+
+    //const [ignored, forceUpdate] = useReducer(x => x + 1, 0); // https://stackoverflow.com/questions/46240647/how-to-force-a-functional-react-component-to-render
+
+    const [fontSize, setFontSize] = useState(currentUser.getHistorySettings().getFontSize());
 
     const listRef = useRef<VariableSizeList>(null);
 
@@ -78,10 +86,11 @@ const HistoryList = () => {
                 overscanCount={5}
             >
                 {({ index, style }) => (
-                    <ListItemComponent index={index} style={style} data={undefined} addSize={addSize}></ListItemComponent>
+                    <ListItemComponent index={index} style={style} data={undefined} addSize={addSize} fontSize={fontSize}></ListItemComponent>
                 )}
             </VariableSizeList >
         </Box >
+        <HistoryListFontSlider setFontSize={setFontSize}></HistoryListFontSlider>
     </>)
 }
 

@@ -5,10 +5,11 @@ import { getToTypeDisplayPublic } from "./ToTypeDisplay";
 
 interface props {
     index: number,
-    width: number
+    width: number,
+    fontSize: number,
 }
 
-const HistoryStatComponent = ({index, width}: props) => {// make sure to log the height of the component
+const HistoryStatComponent = ({index, width, fontSize}: props) => {// make sure to log the height of the component
         const typingStat = currentUser.getTypingStats().at(index);
 
 
@@ -20,7 +21,7 @@ const HistoryStatComponent = ({index, width}: props) => {// make sure to log the
         if (typingStat) {
             wpmComponent = <DynamicColorNumberDisplay stat={typingStat.getWpm()} statName={'WPM:'}></DynamicColorNumberDisplay>
             accuracyComponent = <DynamicColorNumberDisplay stat={typingStat.getAccuracy()} statName={'Accuracy:'}></DynamicColorNumberDisplay>
-            accuracyVisualization = <>{getToTypeDisplayPublic(typingStat.getGeneratedPrompt(), typingStat.getTypedPrompt())}</>
+            accuracyVisualization = <>{getToTypeDisplayPublic(typingStat.getGeneratedPrompt(), typingStat.getTypedPrompt(), fontSize)}</>
         }
 
 
