@@ -2,7 +2,7 @@ import { Button } from "@mui/material"
 import { auth, googleProvider } from "../config/firebase"
 import { signInWithPopup, signOut } from "firebase/auth"
 
-const signInWithGoogle = async () => {
+const signInWithGoogle = async () => {// we should put this in its own class
     try {
         await signInWithPopup(auth, googleProvider);
 
@@ -11,7 +11,7 @@ const signInWithGoogle = async () => {
     }
 }
 
-const logout = async () => {
+const logout = async () => {// we should put this in its own class
     try {
         await signOut(auth);
     } catch (err) {
