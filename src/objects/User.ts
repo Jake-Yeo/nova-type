@@ -38,6 +38,26 @@ export class User {
         this._settings.setSettings(settings);
     }
 
+    private typingStatsToJson(): JSON[] {
+        const typingStatsJson: JSON[] = [];
+
+        for (let typingStat of this.getTypingStats()) {
+            typingStatsJson.push(typingStat.toJson());
+        }
+
+        return typingStatsJson;
+    }
+
+    public toJson(): JSON {
+        const jsonToReturn: unknown =  {
+            settings: this.getSettings().toJson(),
+            historySettings: this.getHistorySettings().toJson(),
+            typingStats: this.typingStatsToJson(),
+        }
+
+        return jsonToReturn as JSON;
+    }
+
 }
 
 export const currentUser: User = new User(new Settings());

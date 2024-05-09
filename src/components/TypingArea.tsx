@@ -61,6 +61,7 @@ const TypingArea = () => {
     typingData.setTypedSoFar("");
     currentUser.pushTypingStat(new TypingStat({ wpm: +typingData.wpm, accuracy: +typingData.accuracy, generatedPrompt: typingData.toType.valueOf(), typedPrompt: typedPrompt, duration: +typingData.duration, startTime: startTime, endTime: (new Date()).getTime() }));
     console.log(currentUser.getTypingStats());
+    console.log(JSON.stringify(currentUser.toJson()));
   }
 
   const pauseAndResetAllIntervalFuncs = () => { // wrapping it in a function so it's easier to understand 

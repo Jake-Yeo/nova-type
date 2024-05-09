@@ -1,3 +1,4 @@
+import { json } from "stream/consumers";
 
 export type StatsType = {
     wpm: number;
@@ -19,7 +20,7 @@ export class TypingStat {
     private _startTime: number;
     private _endTime: number;
 
-    constructor({ wpm, accuracy ,generatedPrompt, typedPrompt, duration, startTime, endTime }: StatsType) {
+    constructor({ wpm, accuracy, generatedPrompt, typedPrompt, duration, startTime, endTime }: StatsType) {
         this._wpm = wpm;
         this._accuracy = accuracy;
         this._generatedPrompt = generatedPrompt;
@@ -87,6 +88,19 @@ export class TypingStat {
 
     public setAccuracy(accuracy: number) {
         this._accuracy = accuracy;
+    }
+
+    public toJson(): JSON {
+        const jsonToReturn: unknown = {
+            wpm: this.getWpm(),
+            accuracy: this.getAccuracy(),
+            generatedPrompt: this.getGeneratedPrompt(),
+            typedPrompt: this.getTypedPrompt(),
+            duration: this.getDuration(),
+            startTime: this.getStartTime(),
+            endTime: this.getEndTime()
+        }
+        return jsonToReturn as JSON;
     }
 
 }

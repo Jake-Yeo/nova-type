@@ -1,3 +1,5 @@
+import { get } from "http";
+
 export type SettingsType = {
     fontSize: number;
     wordCount: number;
@@ -28,7 +30,7 @@ export class Settings {
 
     }
 
-    public setSettings({fontSize, wordCount, numbersEnabled, sentencesEnabled, wordsEnabled, symbolsEnabled, lowercaseEnabled}: SettingsType) {
+    public setSettings({ fontSize, wordCount, numbersEnabled, sentencesEnabled, wordsEnabled, symbolsEnabled, lowercaseEnabled }: SettingsType) {
         this._fontSize = fontSize;
         this._wordCount = wordCount;
         this._numbersEnabled = numbersEnabled;
@@ -96,6 +98,20 @@ export class Settings {
 
     public setLowercaseEnabled(lowercaseEnabled: boolean) {
         this._lowercaseEnabled = lowercaseEnabled;
+    }
+
+    public toJson(): JSON {
+        const jsonToReturn: unknown = {
+            fontSize: this.getFontSize(),
+            wordCount: this.getWordCount(),
+            numbersEnabled: this.getNumbersEnabled(),
+            sentencesEnabled: this.getSentencesEnabled(),
+            wordsEnabled: this.getWordsEnabled(),
+            symbolsEnabled: this.getSymbolsEnabled(),
+            lowercaseEnabled: this.getLowercaseEnabled(),
+        }
+
+        return jsonToReturn as JSON;
     }
 
 }
