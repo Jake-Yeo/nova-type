@@ -31,6 +31,7 @@ const DrawerItems = ({ setIsDrawerOpen }: prop) => {
                     {getStyledListButton('Home', '/HomePage')}
                     {getStyledListButton('Typing Practice', '/TypingPage')}
                     {getStyledListButton('History', '/HistoryPage')}
+                    {getStyledListButton('Login Signup', '/SignupLoginPage')}
                     {getStyledListButton('About', '/AboutPage')}
                 </List>
             </Box>

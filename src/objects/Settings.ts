@@ -1,4 +1,5 @@
 import { get } from "http";
+import { DocumentData } from 'firebase/firestore';
 
 export type SettingsType = {
     fontSize: number;
@@ -100,8 +101,8 @@ export class Settings {
         this._lowercaseEnabled = lowercaseEnabled;
     }
 
-    public toJson(): JSON {
-        const jsonToReturn: unknown = {
+    public toDoc(): DocumentData {
+        const docToReturn = {
             fontSize: this.getFontSize(),
             wordCount: this.getWordCount(),
             numbersEnabled: this.getNumbersEnabled(),
@@ -111,7 +112,7 @@ export class Settings {
             lowercaseEnabled: this.getLowercaseEnabled(),
         }
 
-        return jsonToReturn as JSON;
+        return docToReturn;
     }
 
 }

@@ -1,4 +1,6 @@
 import { json } from "stream/consumers";
+import { DocumentData } from 'firebase/firestore';
+
 
 export type StatsType = {
     wpm: number;
@@ -90,8 +92,8 @@ export class TypingStat {
         this._accuracy = accuracy;
     }
 
-    public toJson(): JSON {
-        const jsonToReturn: unknown = {
+    public toDoc(): DocumentData {
+        const docToReturn = {
             wpm: this.getWpm(),
             accuracy: this.getAccuracy(),
             generatedPrompt: this.getGeneratedPrompt(),
@@ -100,7 +102,7 @@ export class TypingStat {
             startTime: this.getStartTime(),
             endTime: this.getEndTime()
         }
-        return jsonToReturn as JSON;
+        return docToReturn;
     }
 
 }

@@ -1,6 +1,7 @@
 import { HistorySettings } from "./HistorySettings";
 import { Settings, SettingsType } from "./Settings";
 import { TypingStat } from "./TypingStat";
+import { DocumentData } from 'firebase/firestore';
 
 // .ts extension because this will have no tsx syntax (html css stuff) because it's an object
 export class User {
@@ -10,7 +11,7 @@ export class User {
 
     constructor(settings: Settings) {
         this._settings = settings;
-        this._historySettings = new HistorySettings({fontSize: 35});
+        this._historySettings = new HistorySettings({ fontSize: 35 });
         this._typingStats = [];
     }
 
@@ -21,7 +22,7 @@ export class User {
     public getTypingStats(): TypingStat[] {
         return this._typingStats;
     }
-    
+
     public clearTypingStats() {
         this._typingStats = [];
     }
@@ -38,27 +39,17 @@ export class User {
         this._settings.setSettings(settings);
     }
 
-    private typingStatsToJson(): JSON[] {
-        const typingStatsJson: JSON[] = [];
+    public typingStatsToDoc(): DocumentData {
+        const typingStatsJson: DocumentData[] = [];
 
         for (let typingStat of this.getTypingStats()) {
-            typingStatsJson.push(typingStat.toJson());
+            typingStatsJson.push(typingStat.toDoc());
         }
-
-        return typingStatsJson;
+        console.log(typingStatsJson);
+        return { typingStats: typingStatsJson };
     }
-
-    public toJson(): JSON {
-        const jsonToReturn: unknown =  {
-            settings: this.getSettings().toJson(),
-            historySettings: this.getHistorySettings().toJson(),
-            typingStats: this.typingStatsToJson(),
-        }
-
-        return jsonToReturn as JSON;
-    }
-
 }
 
 export const currentUser: User = new User(new Settings());
 
+// data base will store a bunch of user collections, each user will have settings, history settings, and typingStats collections which each have their own fields
