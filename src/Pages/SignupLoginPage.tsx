@@ -37,19 +37,19 @@ const SignupLoginPage = () => {
 
             const userDoc = dataBase.collection('Users').doc(auth.currentUser?.uid);
             await userDoc.set({
-                email: auth.currentUser?.email,
+                name: auth.currentUser?.displayName,
             });
 
             // Create a subcollection under the parent document
             const userSettingsCollection = userDoc.collection('settings');
             const userHistorySettingsCollection = userDoc.collection('historySettings');
-            const userTypingStatsCollection = userDoc.collection('typingStats');
+            const userTypingStatArraysCollection = userDoc.collection('typingStatArrays');
 
-            await userSettingsCollection.add(currentUser.getSettings().toDoc());
+            await userSettingsCollection.doc('setting').set(currentUser.getSettings().toDoc());
 
-            await userHistorySettingsCollection.add(currentUser.getHistorySettings().toDoc());
+            await userHistorySettingsCollection.doc('historySetting').set(currentUser.getHistorySettings().toDoc());
 
-            await userTypingStatsCollection.add(currentUser.typingStatsToDoc());
+            await userTypingStatArraysCollection.doc('typingStatArray').set(currentUser.typingStatsToDoc());
         }}>add stuff to database</Button>
     </>)
 }
