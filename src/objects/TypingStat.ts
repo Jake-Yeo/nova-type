@@ -2,7 +2,7 @@ import { json } from "stream/consumers";
 import { DocumentData } from 'firebase/firestore';
 
 
-export type StatsType = {
+export type TypingStatDataType = {
     wpm: number;
     accuracy: number;
     generatedPrompt: string;
@@ -22,7 +22,7 @@ export class TypingStat {
     private _startTime: number;
     private _endTime: number;
 
-    constructor({ wpm, accuracy, generatedPrompt, typedPrompt, duration, startTime, endTime }: StatsType) {
+    constructor({ wpm, accuracy, generatedPrompt, typedPrompt, duration, startTime, endTime }: TypingStatDataType) {
         this._wpm = wpm;
         this._accuracy = accuracy;
         this._generatedPrompt = generatedPrompt;

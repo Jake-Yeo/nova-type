@@ -1,6 +1,6 @@
-import { HistorySettings } from "./HistorySettings";
-import { Settings, SettingsType } from "./Settings";
-import { TypingStat } from "./TypingStat";
+import { HistorySettings, HistorySettingsDataType } from "./HistorySettings";
+import { Settings, SettingsDataType } from "./Settings";
+import { TypingStatDataType, TypingStat } from "./TypingStat";
 import { DocumentData } from 'firebase/firestore';
 
 // .ts extension because this will have no tsx syntax (html css stuff) because it's an object
@@ -19,6 +19,24 @@ export class User {
         this._typingStats.push(typingStats);
     }
 
+    public overrideWithTypingStatData(typingStatDataArray: TypingStatDataType[]) {
+        this._typingStats = [];
+        for (let typingStatObject of typingStatDataArray) {
+
+            const statsObject: TypingStatDataType = {...typingStatObject};
+
+            this.pushTypingStat(new TypingStat(statsObject));
+        }
+    }
+
+    public overrideWithSettingsData(settingsData: SettingsDataType) {
+        this._settings.setSettings(settingsData);
+    }
+
+    public overrideHistorySettings(historySettingsData: HistorySettingsDataType) {
+        this._historySettings.setHistorySettings(historySettingsData);
+    }
+
     public getTypingStats(): TypingStat[] {
         return this._typingStats;
     }
@@ -35,7 +53,7 @@ export class User {
         return this._historySettings;
     }
 
-    public setSettings(settings: SettingsType) {
+    public setSettings(settings: SettingsDataType) {
         this._settings.setSettings(settings);
     }
 

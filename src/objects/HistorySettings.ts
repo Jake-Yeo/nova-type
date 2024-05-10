@@ -1,14 +1,18 @@
 import { json } from "stream/consumers";
 import { DocumentData } from 'firebase/firestore';
 
-type HistorySettingsType = {
+export type HistorySettingsDataType = { // data indicates no functions
     fontSize: number
 }
 
 export class HistorySettings {
     private _fontSize;
 
-    constructor({fontSize}: HistorySettingsType) {
+    constructor({fontSize}: HistorySettingsDataType) {
+        this._fontSize = fontSize;
+    }
+
+    public setHistorySettings({fontSize}: HistorySettingsDataType) {
         this._fontSize = fontSize;
     }
 

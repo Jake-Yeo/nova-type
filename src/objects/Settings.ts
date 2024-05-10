@@ -1,7 +1,7 @@
 import { get } from "http";
 import { DocumentData } from 'firebase/firestore';
 
-export type SettingsType = {
+export type SettingsDataType = {
     fontSize: number;
     wordCount: number;
     numbersEnabled: boolean;
@@ -31,7 +31,7 @@ export class Settings {
 
     }
 
-    public setSettings({ fontSize, wordCount, numbersEnabled, sentencesEnabled, wordsEnabled, symbolsEnabled, lowercaseEnabled }: SettingsType) {
+    public setSettings({ fontSize, wordCount, numbersEnabled, sentencesEnabled, wordsEnabled, symbolsEnabled, lowercaseEnabled }: SettingsDataType) {
         this._fontSize = fontSize;
         this._wordCount = wordCount;
         this._numbersEnabled = numbersEnabled;
