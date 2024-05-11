@@ -1,3 +1,4 @@
+import { initializeOnSignupOrLogin, isUserLoggedIn } from "../functions/Backend";
 import { HistorySettings, HistorySettingsDataType } from "./HistorySettings";
 import { Settings, SettingsDataType } from "./Settings";
 import { TypingStatDataType, TypingStat } from "./TypingStat";

@@ -1,10 +1,12 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import './App.css';
 import { TypingDataContext } from './components/TypeFeedAreaDisplay';
 import HistoryPage from './Pages/HistoryPage';
 import TypingPage from './Pages/TypingPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SignupLoginPage from './Pages/SignupLoginPage';
+import { initializeOnSignupOrLogin, isUserLoggedIn } from './functions/Backend';
+import firebase from 'firebase/compat';
 
 
 
@@ -23,7 +25,7 @@ function App() {
             <TypingDataContext.Provider value={typingData}>
               <HistoryPage />
             </TypingDataContext.Provider>} />
-            <Route path='/SignupLoginPage' element={<SignupLoginPage/>}/>
+          <Route path='/SignupLoginPage' element={<SignupLoginPage />} />
           <Route path='*' element={'404 error'} />
         </Routes>
       </BrowserRouter>

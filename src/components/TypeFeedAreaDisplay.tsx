@@ -71,6 +71,8 @@ export var TypingDataContext = createContext<TypingData>({ // initalize
     setTypedSoFar: () => { }
 });
 
+export var refreshTypeFeedAreaDisplay = () => { };
+
 
 const TypeFeedAreaDisplay = () => {
 
@@ -120,6 +122,16 @@ const TypeFeedAreaDisplay = () => {
         setWpm,
         setToType,
         setTypedSoFar
+    }
+
+    refreshTypeFeedAreaDisplay = () => {
+        setFontSize(currentUser.getSettings().getFontSize());
+        setWordCount(currentUser.getSettings().getWordCount());
+        setNumbersEnabled(currentUser.getSettings().getNumbersEnabled());
+        setWordsEnabled(currentUser.getSettings().getWordsEnabled());
+        setSentencesEnabled(currentUser.getSettings().getSentencesEnabled());
+        setSymbolsEnabled(currentUser.getSettings().getSymbolsEnabled());
+        setLowercaseEnabled(currentUser.getSettings().getLowercaseEnabled());
     }
 
     useEffect(() => { // This will run once when this component is initialized

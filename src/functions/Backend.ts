@@ -4,6 +4,25 @@ import { currentUser } from "../objects/User";
 import { TypingStatDataType } from "../objects/TypingStat";
 import { SettingsDataType } from "../objects/Settings";
 import { HistorySettingsDataType } from "../objects/HistorySettings";
+import { refreshTypeFeedAreaDisplay } from "../components/TypeFeedAreaDisplay";
+
+auth.onAuthStateChanged(() => {
+
+    const checkIfUserLogInOrLogOut = async () => {
+        if (auth.currentUser) {
+            console.log('logged in');
+            // maybe start a loading animation here
+            await initializeOnSignupOrLogin(); // await waits for this function to finish or else refreshTypeFeedAreaDisplay will run before initialization finishes!
+            await refreshTypeFeedAreaDisplay();
+            // maybe stop the loading animation here
+        } else {
+            console.log('logged out');
+        }
+    }
+
+    checkIfUserLogInOrLogOut();
+
+});
 
 export async function signinWithGooglePopup() {
     try {
@@ -66,7 +85,7 @@ export async function initializeOnSignupOrLogin() {
     if (!isUserLoggedIn()) {
         throw new Error("Can't initialize! User not logged in!");
     }
-    
+
     let historySettingData;
     let settingsData;
     let typingStatsData;
