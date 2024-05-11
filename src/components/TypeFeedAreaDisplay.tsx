@@ -74,6 +74,8 @@ export var TypingDataContext = createContext<TypingData>({ // initalize
 
 const TypeFeedAreaDisplay = () => {
 
+    // I think this rerun when you go to the typing page, that's why when you set all the data in the User object to the data from the online database, everything changes automatically
+
     const [toType, setToType] = useState('');
     const [typedSoFar, setTypedSoFar] = useState('');
     const [wpm, setWpm] = useState(0);

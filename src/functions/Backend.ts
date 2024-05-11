@@ -13,9 +13,9 @@ export async function signinWithGooglePopup() {
     }
 }
 
-export function isUserLoggedIn(): boolean { 
+export function isUserLoggedIn(): boolean {
     if (auth.currentUser) {
-        if ( auth.currentUser.uid != null) {
+        if (auth.currentUser.uid != null) {
             return true;
         } else {
             return false;
@@ -38,7 +38,7 @@ export function deleteAccount() {
 }
 
 // Should only ever be run once unless user deletes their account
-export async function setupUserData() {
+async function firstTimeUserDataSetup() {
     const userDoc = dataBase.collection('Users').doc(auth.currentUser?.uid);
 
     // Create a subcollection under the parent document
@@ -62,55 +62,99 @@ export async function setupUserData() {
 // initialize user data
 
 export async function initializeOnSignupOrLogin() {
+
+    if (!isUserLoggedIn()) {
+        throw new Error("Can't initialize! User not logged in!");
+    }
+    
     let historySettingData;
     let settingsData;
     let typingStatsData;
 
     try {
+
         historySettingData = await getOnlineHistorySettingsData();
         settingsData = await getOnlineSettingsData();
         typingStatsData = await getOnlineTypingStatsData();
-    } catch (err) {
-        console.error(err);
-    }
 
-    if (isUserLoggedIn()) {
-        if (historySettingData) {
-            currentUser.overrideHistorySettings(historySettingData);
-        } else {
-            console.error('initalize for history settings data failed');
-        }
-        if (settingsData) {
-            currentUser.overrideWithSettingsData(settingsData);
-        } else {
-            console.error('initalize for settings data failed');
-        }
-        if (typingStatsData) {
-            currentUser.overrideWithTypingStatData(typingStatsData);
-        } else {
-            console.error('initalize for typing stats data failed');
-        }
-    } else {
-        console.error('initialization failed, user is not logged in');
+        currentUser.overrideHistorySettings(historySettingData);
+
+        currentUser.overrideWithSettingsData(settingsData);
+
+        currentUser.overrideWithTypingStatData(typingStatsData);
+
+        console.log('Succesfully initialized users data!');
+
+    } catch (err) {
+        console.log('First time log in, setting up user data');
+        await firstTimeUserDataSetup();
+        console.log('Succesfully set up users data!');
+        return;
     }
 }
 
 // update online data objects
 export async function updateOnlineSettings() {
 
+    if (!isUserLoggedIn()) {
+        throw new Error("Can't update user not logged in!");
+    }
+
+    const userDoc = dataBase.collection('Users').doc(auth.currentUser?.uid);
+
+    // Create a subcollection under the parent document
+    const userSettingsCollection = userDoc.collection('settings');
+
+    try {
+
+        await userSettingsCollection.doc('setting').update(currentUser.getSettings().toDoc());
+
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 export async function updateOnlineHistorySettings() {
 
+    if (!isUserLoggedIn()) {
+        throw new Error("Can't update user not logged in!");
+    }
+
+    const userDoc = dataBase.collection('Users').doc(auth.currentUser?.uid);
+
+    const userHistorySettingsCollection = userDoc.collection('historySettings');
+
+    try {
+
+        await userHistorySettingsCollection.doc('historySetting').set(currentUser.getHistorySettings().toDoc());
+
+    } catch (err) {
+
+    }
 }
 
 export async function updateOnlineTypingStats() {
 
+    if (!isUserLoggedIn()) {
+        throw new Error("Can't update user not logged in!");
+    }
+
+    const userDoc = dataBase.collection('Users').doc(auth.currentUser?.uid);
+
+    const userTypingStatArraysCollection = userDoc.collection('typingStatArrays');
+
+    try {
+
+        await userTypingStatArraysCollection.doc('typingStatArray').set(currentUser.typingStatsToDoc());
+
+    } catch (err) {
+
+    }
 }
 
 
 // get data objects
-async function getOnlineSettingsData(): Promise<SettingsDataType | undefined> {
+async function getOnlineSettingsData(): Promise<SettingsDataType> {
 
     const userDoc = dataBase.collection('Users').doc(auth.currentUser?.uid);
 
@@ -122,12 +166,11 @@ async function getOnlineSettingsData(): Promise<SettingsDataType | undefined> {
         const settingData: SettingsDataType = { ...dirtySettingData } as SettingsDataType;
         return (settingData);
     } else {
-        console.error("failed to get settings data");
-        return undefined
+        throw new Error("failed to get settings data");
     }
 }
 
-async function getOnlineHistorySettingsData(): Promise<HistorySettingsDataType | undefined> {
+async function getOnlineHistorySettingsData(): Promise<HistorySettingsDataType> {
 
     const userDoc = dataBase.collection('Users').doc(auth.currentUser?.uid);
 
@@ -139,12 +182,11 @@ async function getOnlineHistorySettingsData(): Promise<HistorySettingsDataType |
         const historySettingsData: HistorySettingsDataType = { ...dirtyHistorySettingData } as HistorySettingsDataType;
         return (historySettingsData);
     } else {
-        console.error("failed to get history settings data");
-        return undefined
+        throw new Error("failed to get history settings data");
     }
 }
 
-async function getOnlineTypingStatsData(): Promise<TypingStatDataType[] | undefined> {
+async function getOnlineTypingStatsData(): Promise<TypingStatDataType[]> {
 
     const userDoc = dataBase.collection('Users').doc(auth.currentUser?.uid);
 
@@ -156,8 +198,7 @@ async function getOnlineTypingStatsData(): Promise<TypingStatDataType[] | undefi
         const typingStatsArray: TypingStatDataType[] = Object.values(typingStatData ?? {}).at(0);
         return typingStatsArray;
     } else {
-        console.error('failed to get typing stats data')
-        return undefined;
+        throw new Error('failed to get typing stats data')
     }
 }
 
