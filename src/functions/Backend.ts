@@ -14,12 +14,15 @@ auth.onAuthStateChanged(() => {
             // maybe start a loading animation here
             await initializeOnSignupOrLogin(); // await waits for this function to finish or else refreshTypeFeedAreaDisplay will run before initialization finishes!
             await refreshTypeFeedAreaDisplay();
+            // we need to refresh the history page too
             // maybe stop the loading animation here
         } else {
             console.log('logged out');
+            currentUser.reset();
+                await refreshTypeFeedAreaDisplay();
+            // Here we need to set the user object back to as if it were new
         }
     }
-
     checkIfUserLogInOrLogOut();
 
 });

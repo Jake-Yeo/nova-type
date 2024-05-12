@@ -8,8 +8,8 @@ export type HistorySettingsDataType = { // data indicates no functions
 export class HistorySettings {
     private _fontSize;
 
-    constructor({fontSize}: HistorySettingsDataType) {
-        this._fontSize = fontSize;
+    constructor() {
+        this._fontSize = 35;
     }
 
     public setHistorySettings({fontSize}: HistorySettingsDataType) {

@@ -28,7 +28,6 @@ export class Settings {
         this._wordsEnabled = true;
         this._symbolsEnabled = false;
         this._lowercaseEnabled = false;
-
     }
 
     public setSettings({ fontSize, wordCount, numbersEnabled, sentencesEnabled, wordsEnabled, symbolsEnabled, lowercaseEnabled }: SettingsDataType) {

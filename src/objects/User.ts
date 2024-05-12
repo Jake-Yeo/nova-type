@@ -10,9 +10,16 @@ export class User {
     private _historySettings: HistorySettings;
     private _typingStats: TypingStat[];
 
-    constructor(settings: Settings) {
-        this._settings = settings;
-        this._historySettings = new HistorySettings({ fontSize: 35 });
+    constructor() {
+        this._settings = new Settings();
+        this._historySettings = new HistorySettings();
+        this._typingStats = [];
+    }
+
+    // This function should be ran if and only if the user logs out! Pretty much identical to the constructor
+    public reset() {
+        this._settings = new Settings();
+        this._historySettings = new HistorySettings();
         this._typingStats = [];
     }
 
@@ -69,6 +76,6 @@ export class User {
     }
 }
 
-export const currentUser: User = new User(new Settings());
+export const currentUser: User = new User();
 
 // data base will store a bunch of user collections, each user will have settings, history settings, and typingStats collections which each have their own fields
