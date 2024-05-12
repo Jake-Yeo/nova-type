@@ -92,7 +92,7 @@ const HistoryList = () => {
 
     return (<>
         <Box
-            sx={{ width: `${width}vw`, height: 400, bgcolor: 'background.paper' }}
+            sx={{ width: `${width}vw`, height: 400}}
         >
             <VariableSizeList
                 ref={listRef}

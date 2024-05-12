@@ -123,7 +123,8 @@ export async function initializeOnSignupOrLogin() {
 export async function updateOnlineSettings() {
 
     if (!isUserLoggedIn()) {
-        throw new Error("Can't update user not logged in!");
+        console.log("Can't update user not logged in!");
+        return
     }
 
     const userDoc = dataBase.collection('Users').doc(auth.currentUser?.uid);
@@ -143,7 +144,8 @@ export async function updateOnlineSettings() {
 export async function updateOnlineHistorySettings() {
 
     if (!isUserLoggedIn()) {
-        throw new Error("Can't update user not logged in!");
+        console.log("Can't update user not logged in!");
+        return
     }
 
     const userDoc = dataBase.collection('Users').doc(auth.currentUser?.uid);
@@ -162,7 +164,8 @@ export async function updateOnlineHistorySettings() {
 export async function updateOnlineTypingStats() {
 
     if (!isUserLoggedIn()) {
-        throw new Error("Can't update user not logged in!");
+        console.log("Can't update user not logged in!");
+        return
     }
 
     const userDoc = dataBase.collection('Users').doc(auth.currentUser?.uid);
@@ -179,6 +182,12 @@ export async function updateOnlineTypingStats() {
 }
 
 async function batchedUpdateAll() {
+
+    if (!isUserLoggedIn()) {
+        console.log("Can't update user not logged in!");
+        return
+    }
+
     const userDoc = dataBase.collection('Users').doc(auth.currentUser?.uid);
 
     const userTypingStatArraysCollection = userDoc.collection('typingStatArrays');
