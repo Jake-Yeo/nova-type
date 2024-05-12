@@ -7,25 +7,31 @@ import LogoNavBar from "../components/LogoNavBar";
 import { TypingStatDataType, TypingStat } from "../objects/TypingStat";
 import { SettingsDataType } from "../objects/Settings";
 import { initializeOnSignupOrLogin, logout, signinWithGooglePopup, updateOnlineHistorySettings, updateOnlineSettings, updateOnlineTypingStats } from "../functions/Backend";
+import { useEffect, useState } from "react";
 
+export var setIsUserLoggedInForSignupPage = (isUserLoggedIn: boolean) => { };
 
 const SignupLoginPage = () => {
 
 
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+
+    setIsUserLoggedInForSignupPage = setIsUserLoggedIn;
+
+    const getButton = () => {
+        if (isUserLoggedIn) {
+            return <Button onClick={() => { logout() }}>Logout</Button>;
+        } else {
+            return <Button onClick={() => { signinWithGooglePopup() }}>Signup/Login with google</Button>
+        }
+    }
+
     return (<>
         <LogoNavBar></LogoNavBar>
-        <Button onClick={() => { signinWithGooglePopup() }}>Signup/Login with google</Button>
-        <Button onClick={() => { logout() }}>Logout</Button>
+        {getButton()};
         <Button onClick={() => { console.log(auth.currentUser?.uid) }}>check uid</Button>
         <Button onClick={() => { console.log(auth.currentUser?.email) }}>check email of current user</Button>
-        <Button onClick={() => {
-            updateOnlineHistorySettings();
-            updateOnlineSettings();
-            updateOnlineTypingStats();
-        }}>Update data</Button>
-        <Button onClick={async () => {
-            await initializeOnSignupOrLogin();
-        }}>(simulate login/signup data setup)</Button>
     </>)
 }
 

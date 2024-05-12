@@ -1,6 +1,7 @@
 import { Box, Radio, Typography } from "@mui/material"
 import { ReactElement, useContext, useRef } from "react";
 import { TypingDataContext } from "./TypeFeedAreaDisplay";
+import { updateOnlineSettings } from "../functions/Backend";
 
 interface Props {
     setting: Boolean,
@@ -47,6 +48,9 @@ const WordTypesRadioButton = (prop: Props) => {
                 {prop.settingName}
             </Typography>
             <Radio
+                onMouseUp={() => {
+                    updateOnlineSettings().then(() => {console.log("Finished updating online settings!")});
+                }}
                 onClick={() => onClick()}
                 checked={prop.setting.valueOf()}
                 sx={{

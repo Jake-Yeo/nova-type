@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { TypingDataContext } from "./TypeFeedAreaDisplay";
 import { Box, Slider, Typography } from "@mui/material";
 import { currentUser } from "../objects/User";
+import { updateOnlineSettings } from "../functions/Backend";
 
 const WordCountSlider = () => {
     const typingData = useContext(TypingDataContext);
@@ -21,7 +22,7 @@ const WordCountSlider = () => {
             alignItems: 'center',
             flexDirection: 'column'
         }}>
-            <Box sx={{  
+            <Box sx={{
                 flexDirection: 'row',
                 flex: '1',
                 display: 'flex', // Center the content horizontally
@@ -69,6 +70,9 @@ const WordCountSlider = () => {
                 max={100}
                 step={5}
                 onChange={(e, newValue) => onChange(e, newValue)}
+                onMouseUp={() => {
+                    updateOnlineSettings().then(() => { console.log("Finished updating online settings!") });
+                }}
             >
             </Slider>
         </Box>

@@ -2,12 +2,13 @@ import { Box, Slider, Typography } from "@mui/material";
 import { currentUser } from "../objects/User";
 import { TypingDataContext } from "./TypeFeedAreaDisplay";
 import { Dispatch, SetStateAction, useContext, useState } from "react";
+import { updateOnlineHistorySettings } from "../functions/Backend";
 
 interface Props {
     setFontSize: React.Dispatch<React.SetStateAction<number>>
 }
 
-const HistoryListFontSlider = ({setFontSize}: Props) => {
+const HistoryListFontSlider = ({ setFontSize }: Props) => {
 
     const [fontSizeDisplay, setFontSizeDisplay] = useState(currentUser.getHistorySettings().getFontSize());
 
@@ -77,6 +78,9 @@ const HistoryListFontSlider = ({setFontSize}: Props) => {
                 min={10}
                 max={50}
                 onChange={(e, newValue) => onChange(e, newValue)}
+                onMouseUp={() => {
+                    updateOnlineHistorySettings().then(() => { console.log("Finished updating online history settings!") });
+                }}
             >
                 {/* gutterBottom just adds padding to the bottom of Font Size */}
             </Slider>

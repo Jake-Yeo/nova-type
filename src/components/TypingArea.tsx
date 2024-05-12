@@ -6,6 +6,7 @@ import { TypingDataContext } from "./TypeFeedAreaDisplay";
 import { scrollToTopOfToTypeDisplay } from "./ToTypeDisplay";
 import { currentUser } from "../objects/User";
 import { TypingStat } from "../objects/TypingStat";
+import { updateOnlineTypingStats } from "../functions/Backend";
 
 var isGettingNewText: Boolean = false;
 
@@ -60,7 +61,9 @@ const TypingArea = () => {
     getNewText();
     typingData.setTypedSoFar("");
     currentUser.pushTypingStat(new TypingStat({ wpm: +typingData.wpm, accuracy: +typingData.accuracy, generatedPrompt: typingData.toType.valueOf(), typedPrompt: typedPrompt, duration: +typingData.duration, startTime: startTime, endTime: (new Date()).getTime() }));
-    console.log(currentUser.getTypingStats());
+    updateOnlineTypingStats().then(()=>{
+      console.log("Finished updating online typing stats");
+    }); // Then is basically a callback function?
   }
 
   const pauseAndResetAllIntervalFuncs = () => { // wrapping it in a function so it's easier to understand 

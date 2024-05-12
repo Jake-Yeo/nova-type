@@ -5,6 +5,7 @@ import { TypingStatDataType } from "../objects/TypingStat";
 import { SettingsDataType } from "../objects/Settings";
 import { HistorySettingsDataType } from "../objects/HistorySettings";
 import { refreshTypeFeedAreaDisplay } from "../components/TypeFeedAreaDisplay";
+import { setIsUserLoggedInForSignupPage } from "../Pages/SignupLoginPage";
 
 auth.onAuthStateChanged(() => {
 
@@ -14,12 +15,14 @@ auth.onAuthStateChanged(() => {
             // maybe start a loading animation here
             await initializeOnSignupOrLogin(); // await waits for this function to finish or else refreshTypeFeedAreaDisplay will run before initialization finishes!
             await refreshTypeFeedAreaDisplay();
+            setIsUserLoggedInForSignupPage(true);
             // we need to refresh the history page too
             // maybe stop the loading animation here
         } else {
             console.log('logged out');
             currentUser.reset();
-                await refreshTypeFeedAreaDisplay();
+            await refreshTypeFeedAreaDisplay();
+            setIsUserLoggedInForSignupPage(false);
             // Here we need to set the user object back to as if it were new
         }
     }
@@ -49,6 +52,7 @@ export function isUserLoggedIn(): boolean {
 
 export async function logout() {
     try {
+        await batchedUpdateAll();
         await signOut(auth);
     } catch (err) {
         console.error(err);
@@ -148,7 +152,7 @@ export async function updateOnlineHistorySettings() {
 
     try {
 
-        await userHistorySettingsCollection.doc('historySetting').set(currentUser.getHistorySettings().toDoc());
+        await userHistorySettingsCollection.doc('historySetting').update(currentUser.getHistorySettings().toDoc());
 
     } catch (err) {
 
@@ -167,11 +171,36 @@ export async function updateOnlineTypingStats() {
 
     try {
 
-        await userTypingStatArraysCollection.doc('typingStatArray').set(currentUser.typingStatsToDoc());
+        await userTypingStatArraysCollection.doc('typingStatArray').update(currentUser.typingStatsToDoc());
 
     } catch (err) {
 
     }
+}
+
+async function batchedUpdateAll() {
+    const userDoc = dataBase.collection('Users').doc(auth.currentUser?.uid);
+
+    const userTypingStatArraysCollection = userDoc.collection('typingStatArrays');
+    const userHistorySettingsCollection = userDoc.collection('historySettings');
+    const userSettingsCollection = userDoc.collection('settings');
+
+
+    const userTypingStatArrayDoc = userTypingStatArraysCollection.doc('typingStatArray');
+    const userHistorySettingDoc = userHistorySettingsCollection.doc('historySetting');
+    const userSettingDoc = userSettingsCollection.doc('setting');
+
+    const batch = dataBase.batch();
+
+    batch.update(userTypingStatArrayDoc, currentUser.typingStatsToDoc());
+    batch.update(userHistorySettingDoc, currentUser.getHistorySettings().toDoc());
+    batch.update(userSettingDoc, currentUser.getSettings().toDoc());
+
+    batch.commit().then(() => { // This updates everything in one write! Atomatically
+        //  console.log('Batch write successful, everything has been updated online');
+    }).catch((error) => {
+        console.error('Error writing batch', error);
+    })
 }
 
 

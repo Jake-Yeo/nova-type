@@ -2,6 +2,7 @@ import { Box, Slider, Typography } from "@mui/material"
 import { TypingDataContext } from "./TypeFeedAreaDisplay"
 import { useContext } from "react";
 import { currentUser } from "../objects/User";
+import { updateOnlineSettings } from "../functions/Backend";
 
 const FontSlider = () => {
 
@@ -70,6 +71,9 @@ const FontSlider = () => {
                 min={10}
                 max={50}
                 onChange={(e, newValue) => onChange(e, newValue)}
+                onMouseUp={() => {
+                    updateOnlineSettings().then(() => { console.log("Finished updating online settings!") });
+                }}
             >
                 {/* gutterBottom just adds padding to the bottom of Font Size */}
             </Slider>
