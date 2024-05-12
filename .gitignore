@@ -12,7 +12,7 @@
 src/config/firebase.ts
 
 # production
-/build
+# /build
 
 # misc
 .DS_Store
