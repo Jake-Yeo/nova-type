@@ -14,6 +14,8 @@ var keyReleased: Boolean = true; // this is to keep track of wether the user let
 
 var userHasTyped = false;
 
+var protocolWhenUserStartsTypingDone = true; // Important to help stop glitch where duration never resets because the user types too fast
+
 var myForm: React.RefObject<HTMLTextAreaElement>;
 
 var startTime = 0;
@@ -52,9 +54,11 @@ const TypingArea = () => {
   }
 
   const protocolWhenUserStartsTyping = () => {
+    protocolWhenUserStartsTypingDone = false;
     userHasTyped = true; // indicate that if the user types after getting new text that the user did type
     startTime = (new Date()).getTime();
     startAllIntervalFuncs(); // also start all interval functions (ex counter functions that run every second)
+    protocolWhenUserStartsTypingDone = true;
   }
 
   const protocolWhenUserFinishesPrompt = (typedPrompt: string) => {
@@ -82,7 +86,7 @@ const TypingArea = () => {
   restartPractice = getNewText; // should probably put this in a effect hook since it runs basically every tick
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    if (e.key.includes('Arrow')) {
+    if (e.key.includes('Arrow') || !protocolWhenUserStartsTypingDone) { // The user can spam the keys extremely fast, so we need to make sure that protocolWhenUserStartsTyping finishes first before they press a key! This prevents a glitch where the duration never resets because the user presses the keys too fast
       e.preventDefault(); // Stops the actions of the arrow keys to stop user from moving the carret!
     }
     keyReleased = !e.repeat; // e.repeat returns true if the key is being held down after the initial press where it returns false

@@ -89,10 +89,15 @@ const HistoryList = () => {
         return listItemComponentSize.at(index) || 0; // This is the getSize function
     };
 
-
     return (<>
         <Box
-            sx={{ width: `${width}vw`, height: 400}}
+            sx={{
+                width: `${width}vw`,
+                height: '50vh',
+                '&::-webkit-scrollbar-button': {
+                    display: 'none', // Hide scrollbar arrows in WebKit browsers
+                },
+            }}
         >
             <VariableSizeList
                 ref={listRef}
@@ -101,13 +106,24 @@ const HistoryList = () => {
                 itemSize={(index: number) => getSize(index)}
                 itemCount={currentUser.getTypingStats().length}
                 overscanCount={5}
+                style={{
+                    overflowY: 'scroll',
+                    overflowX: 'hidden',
+                    scrollbarWidth: 'initial', // For Firefox
+                    scrollbarColor: '#B6AAD7 transparent', // For Firefox
+                    msScrollbarArrowColor: "transparent",
+                }}
             >
                 {({ index, style }) => (
-                    <ListItemComponent index={index} style={style} data={undefined} addSize={addSize} fontSize={fontSize}></ListItemComponent>
+                    <ListItemComponent index={index} style={{
+                        ...style,
+                        paddingRight: '200px',
+                    }} data={undefined} addSize={addSize} fontSize={fontSize}></ListItemComponent>
                 )}
             </VariableSizeList >
+            <HistoryListFontSlider setFontSize={setFontSize}></HistoryListFontSlider>
         </Box >
-        <HistoryListFontSlider setFontSize={setFontSize}></HistoryListFontSlider>
+        
     </>)
 }
 

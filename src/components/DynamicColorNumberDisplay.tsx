@@ -4,9 +4,10 @@ import { TypingDataContext } from "./TypeFeedAreaDisplay";
 interface props {
     stat: Number,
     statName: String
+    color: String
 }
 
-const DynamicColorNumberDisplay = ({ stat, statName }: props) => {
+const DynamicColorNumberDisplay = ({ stat, statName, color }: props) => {
     const typingData = useContext(TypingDataContext);
 
     const colourUnit = 255 / 100;
@@ -18,7 +19,7 @@ const DynamicColorNumberDisplay = ({ stat, statName }: props) => {
             <span>
                 <span
                     style={{
-                        color: '#635985'
+                        color: `${color}`
                     }}
                 //&nbsp; is a white space that forces react to render a space. For some reason it is not rendering normal spaces like " "
                 >{statName}&nbsp;</span>

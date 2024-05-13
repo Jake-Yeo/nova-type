@@ -24,8 +24,9 @@ const HistoryListFontSlider = ({ setFontSize }: Props) => {
 
     return (<>
         <Box sx={{
-            padding: '10px',
-            paddingLeft: '20px',
+            paddingTop: '60px',
+            paddingLeft: '30px',
+            paddingRight: '30px',
             flex: '1',
             display: 'flex', // Center the content horizontally
             alignItems: 'center', // Center the content vertically

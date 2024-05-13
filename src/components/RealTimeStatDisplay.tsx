@@ -15,8 +15,8 @@ const RealTimeStatDisplay = () => {
                 sx={{
                     width: `${+typingData.scrollPaneWidth}vw`
                 }}>
-                <DynamicColorNumberDisplay stat={typingData.wpm} statName={'WPM:'}></DynamicColorNumberDisplay>
-                <DynamicColorNumberDisplay stat={typingData.accuracy} statName={'Accuracy:'}></DynamicColorNumberDisplay>
+                <DynamicColorNumberDisplay stat={typingData.wpm} statName={'WPM:'} color={'#9287B7'}></DynamicColorNumberDisplay>
+                <DynamicColorNumberDisplay stat={typingData.accuracy} statName={'Accuracy:'} color={'#9287B7'}></DynamicColorNumberDisplay>
                 <CurrDuratiionDisplay></CurrDuratiionDisplay>
             </Grid>
         </>

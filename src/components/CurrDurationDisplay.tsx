@@ -3,24 +3,8 @@ import { TypingDataContext } from "./TypeFeedAreaDisplay";
 import React from "react";
 import { getWpm } from "../functions/HelperFunction";
 
-const CurrDuratiionDisplay = () => {
-
-    const typingData = useContext(TypingDataContext);
-
-    const timerCount = () => {
-        if (!typingData.timersArePaused) {
-            const milliPerUpdate = 70; // This means wait 0.5 seconds before updating the duration timer
-            setTimeout(() => {
-                typingData.setDuration(+typingData.duration + milliPerUpdate); // Probably not good practice to just put this here. But this will 
-                typingData.setWpm(getWpm(typingData.typedSoFar, +typingData.duration)); // Probably not good practice to just put this here. But this will update wpm every milliPerUpdate millisecond passes
-            }, milliPerUpdate); // So this will increase the duration by milliPerUpdate every milliPerUpdate milliseconds pass
-        } else {
-            // Timers are only paused when we get a new sentence! That's why we reset the duration counter
-            typingData.setDuration(0);
-        }
-    }
-
-    var [seconds, millis] = ((+typingData.duration / 1000) + "").split(".");
+export const formatDurationFromMillis = (milliseconds: number) => {
+    var [seconds, millis] = ((milliseconds / 1000) + "").split(".");
     var mins = "";
 
     if (!millis) {
@@ -42,6 +26,28 @@ const CurrDuratiionDisplay = () => {
         duration = mins.padStart(2,'0') + ':' + seconds.padStart(2, '0') + ':' + millis.padEnd(2, '0');
     }
 
+    return duration;
+}
+
+const CurrDuratiionDisplay = () => {
+
+    const typingData = useContext(TypingDataContext);
+
+    const timerCount = () => {
+        if (!typingData.timersArePaused) {
+            const milliPerUpdate = 70; // This means wait 0.5 seconds before updating the duration timer
+            setTimeout(() => {
+                typingData.setDuration(+typingData.duration + milliPerUpdate); // Probably not good practice to just put this here. But this will 
+                typingData.setWpm(getWpm(typingData.typedSoFar, +typingData.duration)); // Probably not good practice to just put this here. But this will update wpm every milliPerUpdate millisecond passes
+            }, milliPerUpdate); // So this will increase the duration by milliPerUpdate every milliPerUpdate milliseconds pass
+        } else {
+            // Timers are only paused when we get a new sentence! That's why we reset the duration counter
+            typingData.setDuration(0);
+        }
+    }
+
+
+
 
     React.useEffect(() => timerCount(), [typingData.duration, typingData.timersArePaused]);
 
@@ -50,7 +56,7 @@ const CurrDuratiionDisplay = () => {
             <span>
                 <span
                     style={{
-                        color: '#635985'
+                        color: '#9287B7'
                     }}
                 //&nbsp; is a white space that forces react to render a space. For some reason it is not rendering normal spaces like " "
                 >Duration:&nbsp;</span>
@@ -59,7 +65,7 @@ const CurrDuratiionDisplay = () => {
                         color: `#B8AAE9` // use backticks so you can use variables in the style
                     }}
                 >
-                    {duration}</span>
+                    {formatDurationFromMillis(+typingData.duration)}</span>
             </span>
         </>
     )
