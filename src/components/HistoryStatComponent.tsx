@@ -26,6 +26,12 @@ const HistoryStatComponent = ({ index, width, fontSize }: props) => {// make sur
         accuracyVisualization = <>{getToTypeDisplayPublic(typingStat.getGeneratedPrompt(), typingStat.getTypedPrompt(), fontSize)}</>
     }
 
+    const getDiv = () => {
+        return (<>
+            <div style={{ height: '15px' }}></div>
+        </>)
+    }
+
     const scrollableElement = (title: string, toScroll: JSX.Element) => {
         return (<>
             {wrapInBox(
@@ -53,6 +59,7 @@ const HistoryStatComponent = ({ index, width, fontSize }: props) => {// make sur
                         }}>
                         {toScroll}
                     </div>
+                    {getDiv()}
                 </>
             )}
         </>)
@@ -86,12 +93,6 @@ const HistoryStatComponent = ({ index, width, fontSize }: props) => {// make sur
             fontSize: `${fontSize}px`,
             color: '#9287B7'
         }}>{typingStat?.getTypedPrompt()}</Typography>);
-
-    const getDiv = () => {
-        return (<>
-            <div style={{ height: '15px' }}></div>
-        </>)
-    }
 
     if (typingStat?.getDuration()) {
         var duration = formatDurationFromMillis(+typingStat?.getDuration());

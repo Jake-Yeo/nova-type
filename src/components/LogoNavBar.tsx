@@ -1,10 +1,10 @@
-import { Box, Button, ButtonBase, ButtonTypeMap, Drawer, Grid } from "@mui/material";
+import { Box, Button, ButtonBase, ButtonTypeMap, Drawer, Grid, Stack, Typography } from "@mui/material";
 import { ClassNameConfigurator } from '@mui/base/utils';
 import { useRef, useState } from "react";
 import DrawerItems from "./DrawerItems";
 
-const widthOfLogo = 200;
-const heightOfLogo = widthOfLogo * 0.348;
+const widthOfLogo = 100;
+const heightOfLogo = widthOfLogo * 0.611570247;
 
 const LogoNavBar = () => {
 
@@ -19,21 +19,35 @@ const LogoNavBar = () => {
             alignItems="flex-start"
             sx={{
                 padding: '10px',
-                paddingLeft:'100px',
+                paddingLeft: '100px',
                 paddingTop: '30px',
                 paddingBottom: '20px',
                 paddingRight: '30px'
             }}
         >
-            <Box
-                sx={{
-                    backgroundImage: 'url("./svgFiles/TypeRunnerLogo(W317H110p5).svg")', // Load background image
-                    backgroundSize: 'contain', // Scale the background image to fit within the container while preserving its aspect ratio
-                    backgroundRepeat: 'no-repeat',
-                    width: widthOfLogo, // Set the width of the container
-                    height: heightOfLogo // Automatically adjust the height based on the aspect ratio
-                }}
-            />
+            <Stack direction={'row'} alignItems={'center'}>
+
+                <Box
+                    sx={{
+                        backgroundImage: 'url("./svgFiles/runnerTypeLogo.svg")', // Load background image
+                        backgroundSize: 'contain', // Scale the background image to fit within the container while preserving its aspect ratio
+                        backgroundRepeat: 'no-repeat',
+                        width: widthOfLogo, // Set the width of the container
+                        height: heightOfLogo // Automatically adjust the height based on the aspect ratio
+                    }}
+                />
+                <Stack>
+                    <Stack flexDirection={'row'}>
+                        <Typography fontSize='20px'>&nbsp;</Typography>
+                        <Typography color="white" fontSize='30px' fontWeight={'bold'}>Type</Typography>
+                        <Typography color="#9287B7" fontSize='30px' fontWeight={'bold'}>Runner</Typography>
+                    </Stack>
+                    <Stack flexDirection={'row'}>
+                        <Typography fontSize='20px'>&nbsp;</Typography>
+                        <Typography color="#635985" fontSize='14px' fontWeight={'bold'}>Munkey See Munkey Type</Typography>
+                    </Stack>
+                </Stack>
+            </Stack>
 
             <Button
                 onClick={() => setIsDrawerOpen(true)}

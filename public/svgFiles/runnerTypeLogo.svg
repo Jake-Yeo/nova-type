@@ -1,0 +1,16 @@
+<svg width="121" height="74" viewBox="0 0 121 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="5" y="5" width="111" height="64" rx="14" stroke="#9287B7" stroke-width="10"/>
+<rect x="46" y="48" width="25" height="10" rx="5" fill="#D9D9D9"/>
+<rect x="32" y="16" width="27" height="10" rx="5" fill="#D9D9D9"/>
+<rect x="32" y="58" width="26" height="10" rx="5" transform="rotate(-90 32 58)" fill="#D9D9D9"/>
+<rect x="16" y="31" width="43" height="10" rx="5" fill="#D9D9D9"/>
+<rect x="64" y="31.0116" width="41" height="10" rx="5" fill="#D9D9D9"/>
+<rect x="64" y="41.0116" width="25" height="10" rx="5" transform="rotate(-90 64 41.0116)" fill="#D9D9D9"/>
+<rect x="79" y="41.0116" width="25" height="10" rx="5" transform="rotate(-90 79 41.0116)" fill="#D9D9D9"/>
+<rect x="89" y="26.0116" width="25" height="10" rx="5" transform="rotate(180 89 26.0116)" fill="#D9D9D9"/>
+<rect x="77" y="35.6893" width="30.6733" height="10" rx="5" transform="rotate(-45 77 35.6893)" fill="#D9D9D9"/>
+<path d="M74 53C74 50.2386 76.2386 48 79 48H87C89.7614 48 92 50.2386 92 53V53C92 55.7614 89.7614 58 87 58H79C76.2386 58 74 55.7614 74 53V53Z" fill="#D9D9D9"/>
+<path d="M26 21C26 23.7614 23.7614 26 21 26C18.2386 26 16 23.7614 16 21C16 18.2386 18.2386 16 21 16C23.7614 16 26 18.2386 26 21Z" fill="#D9D9D9"/>
+<circle cx="100" cy="53" r="5" fill="#D9D9D9"/>
+<circle cx="21" cy="53" r="5" fill="#D9D9D9"/>
+</svg>
