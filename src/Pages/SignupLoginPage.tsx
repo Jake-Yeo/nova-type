@@ -7,31 +7,36 @@ import LogoNavBar from "../components/LogoNavBar";
 import { TypingStatDataType, TypingStat } from "../objects/TypingStat";
 import { SettingsDataType } from "../objects/Settings";
 import { initializeOnSignupOrLogin, logout, signinWithGooglePopup, updateOnlineHistorySettings, updateOnlineSettings, updateOnlineTypingStats } from "../functions/Backend";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
+import { TypingDataContext } from "../components/TypeFeedAreaDisplay";
+import { useNavigate } from "react-router-dom";
 
-export var setIsUserLoggedInForSignupPage = (isUserLoggedIn: boolean) => { };
 
 const SignupLoginPage = () => {
 
+    const navigate = useNavigate();
 
-    const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-
-
-    setIsUserLoggedInForSignupPage = setIsUserLoggedIn;
-
-    const getButton = () => {
-        if (isUserLoggedIn) {
-            return <Button onClick={() => { logout() }}>Logout</Button>;
+    var getSignupLoginButton = () => {
+        if (auth.currentUser != null) { // for some reason using isUserLoggedIn doesen't work, idk... But we still need the state because setting isUserLoggedIn re-renders this component
+            return <Button onClick={() => {
+                logout();
+                navigate('/TypingPage');
+            }}>Logout</Button>;
         } else {
-            return <Button onClick={() => { signinWithGooglePopup() }}>Signup/Login with google</Button>
+            return <Button onClick={async () => {
+                await signinWithGooglePopup();
+                if (auth.currentUser != null) {
+                    navigate('/TypingPage');
+                }
+            }}>Signup/Login with google</Button>
         }
     }
 
+
+
     return (<>
         <LogoNavBar></LogoNavBar>
-        {getButton()};
-        <Button onClick={() => { console.log(auth.currentUser?.uid) }}>check uid</Button>
-        <Button onClick={() => { console.log(auth.currentUser?.email) }}>check email of current user</Button>
+        {getSignupLoginButton()};
     </>)
 }
 

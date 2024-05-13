@@ -5,7 +5,7 @@ import { TypingStatDataType } from "../objects/TypingStat";
 import { SettingsDataType } from "../objects/Settings";
 import { HistorySettingsDataType } from "../objects/HistorySettings";
 import { refreshTypeFeedAreaDisplay } from "../components/TypeFeedAreaDisplay";
-import { setIsUserLoggedInForSignupPage } from "../Pages/SignupLoginPage";
+import { createContext, useContext, useState } from "react";
 
 auth.onAuthStateChanged(() => {
 
@@ -15,20 +15,21 @@ auth.onAuthStateChanged(() => {
             // maybe start a loading animation here
             await initializeOnSignupOrLogin(); // await waits for this function to finish or else refreshTypeFeedAreaDisplay will run before initialization finishes!
             await refreshTypeFeedAreaDisplay();
-            setIsUserLoggedInForSignupPage(true);
+
             // we need to refresh the history page too
             // maybe stop the loading animation here
         } else {
             console.log('logged out');
             currentUser.reset();
             await refreshTypeFeedAreaDisplay();
-            setIsUserLoggedInForSignupPage(false);
+
             // Here we need to set the user object back to as if it were new
         }
     }
     checkIfUserLogInOrLogOut();
 
 });
+
 
 export async function signinWithGooglePopup() {
     try {
