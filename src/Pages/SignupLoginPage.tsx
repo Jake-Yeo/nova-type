@@ -14,14 +14,6 @@ import { useNavigate } from "react-router-dom";
 
 const SignupLoginPage = () => {
 
-    const navigate = useNavigate();
-
-    const [, forceUpdate] = useReducer(x => x + 1, 0);
-
-    auth.onAuthStateChanged(() => {
-        forceUpdate(); // Force update changes when user logs in or logs out
-    });
-
     var getSignupLoginButton = () => {
         if (auth.currentUser != null) { // for some reason using isUserLoggedIn doesen't work, idk... But we still need the state because setting isUserLoggedIn re-renders this component
             return <Button onClick={() => {
@@ -33,8 +25,6 @@ const SignupLoginPage = () => {
             }}>Signup/Login with google</Button>
         }
     }
-
-
 
     return (<>
         <LogoNavBar></LogoNavBar>

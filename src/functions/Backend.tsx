@@ -5,30 +5,44 @@ import { TypingStatDataType } from "../objects/TypingStat";
 import { SettingsDataType } from "../objects/Settings";
 import { HistorySettingsDataType } from "../objects/HistorySettings";
 import { refreshTypeFeedAreaDisplay } from "../components/TypeFeedAreaDisplay";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-auth.onAuthStateChanged(() => {
+const Backend = () => {
+    const navigate = useNavigate();
 
-    const checkIfUserLogInOrLogOut = async () => {
-        if (auth.currentUser) {
-            console.log('logged in');
-            // maybe start a loading animation here
-            await initializeOnSignupOrLogin(); // await waits for this function to finish or else refreshTypeFeedAreaDisplay will run before initialization finishes!
-            await refreshTypeFeedAreaDisplay();
+    useEffect(() => {
+        auth.onAuthStateChanged(() => {
+            const checkIfUserLogInOrLogOut = async () => {
+                if (auth.currentUser) {
+                    navigate('/LoadingPage'); // go to the loading page first! (Also because I have no clue, I'm too lazy to find out how to connect a state variable from here to the other pages... But going to a loading page and going back to the previous page re-renders the previous page. So it's alot easier anyway. Probably not good code tho)
+                    console.log('logged in');
+                    // maybe start a loading animation here
+                    await initializeOnSignupOrLogin(); // await waits for this function to finish or else refreshTypeFeedAreaDisplay will run before initialization finishes!
+                    await refreshTypeFeedAreaDisplay();
+                    navigate(-1); // go back to previous page
 
-            // we need to refresh the history page too
-            // maybe stop the loading animation here
-        } else {
-            console.log('logged out');
-            currentUser.reset();
-            await refreshTypeFeedAreaDisplay();
+                    // we need to refresh the history page too
+                    // maybe stop the loading animation here
+                } else {
+                    navigate('/LoadingPage');
+                    console.log('logged out');
+                    await currentUser.reset();
+                    await refreshTypeFeedAreaDisplay();
+                    navigate(-1);
 
-            // Here we need to set the user object back to as if it were new
-        }
-    }
-    checkIfUserLogInOrLogOut();
+                    // Here we need to set the user object back to as if it were new
+                }
+            }
+            checkIfUserLogInOrLogOut();
 
-});
+        });
+    }, [])
+
+    return (<><span></span></>)
+}
+
+export default Backend
 
 
 export async function signinWithGooglePopup() {

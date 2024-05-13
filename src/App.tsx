@@ -5,10 +5,9 @@ import HistoryPage from './Pages/HistoryPage';
 import TypingPage from './Pages/TypingPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SignupLoginPage from './Pages/SignupLoginPage';
-import { initializeOnSignupOrLogin, isUserLoggedIn } from './functions/Backend';
+import Backend, { initializeOnSignupOrLogin, isUserLoggedIn } from './functions/Backend';
 import firebase from 'firebase/compat';
-
-
+import LoadingPage from './Pages/LoadingPage';
 
 function App() {
 
@@ -17,6 +16,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
+      <Backend></Backend>
         <Routes>
           <Route index element={<TypingPage />} />
           <Route path='/TypingPage' element={<TypingPage />} />
@@ -26,6 +26,7 @@ function App() {
               <HistoryPage />
             </TypingDataContext.Provider>} />
           <Route path='/SignupLoginPage' element={<SignupLoginPage />} />
+          <Route path='/LoadingPage' element={<LoadingPage/>}></Route>
           <Route path='*' element={'404 error'} />
         </Routes>
       </BrowserRouter>

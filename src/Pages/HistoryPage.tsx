@@ -8,21 +8,13 @@ import { auth } from "../config/firebase"
 
 const HistoryPage = () => {
 
-    const typingData = useContext(TypingDataContext);
-    const [, forceUpdate] = useReducer(x => x + 1, 0);
+    let historyPageContents;
 
-    auth.onAuthStateChanged(() => {
-        forceUpdate(); // Force update changes when initialize finishes
-    });
-
-    var historyPageContents = <HistoryList></HistoryList>;
-
-    if (currentUser.getTypingStats().length == 0) {
-        historyPageContents = <Typography color='white'>Empty!</Typography>
+    if (currentUser.getTypingStats().length === 0) {
+        historyPageContents = <Typography color='white'>Empty! Type something first then come back!</Typography>;
     } else {
-        historyPageContents = <HistoryList></HistoryList>;
+        historyPageContents = <HistoryList />;
     }
-
 
     return (<>
         <Stack justifyContent={"center"} width={"100vw"} alignItems={"center"}>

@@ -1,1 +1,12 @@
-export {} // Reduce complecity and remove this page
+import { Typography } from "@mui/material"
+
+const LoadingPage = () => {
+
+
+
+    return (<>
+    <Typography color='white'>loading...</Typography>
+    </>)
+}
+
+export default LoadingPage
