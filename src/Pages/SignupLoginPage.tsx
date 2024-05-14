@@ -11,8 +11,71 @@ import { initializeOnSignupOrLogin, logout, signinWithGooglePopup, updateOnlineH
 import { useContext, useEffect, useReducer, useState } from "react";
 import { TypingDataContext } from "../components/TypeFeedAreaDisplay";
 import { useNavigate } from "react-router-dom";
-//import { ReactComponent as OnePeakWaveSvg } from '../svgFiles/onePeakWave.svg'
+import TwoPeakWaveSvg, { WavePropsType } from "../components/TwoPeakWaveSvg";
+import OnePeakWaveSvg from "../components/OnePeakWaveSvg";
 
+const getWaveAnimation = (height: string, opacity: number, direction: string, durationSecs: number, WaveElement: ({ width, height, opacity }: WavePropsType) => JSX.Element) => {
+
+    var moveLeftToRight = keyframes`
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(100vw); // Adjust the distance as needed
+    }
+  `;
+
+    var moveOutToRight = keyframes`
+  from {
+    transform: translateX(-100vw);
+  }
+  to {
+    transform: translateX(0vw); // Adjust the distance as needed
+  }
+`;
+
+    if (direction === 'backwards') {
+        moveOutToRight = keyframes`
+    from {
+      transform: translateX(100vw);
+    }
+    to {
+      transform: translateX(0vw); // Adjust the distance as needed
+    }
+  `;
+
+        moveLeftToRight = keyframes`
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100vw); // Adjust the distance as needed
+  }
+`;
+    }
+
+    return (<>
+        <Box sx={{
+            width: '100vw',
+            height: height,
+            animation: `${moveLeftToRight} ${durationSecs}s ${direction} linear infinite`,
+            position: 'absolute',
+            bottom: '0',
+            backgroundRepeat: 'no-repeat',
+        }}>
+            <WaveElement width={'100vw'} height={height} opacity={opacity}></WaveElement>
+        </Box>
+        <Box sx={{
+            width: '100vw',
+            height: height,
+            animation: `${moveOutToRight} ${durationSecs}s ${direction} linear infinite`,
+            position: 'absolute',
+            bottom: '0',
+            backgroundRepeat: 'no-repeat',
+        }}>
+            <WaveElement width={'100vw'} height={height} opacity={opacity}></WaveElement>
+        </Box></>)
+}
 
 const SignupLoginPage = () => {
 
@@ -28,41 +91,22 @@ const SignupLoginPage = () => {
         }
     }
 
-    const moveLeftToRight = keyframes`
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(100vw); // Adjust the distance as needed
-    }
-  `;
-
-    <Box sx={{
-        width: '100vw',
-        height: '100vh'
-    }}>
-
-    </Box>
-
     return (<>
         <Box
             overflow={'hidden'}
-        >
-            <Box sx={{
+            sx={{
                 width: '100vw',
-                height: '50px',
-                //    viewBox="0 0 100 50",
-                //  backgroundImage: 'url("./svgFiles/onePeakWave.svg")',
-                animation: `${moveLeftToRight} 5s forwards linear`,
-                backgroundRepeat: 'no-repeat',
-            }}>
-                <svg
-                    width="200px" // Set the desired width
-                    height="100px" // Set the desired height
-                >
-               
-                </svg>
-            </Box>
+                height: '100vh',
+                position: 'relative'
+            }}
+        >
+            {getWaveAnimation('10vh', 0.25, 'forwards', 8, OnePeakWaveSvg)}
+            {getWaveAnimation('15vh', 0.25, 'forwards', 5, TwoPeakWaveSvg)}
+            {getWaveAnimation('18vh', 0.25, 'backwards', 9, TwoPeakWaveSvg)}
+
+            {getWaveAnimation('20vh', 0.25, 'backwards', 11, OnePeakWaveSvg)}
+            {getWaveAnimation('15vh', 0.25, 'forwards', 8, TwoPeakWaveSvg)}
+            {getWaveAnimation('25vh', 0.25, 'forwards', 15, TwoPeakWaveSvg)}
         </Box >
     </>)
 }
