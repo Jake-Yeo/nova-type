@@ -10,9 +10,14 @@ interface props {
 const DynamicColorNumberDisplay = ({ stat, statName, color }: props) => {
     const typingData = useContext(TypingDataContext);
 
-    const colourUnit = 255 / 100;
-    const greenValue = colourUnit * +stat;
-    const redValue = 255 - greenValue; // color changes to a redder colour the lower your wpm is
+    var colourUnit = 255 / 100;
+    var greenValue = colourUnit * +stat;
+    var redValue = 255 - greenValue; // color changes to a redder colour the lower your wpm is
+
+    if ((stat + "") === 'NaN') {
+        greenValue = 0;
+        redValue = 255;  
+    } 
 
     return (
         <>
