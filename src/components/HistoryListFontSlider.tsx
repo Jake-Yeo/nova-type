@@ -23,14 +23,18 @@ const HistoryListFontSlider = ({ setFontSize }: Props) => {
     }
 
     return (<>
+        <div style={{ height: '60px' }}></div>
         <Box sx={{
-            paddingTop: '60px',
             paddingLeft: '30px',
             paddingRight: '30px',
             flex: '1',
             display: 'flex', // Center the content horizontally
             alignItems: 'center', // Center the content vertically
-            flexDirection: 'column'
+            flexDirection: 'column',//#18122B
+            boxShadow: '0 0 50px rgba(24, 18, 43, 1)', // allows us to blur the background color for softer edges!
+            backdropFilter: 'blur(10px)', // Allows us to blur the stuff that appears behind this translucent componnent!
+            backgroundColor: 'rgba(24, 18, 43, 0.5)', // allows us to change opacity of the background color without changing opacity of everything (including componenets nested inside)
+            borderRadius: '100px'
         }}>
             <Box sx={{
                 flexDirection: 'row',

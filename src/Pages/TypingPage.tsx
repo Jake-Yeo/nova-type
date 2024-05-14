@@ -29,15 +29,20 @@ const TypingPage = () => {
                 <TypeFeedAreaDisplay></TypeFeedAreaDisplay>
 
             </Grid>
-            <Grid item>
+            <Grid item
+                sx={{
+                    position: 'relative'
+                }}
+            >
                 <LinksDisplay></LinksDisplay>
                 <Box
                     sx={{
-                        position: 'relative',
+                        position: 'absolute',
                         bottom: 0,
                         width: '100vw',
                         margin: 0, // Set margin to 0 to remove any default spacing
                         padding: 0, // Set padding to 0 to remove any default padding
+                        zIndex: -1,
                     }}
                 >
                     {getWaveAnimation('7vh', 0.25, 'forwards', 8, OnePeakWaveSvg)}

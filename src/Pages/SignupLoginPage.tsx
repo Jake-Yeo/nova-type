@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import TwoPeakWaveSvg, { WavePropsType } from "../components/TwoPeakWaveSvg";
 import OnePeakWaveSvg from "../components/OnePeakWaveSvg";
 import { getLogo, getWaveAnimation } from "../functions/HelperFunction";
+import DrawerButton from "../components/DrawerButton";
 
 const SignupLoginPage = () => {
 
@@ -73,28 +74,17 @@ const SignupLoginPage = () => {
                 </Box>
                 {getLogo(45)}
                 {getSignupLoginButton()}
-                <Button
-                    sx={{
-                        color: 'white',
-                        backgroundColor: '#292140',
-                        borderRadius: '20px',
-                        width: 'min-content',
-                        marginTop: '10px',
-                        '&:hover': { //When you use &:hover, you’re saying: “Apply the following styles to the current selector when it’s being hovered.”
-                            backgroundColor: '#393055',
-                        },
-                    }}
-                    onClick={async () => {
-                        navigate('/TypingPage');
-                    }}>Continue</Button>
+                <div style={{ height: '10px' }}></div>
+                <DrawerButton />
             </Stack>
             <Box
                 sx={{
-                    position: 'relative',
+                    position: 'fixed',
                     bottom: 0,
                     width: '100vw',
                     margin: 0, // Set margin to 0 to remove any default spacing
                     padding: 0, // Set padding to 0 to remove any default padding
+                    zIndex: -1,
                 }}
             >
                 {getWaveAnimation('10vh', 0.25, 'forwards', 8, OnePeakWaveSvg)}
