@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import TwoPeakWaveSvg, { WavePropsType } from "../components/TwoPeakWaveSvg";
 import OnePeakWaveSvg from "../components/OnePeakWaveSvg";
 
-const getWaveAnimation = (height: string, opacity: number, direction: string, durationSecs: number, WaveElement: ({ width, height, opacity }: WavePropsType) => JSX.Element) => {
+export const getWaveAnimation = (height: string, opacity: number, direction: string, durationSecs: number, WaveElement: ({ width, height, opacity }: WavePropsType) => JSX.Element) => {
 
     var moveLeftToRight = keyframes`
     from {
@@ -62,6 +62,7 @@ const getWaveAnimation = (height: string, opacity: number, direction: string, du
             position: 'absolute',
             bottom: '0',
             backgroundRepeat: 'no-repeat',
+            zIndex: -1
         }}>
             <WaveElement width={'100vw'} height={height} opacity={opacity}></WaveElement>
         </Box>
@@ -72,6 +73,7 @@ const getWaveAnimation = (height: string, opacity: number, direction: string, du
             position: 'absolute',
             bottom: '0',
             backgroundRepeat: 'no-repeat',
+            zIndex: -1
         }}>
             <WaveElement width={'100vw'} height={height} opacity={opacity}></WaveElement>
         </Box></>)
@@ -100,6 +102,7 @@ const SignupLoginPage = () => {
                 position: 'relative'
             }}
         >
+            {getSignupLoginButton()}
             {getWaveAnimation('10vh', 0.25, 'forwards', 8, OnePeakWaveSvg)}
             {getWaveAnimation('15vh', 0.25, 'forwards', 5, TwoPeakWaveSvg)}
             {getWaveAnimation('18vh', 0.25, 'backwards', 9, TwoPeakWaveSvg)}
