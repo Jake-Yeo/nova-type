@@ -3,8 +3,40 @@ import { ClassNameConfigurator } from '@mui/base/utils';
 import { useRef, useState } from "react";
 import DrawerItems from "./DrawerItems";
 
-const widthOfLogo = 100;
-const heightOfLogo = widthOfLogo * 0.611570247;
+export const getLogo = (fontSize: number) => {
+
+    const fontSizeMain = fontSize + "px";
+    const fontSizeSub = (fontSize * (14 / 30)) + "px";
+    const fontSizeSpace = (fontSize * (20 / 30)) + "px";
+    const widthOfLogo = (fontSize * (100 / 30));
+    const heightOfLogo = widthOfLogo * 0.611570247;
+
+    return (
+        <Stack direction={'row'} alignItems={'center'}>
+
+            <Box
+                sx={{
+                    backgroundImage: 'url("./svgFiles/runnerTypeLogo.svg")', // Load background image
+                    backgroundSize: 'contain', // Scale the background image to fit within the container while preserving its aspect ratio
+                    backgroundRepeat: 'no-repeat',
+                    width: widthOfLogo, // Set the width of the container
+                    height: heightOfLogo // Automatically adjust the height based on the aspect ratio
+                }}
+            />
+            <Stack>
+                <Stack flexDirection={'row'}>
+                    <Typography fontSize={fontSizeSpace}>&nbsp;</Typography>
+                    <Typography color="white" fontSize={fontSizeMain} fontWeight={'bold'}>Type</Typography>
+                    <Typography color="#9287B7" fontSize={fontSizeMain} fontWeight={'bold'}>Runner</Typography>
+                </Stack>
+                <Stack flexDirection={'row'}>
+                    <Typography fontSize={fontSizeSpace}>&nbsp;</Typography>
+                    <Typography color="#635985" fontSize={fontSizeSub} fontWeight={'bold'}>Munkey See Munkey Type</Typography>
+                </Stack>
+            </Stack>
+        </Stack>
+    )
+}
 
 const LogoNavBar = () => {
 
@@ -25,42 +57,27 @@ const LogoNavBar = () => {
                 paddingRight: '30px'
             }}
         >
-            <Stack direction={'row'} alignItems={'center'}>
-
-                <Box
-                    sx={{
-                        backgroundImage: 'url("./svgFiles/runnerTypeLogo.svg")', // Load background image
-                        backgroundSize: 'contain', // Scale the background image to fit within the container while preserving its aspect ratio
-                        backgroundRepeat: 'no-repeat',
-                        width: widthOfLogo, // Set the width of the container
-                        height: heightOfLogo // Automatically adjust the height based on the aspect ratio
-                    }}
-                />
-                <Stack>
-                    <Stack flexDirection={'row'}>
-                        <Typography fontSize='20px'>&nbsp;</Typography>
-                        <Typography color="white" fontSize='30px' fontWeight={'bold'}>Type</Typography>
-                        <Typography color="#9287B7" fontSize='30px' fontWeight={'bold'}>Runner</Typography>
-                    </Stack>
-                    <Stack flexDirection={'row'}>
-                        <Typography fontSize='20px'>&nbsp;</Typography>
-                        <Typography color="#635985" fontSize='14px' fontWeight={'bold'}>Munkey See Munkey Type</Typography>
-                    </Stack>
-                </Stack>
-            </Stack>
-
+            {getLogo(30)}
             <Button
                 onClick={() => setIsDrawerOpen(true)}
                 variant="contained"
                 sx={{
-                    color: '#292140',
+                    color: 'White',
                     textEmphasisColor: '#292140',
                     backgroundColor: '#635985',
                     '&:hover': { //When you use &:hover, you’re saying: “Apply the following styles to the current selector when it’s being hovered.”
                         backgroundColor: '#9287B7',
                     },
                 }}
-            >Menu</Button>
+            >            <Box
+                    sx={{
+                        backgroundImage: 'url("./svgFiles/menu.svg")', // Load background image
+                        backgroundSize: 'contain', // Scale the background image to fit within the container while preserving its aspect ratio
+                        backgroundRepeat: 'no-repeat',
+                        width: 32, // Set the width of the container
+                        height: 32 // Automatically adjust the height based on the aspect ratio
+                    }}
+                /></Button>
 
             <Drawer
                 anchor="right"
