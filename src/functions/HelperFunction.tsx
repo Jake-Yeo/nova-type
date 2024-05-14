@@ -264,3 +264,33 @@ export const getSvgBox = (width: number, height: number, path: string) => {
         />
     )
 }
+
+export const getToTypeDisplay = (toType: string, typedSoFar: string, setAccuracy: boolean, fontSize: number, typingData: TypingData) => { // only every set accuracy when using this function in this components but not others
+    var spanElementOnlyArray: any[] = [];
+    var numCorrect: number = 0;
+    for (let i = 0; i < toType.length; i++) {
+      if (i >= +typedSoFar.length) {
+        spanElementOnlyArray.push(getColouredSpan(toType.charAt(i), 'transparent', '#9287B7', i, fontSize))
+      } else {
+        if (typedSoFar.charAt(i) === toType.charAt(i)) {
+          spanElementOnlyArray.push(getColouredSpan(toType.charAt(i), 'transparent', 'white', i, fontSize));
+          numCorrect++;
+        } else {
+          if (toType.charAt(i) == ' ') { // This is just so the user knows that they typed the space wrong
+            spanElementOnlyArray.push(getColouredSpan(typedSoFar.charAt(i), 'transparent', '#FF007A', i, fontSize));
+          } else {
+            spanElementOnlyArray.push(getColouredSpan(toType.charAt(i), 'transparent', 'red', i, fontSize));
+          }
+        }
+      }
+    }
+    //spanElementOnlyArray.push(getColouredSpan(typingData.toType.substring(typingData.typedSoFar.length, typingData.toType.length), 'transparent', '#9287B7', 'myUniqueKey', +typingData.fontSize));
+
+    if (setAccuracy) {
+      typingData.setAccuracy(Math.round(numCorrect / typingData.typedSoFar.length * 100)); // Here we are calculating and setting the accuracy
+    }
+
+    return (
+      <>{spanElementOnlyArray}</>
+    );
+  }

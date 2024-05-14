@@ -5,6 +5,7 @@ import { TypingDataContext } from "../components/TypeFeedAreaDisplay"
 import { useContext, useEffect, useReducer } from "react"
 import { currentUser } from "../objects/User"
 import { auth } from "../config/firebase"
+import { useNavigate } from "react-router-dom"
 
 const HistoryPage = () => {
 

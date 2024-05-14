@@ -1,12 +1,11 @@
 
 import React, { useContext, useRef, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { TypingDataContext } from "./TypeFeedAreaDisplay";
-import { getColouredSpan } from "../functions/HelperFunction";
+import { TypingData, TypingDataContext } from "./TypeFeedAreaDisplay";
+import { getColouredSpan, getToTypeDisplay } from "../functions/HelperFunction";
 import { setFocusToTypingArea } from "./TypingArea";
 
 export var scrollToTopOfToTypeDisplay = () => { };
-export var getToTypeDisplayPublic = (generatedPrompt: string, typedPrompt: string, fontSize: number)  => { }; // This is a function to be used by the history list components class, DO NOT input true for the boolean parameter
 
 const ToTypeDisplay = () => {
 
@@ -34,40 +33,8 @@ const ToTypeDisplay = () => {
     }
   };
 
-  const getToTypeDisplay = (toType: string, typedSoFar: string, setAccuracy: boolean, fontSize: number) => { // only every set accuracy when using this function in this components but not others
-    var spanElementOnlyArray: any[] = [];
-    var numCorrect: number = 0;
-    for (let i = 0; i < toType.length; i++) {
-      if (i >= +typedSoFar.length) {
-        spanElementOnlyArray.push(getColouredSpan(toType.charAt(i), 'transparent', '#9287B7', i, fontSize))
-      } else {
-        if (typedSoFar.charAt(i) === toType.charAt(i)) {
-          spanElementOnlyArray.push(getColouredSpan(toType.charAt(i), 'transparent', 'white', i, fontSize));
-          numCorrect++;
-        } else {
-          if (toType.charAt(i) == ' ') { // This is just so the user knows that they typed the space wrong
-            spanElementOnlyArray.push(getColouredSpan(typedSoFar.charAt(i), 'transparent', '#FF007A', i, fontSize));
-          } else {
-            spanElementOnlyArray.push(getColouredSpan(toType.charAt(i), 'transparent', 'red', i, fontSize));
-          }
-        }
-      }
-    }
-    //spanElementOnlyArray.push(getColouredSpan(typingData.toType.substring(typingData.typedSoFar.length, typingData.toType.length), 'transparent', '#9287B7', 'myUniqueKey', +typingData.fontSize));
-
-    if (setAccuracy) {
-      typingData.setAccuracy(Math.round(numCorrect / typingData.typedSoFar.length * 100)); // Here we are calculating and setting the accuracy
-    }
-
-    return (
-      <>{spanElementOnlyArray}</>
-    );
-  }
-
-  getToTypeDisplayPublic = (generatedPrompt: string, typedPrompt: string, fontSize: number) => { return getToTypeDisplay(generatedPrompt, typedPrompt, false, fontSize) }; // use false as you don't want outside components to alter the data
-
   React.useEffect(() => { // This ensures that the display is only updated if fontsize, toType, or typedSoFar are changes, this is so the display does not update every tick which causes the child component to update before the parent component which causes an error
-    setDisplay(getToTypeDisplay(typingData.toType.valueOf(), typingData.typedSoFar.valueOf(), true, +typingData.fontSize));
+    setDisplay(getToTypeDisplay(typingData.toType.valueOf(), typingData.typedSoFar.valueOf(), true, +typingData.fontSize, typingData)); // we use boolean true so that this function sets the accuracy for us!
     setCarretPos(typingData.typedSoFar.length + 1, 'smooth'); // Put it here because we need to set the Carret everytime the user types, getToTypeDisplay() runs everytime the user types
   }, [typingData.fontSize, typingData.toType, typingData.typedSoFar])
 

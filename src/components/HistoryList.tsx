@@ -6,7 +6,6 @@ import { TypingDataContext } from './TypeFeedAreaDisplay';
 import { useCallback, useContext, useEffect, useReducer, useRef, useState } from 'react';
 import React from 'react';
 import DynamicColorNumberDisplay from './DynamicColorNumberDisplay';
-import { getToTypeDisplayPublic } from './ToTypeDisplay';
 import HistoryStatComponent from './HistoryStatComponent';
 import HistoryListFontSlider from './HistoryListFontSlider';
 

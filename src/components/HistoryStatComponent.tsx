@@ -1,9 +1,12 @@
 import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
 import { currentUser } from "../objects/User";
 import DynamicColorNumberDisplay from "./DynamicColorNumberDisplay";
-import { getToTypeDisplayPublic } from "./ToTypeDisplay";
 import { formatDurationFromMillis } from "./CurrDurationDisplay";
 import { TypingStat } from "../objects/TypingStat";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { getToTypeDisplay } from "../functions/HelperFunction";
+import { TypingData } from "./TypeFeedAreaDisplay";
 
 interface props {
     index: number,
@@ -14,17 +17,19 @@ interface props {
 const HistoryStatComponent = ({ index, width, fontSize }: props) => {// make sure to log the height of the component
     const typingStat = currentUser.getTypingStats().at(index);
 
-
     let wpmComponent: JSX.Element | null = null;
     let accuracyComponent: JSX.Element | null = null;
     let accuracyVisualization: JSX.Element | null = null;
 
 
+
     if (typingStat) {
         wpmComponent = <DynamicColorNumberDisplay stat={typingStat.getWpm()} statName={'WPM:'} color={'#9287B7'}></DynamicColorNumberDisplay>
         accuracyComponent = <DynamicColorNumberDisplay stat={typingStat.getAccuracy()} statName={'Accuracy:'} color={'#9287B7'}></DynamicColorNumberDisplay>
-        accuracyVisualization = <>{getToTypeDisplayPublic(typingStat.getGeneratedPrompt(), typingStat.getTypedPrompt(), fontSize)}</>
+        accuracyVisualization = <>{getToTypeDisplay(typingStat.getGeneratedPrompt(), typingStat.getTypedPrompt(), false, fontSize, (null as unknown) as TypingData)}</> // here we pass in a null TypingData object because it will never be used since we set the 'setAccuracy' to false
+        console.log(accuracyVisualization);
     }
+
 
     const getDiv = () => {
         return (<>

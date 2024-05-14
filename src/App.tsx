@@ -12,7 +12,7 @@ import LoadingPage from './Pages/LoadingPage';
 function App() {
 
   const typingData = useContext(TypingDataContext);
-
+  
   return (
     <>
       <BrowserRouter>
