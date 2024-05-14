@@ -1,4 +1,5 @@
 import { Box, Link } from "@mui/material"
+import { getSvgBox } from "../functions/HelperFunction"
 
 const LinksDisplay = () => {
 
@@ -24,17 +25,7 @@ const LinksDisplay = () => {
                     }
                 }}
             >
-                <Box
-                    sx={{
-                        backgroundImage: 'url("./svgFiles/githubColor.svg")', // Load background image
-                        backgroundSize: 'contain', // Scale the background image to fit within the container while preserving its aspect ratio
-                        backgroundRepeat: 'no-repeat',
-                        backgroundColor: '#18122B',
-                        borderRadius: '15px',
-                        width: '30px', // Set the width of the container
-                        height: '30px' // Automatically adjust the height based on the aspect ratio
-                    }}
-                ></Box>
+                {getSvgBox(30, 30, "./svgFiles/githubColor.svg")}
                 {'\u00A0GitHub'}
             </Link>
         </Box>

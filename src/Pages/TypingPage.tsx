@@ -3,9 +3,9 @@ import LogoNavBar from "../components/LogoNavBar"
 import SettingsIsland from "../components/SettingsIsland"
 import TypeFeedAreaDisplay from "../components/TypeFeedAreaDisplay"
 import LinksDisplay from "../components/LinksDisplay"
-import { getWaveAnimation } from "./SignupLoginPage"
 import OnePeakWaveSvg from "../components/OnePeakWaveSvg"
 import TwoPeakWaveSvg from "../components/TwoPeakWaveSvg"
+import { getWaveAnimation } from "../functions/HelperFunction"
 
 const TypingPage = () => {
     return (<>

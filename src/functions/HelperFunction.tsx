@@ -1,5 +1,7 @@
 import { Key, useContext } from "react";
 import { TypingData, TypingDataContext } from "../components/TypeFeedAreaDisplay";
+import { Box, keyframes, Stack, Typography } from "@mui/material";
+import { WavePropsType } from "../components/TwoPeakWaveSvg";
 
 export async function getNewSentence(typingData: TypingData): Promise<string> {
 
@@ -13,7 +15,7 @@ export async function getNewSentence(typingData: TypingData): Promise<string> {
             return toSymbolfy;
         }
 
-        const randomSymbols = ['!', '@', '#', '$', '%','^','&','*','(',')','-','_','+','=', '~', ',', '<', '>', '.', '?', "/", "\\", ';', ':', '"', "'", '{', '}', '[', ']', '|', '`'];
+        const randomSymbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', '~', ',', '<', '>', '.', '?', "/", "\\", ';', ':', '"', "'", '{', '}', '[', ']', '|', '`'];
         const toAppend = randomSymbols[getRandomNumber(randomSymbols.length)];
 
         const appendSameToBothSides = () => {
@@ -157,3 +159,108 @@ export function getColouredSpan(char: String, colour: String, backgroundColor: S
         whiteSpace: "pre-wrap" // This preserves whitespace, for some reason, white space in the spans that were at the end of the line (where the text wraps to the next line) was not being rendered, but this renders it https://stackoverflow.com/questions/74237764/why-react-doesnt-render-whitespaces#:~:text=You%27ll%20be%20able%20to%20display%20only%20whitespace%20by,%7B%20return%20%3Ch1%20style%3D%7B%7B%20whiteSpace%3A%20%22pre-wrap%22%20%7D%7D%3E%7B%22%20%22%7D%3C%2Fh1%3E%3B
     }}>{char}</span>;
 };
+
+export const getLogo = (fontSize: number) => {
+
+    const fontSizeMain = fontSize + "px";
+    const fontSizeSub = (fontSize * (14 / 30)) + "px";
+    const fontSizeSpace = (fontSize * (20 / 30)) + "px";
+    const widthOfLogo = (fontSize * (100 / 30));
+    const heightOfLogo = widthOfLogo * 0.611570247;
+
+    return (
+        <Stack direction={'row'} alignItems={'center'}>
+            {getSvgBox(widthOfLogo, heightOfLogo, "./svgFiles/runnerTypeLogo.svg")}
+            <Stack>
+                <Stack flexDirection={'row'}>
+                    <Typography fontSize={fontSizeSpace}>&nbsp;</Typography>
+                    <Typography color="white" fontSize={fontSizeMain} fontWeight={'bold'}>Type</Typography>
+                    <Typography color="#9287B7" fontSize={fontSizeMain} fontWeight={'bold'}>Runner</Typography>
+                </Stack>
+                <Stack flexDirection={'row'}>
+                    <Typography fontSize={fontSizeSpace}>&nbsp;</Typography>
+                    <Typography color="#635985" fontSize={fontSizeSub} fontWeight={'bold'}>Munkey See Munkey Type</Typography>
+                </Stack>
+            </Stack>
+        </Stack>
+    )
+}
+
+export const getWaveAnimation = (height: string, opacity: number, direction: string, durationSecs: number, WaveElement: ({ width, height, opacity }: WavePropsType) => JSX.Element) => {
+
+    var moveLeftToRight = keyframes`
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(100vw); // Adjust the distance as needed
+    }
+  `;
+
+    var moveOutToRight = keyframes`
+  from {
+    transform: translateX(-100vw);
+  }
+  to {
+    transform: translateX(0vw); // Adjust the distance as needed
+  }
+`;
+
+    if (direction === 'backwards') {
+        moveOutToRight = keyframes`
+    from {
+      transform: translateX(100vw);
+    }
+    to {
+      transform: translateX(0vw); // Adjust the distance as needed
+    }
+  `;
+
+        moveLeftToRight = keyframes`
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100vw); // Adjust the distance as needed
+  }
+`;
+    }
+
+    return (<>
+        <Box sx={{
+            width: '100vw',
+            height: height,
+            animation: `${moveLeftToRight} ${durationSecs}s ${direction} linear infinite`,
+            position: 'absolute',
+            bottom: '0',
+            backgroundRepeat: 'no-repeat',
+            zIndex: -1
+        }}>
+            <WaveElement width={'100vw'} height={height} opacity={opacity}></WaveElement>
+        </Box>
+        <Box sx={{
+            width: '100vw',
+            height: height,
+            animation: `${moveOutToRight} ${durationSecs}s ${direction} linear infinite`,
+            position: 'absolute',
+            bottom: '0',
+            backgroundRepeat: 'no-repeat',
+            zIndex: -1
+        }}>
+            <WaveElement width={'100vw'} height={height} opacity={opacity}></WaveElement>
+        </Box></>)
+}
+
+export const getSvgBox = (width: number, height: number, path: string) => {
+    return (
+        <Box
+            sx={{
+                backgroundImage: `url("${path}")`, // Load background image
+                backgroundSize: 'contain', // Scale the background image to fit within the container while preserving its aspect ratio
+                backgroundRepeat: 'no-repeat',
+                width: width, // Set the width of the container
+                height: height // Automatically adjust the height based on the aspect ratio
+            }}
+        />
+    )
+}

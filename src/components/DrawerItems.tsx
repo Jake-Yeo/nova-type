@@ -1,5 +1,6 @@
 import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { getSvgBox } from "../functions/HelperFunction";
 
 interface prop {
     setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -8,12 +9,14 @@ interface prop {
 const DrawerItems = ({ setIsDrawerOpen }: prop) => {
     const navigate = useNavigate();
 
-    const getStyledListButton = (text: String, route: string) => {
+    const getStyledListButton = (text: String, route: string, iconPath: string) => {
         return (<>
             <ListItemButton onClick={() => navigateTo(route)}>
+                {getSvgBox(32, 32, iconPath)}
                 <ListItemText
                     primary={<span style={{
-                        color: 'White'
+                        color: 'White',
+                        marginLeft: '10px',
                     }}>{text}</span>}>
                 </ListItemText>
             </ListItemButton>
@@ -28,11 +31,11 @@ const DrawerItems = ({ setIsDrawerOpen }: prop) => {
         <>
             <Box sx={{ width: 250 }} onClick={(e) => setIsDrawerOpen(false)}>
                 <List>
-                    {getStyledListButton('Home', '/HomePage')}
-                    {getStyledListButton('Typing Practice', '/TypingPage')}
-                    {getStyledListButton('History', '/HistoryPage')}
-                    {getStyledListButton('Login Signup', '/SignupLoginPage')}
-                    {getStyledListButton('About', '/AboutPage')}
+                    {getStyledListButton('Home', '/HomePage', './svgFiles/home.svg')}
+                    {getStyledListButton('Typing Practice', '/TypingPage', './svgFiles/keyboard.svg')}
+                    {getStyledListButton('History', '/HistoryPage', './svgFiles/history.svg')}
+                    {getStyledListButton('Login Signup', '/SignupLoginPage', './svgFiles/account.svg')}
+                    {getStyledListButton('About', '/AboutPage', './svgFiles/information.svg')}
                 </List>
             </Box>
         </>
