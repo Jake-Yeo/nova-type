@@ -3,3 +3,5 @@ npm install --save react-window
 npm install @types/react-window
 npm install @mui/material @emotion/react @emotion/styled 
 npm install react-bootstrap bootstrap
+
+//npm install @svgr/webpack --save-dev // pretty sure I uninstalled this one!
