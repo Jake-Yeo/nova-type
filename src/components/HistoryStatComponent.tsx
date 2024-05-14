@@ -48,7 +48,7 @@ const HistoryStatComponent = ({ index, width, fontSize }: props) => {// make sur
                             display: 'inline-block',
                             width: `calc(${width}vw - 100px)`, // + converts a data type object Number to primitive type number
                             overflow: 'hidden',
-                            height: '150px',
+                            height: '80px',
                             borderRadius: '40px',
                             paddingLeft: '10px',
                             paddingRight: '10px',

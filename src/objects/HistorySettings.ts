@@ -9,7 +9,7 @@ export class HistorySettings {
     private _fontSize;
 
     constructor() {
-        this._fontSize = 35;
+        this._fontSize = 20;
     }
 
     public setHistorySettings({fontSize}: HistorySettingsDataType) {
