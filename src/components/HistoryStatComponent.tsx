@@ -76,8 +76,9 @@ const HistoryStatComponent = ({ index, width, fontSize }: props) => {// make sur
             <>
                 <Box sx={{
                     width: `calc(${width}vw - 85px)`,
-                    backgroundColor: '#18122B',
                     borderRadius: '40px',
+                    backdropFilter: 'blur(10px)', // Allows us to blur the stuff that appears behind this translucent componnent!
+                    backgroundColor: 'rgba(41, 33, 64, 0.1)', // allows us to change opacity of the background color without changing opacity of everything (including componenets nested inside)
                 }}>
                     {element}
                 </Box>
@@ -109,7 +110,8 @@ const HistoryStatComponent = ({ index, width, fontSize }: props) => {// make sur
             alignItems={'center'}
             direction={'column'}
             sx={{
-                backgroundColor: '#292140',
+                backdropFilter: 'blur(5px)', // Allows us to blur the stuff that appears behind this translucent componnent!
+                backgroundColor: 'rgba(41, 33, 64, 0.1)', // allows us to change opacity of the background color without changing opacity of everything (including componenets nested inside)
                 borderRadius: '65px',
                 paddingTop: '25px',
                 paddingBottom: '25px',
