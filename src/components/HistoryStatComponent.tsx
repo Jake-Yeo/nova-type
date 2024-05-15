@@ -27,7 +27,6 @@ const HistoryStatComponent = ({ index, width, fontSize }: props) => {// make sur
         wpmComponent = <DynamicColorNumberDisplay stat={typingStat.getWpm()} statName={'WPM:'} color={'#9287B7'}></DynamicColorNumberDisplay>
         accuracyComponent = <DynamicColorNumberDisplay stat={typingStat.getAccuracy()} statName={'Accuracy:'} color={'#9287B7'}></DynamicColorNumberDisplay>
         accuracyVisualization = <>{getToTypeDisplay(typingStat.getGeneratedPrompt(), typingStat.getTypedPrompt(), false, fontSize, (null as unknown) as TypingData)}</> // here we pass in a null TypingData object because it will never be used since we set the 'setAccuracy' to false
-        console.log(accuracyVisualization);
     }
 
 

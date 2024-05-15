@@ -171,16 +171,16 @@ export const getLogo = (fontSize: number) => {
 
     return (
         <Stack direction={'row'} alignItems={'center'}>
-            {getSvgBox(widthOfLogo, heightOfLogo, "./svgFiles/runnerTypeLogo.svg")}
+            {getSvgBox(widthOfLogo, heightOfLogo, "./svgFiles/novaTypeLogo.svg")}
             <Stack>
                 <Stack flexDirection={'row'}>
                     <Typography fontSize={fontSizeSpace}>&nbsp;</Typography>
-                    <Typography color="white" fontSize={fontSizeMain} fontWeight={'bold'}>Type</Typography>
-                    <Typography color="#9287B7" fontSize={fontSizeMain} fontWeight={'bold'}>Runner</Typography>
+                    <Typography color="white" fontSize={fontSizeMain} fontWeight={'bold'}>Nova</Typography>
+                    <Typography color="#9287B7" fontSize={fontSizeMain} fontWeight={'bold'}>Type</Typography>
                 </Stack>
                 <Stack flexDirection={'row'}>
                     <Typography fontSize={fontSizeSpace}>&nbsp;</Typography>
-                    <Typography color="#635985" fontSize={fontSizeSub} fontWeight={'bold'}>Munkey See Munkey Type</Typography>
+                    <Typography color="#635985" fontSize={fontSizeSub} fontWeight={'bold'}>Make a Wish</Typography>
                 </Stack>
             </Stack>
         </Stack>
