@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom"
 import { getRandomShootingStar, getWaveAnimation } from "../functions/HelperFunction"
 import OnePeakWaveSvg from "../components/OnePeakWaveSvg"
 import TwoPeakWaveSvg from "../components/TwoPeakWaveSvg"
+import LinksDisplay from "../components/LinksDisplay"
 
 const HistoryPage = () => {
 
@@ -78,6 +79,13 @@ const HistoryPage = () => {
                 padding: 0, // Set padding to 0 to remove any default padding
                 zIndex: -2,
             }}>{getMeteorShower()}</Grid>
+            <Box sx={{
+                position: 'absolute',
+                width: '100vw',
+                bottom: '0px'
+            }}>
+                <LinksDisplay />
+            </Box>
         </Stack>
     </>)
 }

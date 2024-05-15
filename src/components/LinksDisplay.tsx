@@ -6,7 +6,7 @@ const LinksDisplay = () => {
     return (<>
         <Box
             sx={{
-                display: 'inline-block'
+                display: 'inline-block',
             }}>
             <Link
                 href="https://github.com/Jake-Yeo/type-runner"

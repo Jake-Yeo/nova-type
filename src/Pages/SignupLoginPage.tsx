@@ -17,6 +17,7 @@ import { getLogo, getRandomShootingStar, getWaveAnimation } from "../functions/H
 import DrawerButton from "../components/DrawerButton";
 import ShootingStarsAnimation from "../components/ShootingStarsAnimation";
 import zIndex from "@mui/material/styles/zIndex";
+import LinksDisplay from "../components/LinksDisplay";
 
 const SignupLoginPage = () => {
 
@@ -84,29 +85,47 @@ const SignupLoginPage = () => {
                 position: 'relative'
             }}
         >
+
+            <Grid
+                container
+                direction="row"
+                justifyContent="space-between"
+                alignItems="flex-start"
+                sx={{
+                    padding: '10px',
+                    paddingLeft: '100px',
+                    paddingTop: '30px',
+                    paddingBottom: '20px',
+                    paddingRight: '30px'
+                }}
+            >
+                <Box sx={{ opacity: 0 }}>
+                    {getLogo(30)}
+                </Box>
+                <DrawerButton />
+            </Grid>
+
             <Grid item>
                 <Stack
                     direction='column'
                     alignItems={'center'}
                     justifyContent={'center'}
                 >
+                    {getLogo(45)}
+                    {getSignupLoginButton()}
                     <Box style={{ height: '30vh', zIndex: 1 }}>
 
                     </Box>
-                    {getLogo(45)}
-                    {getSignupLoginButton()}
-                    <div style={{ height: '10px' }}></div>
-                    <DrawerButton />
                 </Stack>
             </Grid>
             <Grid item sx={{
                 position: 'absolute',
-                        bottom: 0,
-                        width: '100vw',
-                        height: '100vh',
-                        margin: 0, // Set margin to 0 to remove any default spacing
-                        padding: 0, // Set padding to 0 to remove any default padding
-                        zIndex: -2,
+                bottom: 0,
+                width: '100vw',
+                height: '100vh',
+                margin: 0, // Set margin to 0 to remove any default spacing
+                padding: 0, // Set padding to 0 to remove any default padding
+                zIndex: -2,
             }}>{getMeteorShower()}</Grid>
             <Grid item // important to use grid items if you want your animation to stay at the very bottom of the component
                 sx={{
@@ -134,6 +153,13 @@ const SignupLoginPage = () => {
                     {getWaveAnimation('25vh', 0.25, 'forwards', 15, TwoPeakWaveSvg)}
                 </Box >
             </Grid>
+            <Box sx={{
+                position: 'absolute',
+                width: '100vw',
+                bottom: '0px'
+            }}>
+                <LinksDisplay />
+            </Box>
         </Stack>
     </>)
 }

@@ -47,13 +47,13 @@ const TypingPage = () => {
                         zIndex: -1,
                     }}
                 >
-                    {getWaveAnimation('7vh', 0.25, 'forwards', 8, OnePeakWaveSvg)}
-                    {getWaveAnimation('10vh', 0.25, 'forwards', 5, TwoPeakWaveSvg)}
-                    {getWaveAnimation('13vh', 0.25, 'backwards', 9, TwoPeakWaveSvg)}
+                    {getWaveAnimation('10vh', 0.25, 'forwards', 8, OnePeakWaveSvg)}
+                    {getWaveAnimation('15vh', 0.25, 'forwards', 5, TwoPeakWaveSvg)}
+                    {getWaveAnimation('18vh', 0.25, 'backwards', 9, TwoPeakWaveSvg)}
 
-                    {getWaveAnimation('15vh', 0.25, 'backwards', 11, OnePeakWaveSvg)}
-                    {getWaveAnimation('10vh', 0.25, 'forwards', 8, TwoPeakWaveSvg)}
-                    {getWaveAnimation('16vh', 0.25, 'forwards', 15, TwoPeakWaveSvg)}
+                    {getWaveAnimation('20vh', 0.25, 'backwards', 11, OnePeakWaveSvg)}
+                    {getWaveAnimation('15vh', 0.25, 'forwards', 8, TwoPeakWaveSvg)}
+                    {getWaveAnimation('25vh', 0.25, 'forwards', 15, TwoPeakWaveSvg)}
                 </Box>
             </Grid>
         </Stack>

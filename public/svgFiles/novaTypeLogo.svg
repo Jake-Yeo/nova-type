@@ -2,12 +2,12 @@
 <rect x="5" y="5" width="111" height="64" rx="14" stroke="#9287B7" stroke-width="10"/>
 <rect x="21.0711" y="14" width="32.9833" height="10" rx="5" transform="rotate(45 21.0711 14)" fill="#D9D9D9"/>
 <rect x="42.7257" y="16.2928" width="26" height="10" rx="5" transform="rotate(90 42.7257 16.2928)" fill="#D9D9D9"/>
-<rect x="25.7257" y="16.2928" width="26" height="10" rx="5" transform="rotate(90 25.7257 16.2928)" fill="#D9D9D9"/>
+<rect x="26" y="16" width="26" height="10" rx="5" transform="rotate(90 26 16)" fill="#D9D9D9"/>
 <rect x="95" y="32" width="10" height="10" rx="5" fill="#D9D9D9"/>
 <rect x="64" y="48" width="10" height="10" rx="5" fill="#D9D9D9"/>
 <rect x="64" y="32" width="10" height="10" rx="5" fill="#D9D9D9"/>
 <rect x="48" y="42" width="10" height="10" rx="5" transform="rotate(-90 48 42)" fill="#D9D9D9"/>
-<rect x="80" y="58" width="26" height="10" rx="5" transform="rotate(-90 80 58)" fill="#D9D9D9"/>
+<rect x="79.5" y="58" width="26" height="10" rx="5" transform="rotate(-90 79.5 58)" fill="#D9D9D9"/>
 <rect x="105" y="42" width="41" height="10" rx="5" transform="rotate(180 105 42)" fill="#D9D9D9"/>
 <path d="M64 21C64 18.2386 66.2386 16 69 16H84C86.7614 16 89 18.2386 89 21V21C89 23.7614 86.7614 26 84 26H69C66.2386 26 64 23.7614 64 21V21Z" fill="#D9D9D9"/>
 <path d="M41 53C41 50.2386 43.2386 48 46 48H54C56.7614 48 59 50.2386 59 53V53C59 55.7614 56.7614 58 54 58H46C43.2386 58 41 55.7614 41 53V53Z" fill="#D9D9D9"/>

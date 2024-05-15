@@ -20,7 +20,8 @@ const SettingsIsland = () => {
                     height: 'fit-content', // don't actually know if this works
                     display: 'inline-block',
                     width: '75vw',
-                    backgroundColor: '#292140'
+                    backdropFilter: 'blur(5px)', // Allows us to blur the stuff that appears behind this translucent componnent!
+                    backgroundColor: 'rgba(41, 33, 64, 0.5)', // allows us to change opacity of the background color without changing opacity of everything (including componenets nested inside)
                 }}>
                 <span style={{
                     color: '#635985',

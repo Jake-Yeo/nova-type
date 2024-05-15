@@ -8,6 +8,7 @@ import SignupLoginPage from './Pages/SignupLoginPage';
 import Backend, { initializeOnSignupOrLogin, isUserLoggedIn } from './functions/Backend';
 import firebase from 'firebase/compat';
 import LoadingPage from './Pages/LoadingPage';
+import HomePage from './Pages/HomePage';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
               <HistoryPage />
             </TypingDataContext.Provider>} />
           <Route path='/SignupLoginPage' element={<SignupLoginPage />} />
+          <Route path='/HomePage' element={<HomePage/>}/>
           <Route path='/LoadingPage' element={<LoadingPage/>}></Route>
           <Route path='*' element={'404 error'} />
         </Routes>
