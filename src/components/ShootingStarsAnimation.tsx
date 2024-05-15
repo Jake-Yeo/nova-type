@@ -28,16 +28,34 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
         0% {
             transform: translate(0px) rotate(45deg);
             width: 0px;
+            
         }
     
         30% {
             transform: translate(${headTranslateAnimeAspect}px) rotate(45deg);
             width: ${headWidthAnimeAspect}px;
         }
+
+        40% {
+            filter: drop-shadow(0 0 2px white);
+        }
+
+        60% {
+            filter: drop-shadow(0 0 13px white);
+        }
+
+        70% {
+            filter: drop-shadow(0 0 6px white);
+        }
+
+        80% {
+            filter: drop-shadow(0 0 3px white);
+        }
     
         100% {
             transform: translate(0px) rotate(45deg);
             width: 0px;
+            filter: drop-shadow(0 0 20px white);
         }
         `;
 
@@ -51,10 +69,27 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
             transform: translate(${headTranslateAnimeAspect}px) rotate(-45deg);
             width: ${headWidthAnimeAspect}px;
         }
+
+        40% {
+            filter: drop-shadow(0 0 2px white);
+        }
+
+        60% {
+            filter: drop-shadow(0 0 13px white);
+        }
+
+        70% {
+            filter: drop-shadow(0 0 6px white);
+        }
+
+        80% {
+            filter: drop-shadow(0 0 3px white);
+        }
     
         100% {
             transform: translate(0px) rotate(-45deg);
             width: 0px;
+            filter: drop-shadow(0 0 20px white);
         }
         `;
 
@@ -66,9 +101,26 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
         30% {
             width: ${tailWidthAnimeAspect}px;
         }
+
+        40% {
+            filter: drop-shadow(0 0 2px white);
+        }
+
+        60% {
+            filter: drop-shadow(0 0 13px white);
+        }
+
+        70% {
+            filter: drop-shadow(0 0 6px white);
+        }
+
+        80% {
+            filter: drop-shadow(0 0 3px white);
+        }
     
         100% {
             width: 0px;
+            filter: drop-shadow(0 0 20px white);
         }
       `;
 

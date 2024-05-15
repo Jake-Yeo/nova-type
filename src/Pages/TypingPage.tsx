@@ -5,9 +5,11 @@ import TypeFeedAreaDisplay from "../components/TypeFeedAreaDisplay"
 import LinksDisplay from "../components/LinksDisplay"
 import OnePeakWaveSvg from "../components/OnePeakWaveSvg"
 import TwoPeakWaveSvg from "../components/TwoPeakWaveSvg"
-import { getWaveAnimation } from "../functions/HelperFunction"
+import { getRandomShootingStar, getWaveAnimation } from "../functions/HelperFunction"
+import { useEffect, useState } from "react"
 
 const TypingPage = () => {
+
     return (<>
         <Stack // Please fix overflow on mobile, they cant scroll!
             direction='column'

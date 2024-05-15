@@ -13,7 +13,7 @@ import { TypingDataContext } from "../components/TypeFeedAreaDisplay";
 import { useNavigate } from "react-router-dom";
 import TwoPeakWaveSvg, { WavePropsType } from "../components/TwoPeakWaveSvg";
 import OnePeakWaveSvg from "../components/OnePeakWaveSvg";
-import { getLogo, getWaveAnimation } from "../functions/HelperFunction";
+import { getLogo, getRandomShootingStar, getWaveAnimation } from "../functions/HelperFunction";
 import DrawerButton from "../components/DrawerButton";
 import ShootingStarsAnimation from "../components/ShootingStarsAnimation";
 import zIndex from "@mui/material/styles/zIndex";
@@ -52,7 +52,6 @@ const SignupLoginPage = () => {
         }
     }
 
-    //const starArray: JSX.Element[] = [];
     const [starArray, setStarArray] = useState<JSX.Element[]>([]);
 
     const getMeteorShower = () => {
@@ -65,26 +64,6 @@ const SignupLoginPage = () => {
                 {starArray}
             </Box>
         </>)
-    }
-
-    const getRandomShootingStar = (): JSX.Element => {
-
-        const getRandomNumber = (minRand: number, maxRand: number): number => {
-            const range = maxRand - minRand + 1; // Add 1 to include the upper limit
-
-            return Math.floor(Math.random() * range) + minRand;
-        };
-
-        const topOffset = getRandomNumber(-20, 20);
-        const leftOffset = getRandomNumber(-30, 95);
-        const randomDuration = getRandomNumber(3, 10);
-
-        const randomXyDistTravelVh = getRandomNumber(40, 80); // might get rid of this (original value: 50)
-
-        const randomHeadWidthPx = getRandomNumber(30, 50);
-
-
-        return (<ShootingStarsAnimation headWidthPx={randomHeadWidthPx} animationDuratonSecs={randomDuration} xyDistTravelVh={randomXyDistTravelVh} topOffsetVh={topOffset} leftOffsetVw={leftOffset} />);
     }
 
     useEffect(() => {

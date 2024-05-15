@@ -1,8 +1,8 @@
 import React, { createContext, useEffect, useState } from "react";
 import ToTypeDisplay from "./ToTypeDisplay";
 import TypingArea from "./TypingArea";
-import { getNewSentence } from "../functions/HelperFunction";
-import { Grid } from "@mui/material";
+import { getNewSentence, getRandomShootingStar } from "../functions/HelperFunction";
+import { Box, Grid } from "@mui/material";
 //import "../css/scrollCssTest.css"; // keep so you know how to get paths from the /css folder
 import RestartButton from "./RestartButton";
 import RealTimeStatDisplay from "./RealTimeStatDisplay";
@@ -39,6 +39,16 @@ export type TypingData = {
     setToType: React.Dispatch<React.SetStateAction<string>>,
     setTypedSoFar: React.Dispatch<React.SetStateAction<string>>
 }
+
+export type StarData = {
+    starArray: JSX.Element[],
+    setStarArray: React.Dispatch<React.SetStateAction<JSX.Element[]>>
+}
+
+export var StarDataContext = createContext<StarData>({
+    starArray: [],
+    setStarArray: () => { },
+})
 
 export var TypingDataContext = createContext<TypingData>({ // initalize
     typedSoFar: '',
@@ -134,14 +144,39 @@ const TypeFeedAreaDisplay = () => {
         setLowercaseEnabled(currentUser.getSettings().getLowercaseEnabled());
     }
 
+    const [starArray, setStarArray] = useState<JSX.Element[]>([]);
+
+    const starData: StarData = {
+        starArray,
+        setStarArray
+    }
+
     useEffect(() => { // This will run once when this component is initialized
         const setInitialSentence = async () => { // must wrap the getNewSentence() in another function because the await keywork must not be used on the function passed into the useEffect() hook.
             const newSentence: String = await getNewSentence(typingData); // Gets a new sentence
             setToType(newSentence.toString());  // Sets the initial sentence
             TypingDataContext = createContext(typingData);
+            StarDataContext = createContext(starData);
         }
         setInitialSentence(); // call the asynchronous function setInitalSentence
     }, []);
+
+
+    /// Star animation code
+
+    const getMeteorShower = () => {
+        return (<>
+            <Box sx={{
+                position: 'fixed',
+                width: '100vw', // alter if don't work
+                height: '100vh', // alter if don't work
+            }}>
+                {starArray}
+            </Box>
+        </>)
+    }
+
+
 
     //Need to pass in setToType function into typing area so we can update the display and set to type!
     // TypingDataContext.Provider passes down all the data from typingData to its child elements using useContext hook!
@@ -158,10 +193,21 @@ const TypeFeedAreaDisplay = () => {
                 <SettingsIsland></SettingsIsland>
                 <ToTypeDisplay></ToTypeDisplay>
                 {/*TypingArea is purposfully put off the screen*/}
-                <TypingArea></TypingArea>
+                <StarDataContext.Provider value={starData}>
+                    <TypingArea></TypingArea>
+                </StarDataContext.Provider>
                 <RestartButton></RestartButton>
                 <RealTimeStatDisplay></RealTimeStatDisplay>
             </TypingDataContext.Provider>
+            <Grid item sx={{
+                position: 'absolute',
+                bottom: 0,
+                width: '100vw',
+                height: '100vh',
+                margin: 0, // Set margin to 0 to remove any default spacing
+                padding: 0, // Set padding to 0 to remove any default padding
+                zIndex: -2,
+            }}>{getMeteorShower()}</Grid>
         </Grid>
 
     </>);

@@ -1,12 +1,14 @@
 import React, { useContext, useRef, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { FloatingLabel, Form } from "react-bootstrap";
-import { getNewSentence, getWpm } from '../functions/HelperFunction';
-import { TypingDataContext } from "./TypeFeedAreaDisplay";
+import { getNewSentence, getRandomShootingStar, getWpm } from '../functions/HelperFunction';
+import { StarDataContext, TypingDataContext } from "./TypeFeedAreaDisplay";
 import { scrollToTopOfToTypeDisplay } from "./ToTypeDisplay";
 import { currentUser } from "../objects/User";
 import { TypingStat } from "../objects/TypingStat";
 import { updateOnlineTypingStats } from "../functions/Backend";
+
+var isStarAnimationThrottled = false;
 
 var isGettingNewText: Boolean = false;
 
@@ -30,6 +32,8 @@ export var restartPractice = () => { };
 const TypingArea = () => {
 
   const typingData = useContext(TypingDataContext);
+
+  const starData = useContext(StarDataContext);
 
   myForm = useRef<HTMLTextAreaElement>(null);
 
@@ -65,7 +69,7 @@ const TypingArea = () => {
     getNewText();
     typingData.setTypedSoFar("");
     currentUser.pushTypingStat(new TypingStat({ wpm: +typingData.wpm, accuracy: +typingData.accuracy, generatedPrompt: typingData.toType.valueOf(), typedPrompt: typedPrompt, duration: +typingData.duration, startTime: startTime, endTime: (new Date()).getTime() }));
-    updateOnlineTypingStats().then(()=>{
+    updateOnlineTypingStats().then(() => {
       console.log("Finished updating online typing stats");
     }); // Then is basically a callback function?
   }
@@ -126,7 +130,15 @@ const TypingArea = () => {
     if (!userHasTyped) {
       protocolWhenUserStartsTyping();
     }
+
     typingData.setTypedSoFar(e.target.value);
+
+    // handle star animation here
+    if (!isStarAnimationThrottled) {
+      starData.setStarArray([...starData.starArray, getRandomShootingStar()]);
+      isStarAnimationThrottled = true;
+      setTimeout(()=>{isStarAnimationThrottled = false;}, 300);
+    }
 
     if (typingData.toType.length == e.target.value.length) { // this means user has finished typing
       // We pass in e.target.value instead of typingData.typedSoFar because for some reason typingData.typedSoFar is always missing the last character

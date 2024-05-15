@@ -2,6 +2,7 @@ import { Key, useContext } from "react";
 import { TypingData, TypingDataContext } from "../components/TypeFeedAreaDisplay";
 import { Box, keyframes, Stack, Typography } from "@mui/material";
 import { WavePropsType } from "../components/TwoPeakWaveSvg";
+import ShootingStarsAnimation from "../components/ShootingStarsAnimation";
 
 export async function getNewSentence(typingData: TypingData): Promise<string> {
 
@@ -294,3 +295,23 @@ export const getToTypeDisplay = (toType: string, typedSoFar: string, setAccuracy
       <>{spanElementOnlyArray}</>
     );
   }
+
+  export const getRandomShootingStar = (): JSX.Element => {
+
+    const getRandomNumber = (minRand: number, maxRand: number): number => {
+        const range = maxRand - minRand + 1; // Add 1 to include the upper limit
+
+        return Math.floor(Math.random() * range) + minRand;
+    };
+
+    const topOffset = getRandomNumber(-20, 20);
+    const leftOffset = getRandomNumber(-30, 95);
+    const randomDuration = getRandomNumber(3, 6);
+
+    const randomXyDistTravelVh = getRandomNumber(40, 80); // might get rid of this (original value: 50)
+
+    const randomHeadWidthPx = getRandomNumber(15, 30);
+
+
+    return (<ShootingStarsAnimation headWidthPx={randomHeadWidthPx} animationDuratonSecs={randomDuration} xyDistTravelVh={randomXyDistTravelVh} topOffsetVh={topOffset} leftOffsetVw={leftOffset} />);
+}
