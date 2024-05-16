@@ -10,6 +10,7 @@ const TwoPeakWaveSvg = ({ width, height, opacity}: WavePropsType) => {
     // original viewBox (viewBox="0 0 1733 165")
     // viewBox={`0 0 ${width} ${height}`}
 
+    // important you movify the svgString to have preserveAspectRatio="none"
     const svgString = `
     <svg viewBox="0 0 1733 165" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <rect y="113" width="1733" height="52" fill="#9287B7" />

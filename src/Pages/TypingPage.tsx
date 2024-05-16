@@ -29,7 +29,6 @@ const TypingPage = () => {
             >
                 <LogoNavBar></LogoNavBar>
                 <TypeFeedAreaDisplay></TypeFeedAreaDisplay>
-
             </Grid>
             <Grid item
                 sx={{

@@ -1,10 +1,17 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import OnePeakWaveSvg from "../components/OnePeakWaveSvg";
-import { getLogo, getRandomShootingStar, getWaveAnimation } from "../functions/HelperFunction";
+import { getLogo, getRandomShootingStar, getSvgBox, getWaveAnimation } from "../functions/HelperFunction";
 import TwoPeakWaveSvg from "../components/TwoPeakWaveSvg";
 import DrawerButton from "../components/DrawerButton";
 import { useEffect, useState } from "react";
 import LinksDisplay from "../components/LinksDisplay";
+import MountainSvg from "../components/MountainBaseSvg";
+import TentSvg from "../components/TentSvg";
+import CampFireSvg from "../components/CampFireSvg";
+import MountainBaseSvg from "../components/MountainBaseSvg";
+import MountainRocksSvg from "../components/MountainRocksSvg";
+import CampFireAnimation from "../components/CampFireAnimation";
+
 
 const HomePage = () => {
 
@@ -44,7 +51,7 @@ const HomePage = () => {
             width: '100vw',
             bottom: '0px'
         }}>
-            <LinksDisplay/>
+            <LinksDisplay />
         </Box>
         <Grid
             container
@@ -75,7 +82,7 @@ const HomePage = () => {
                 {<Typography sx={{
                     color: 'white',
                     fontSize: '20px',
-                }}>Welcome Scroll for More!</Typography>}
+                }}>Welcome Click to Learn More!</Typography>}
                 <Box style={{ height: '30vh', zIndex: 1 }}>
 
                 </Box>
@@ -118,36 +125,75 @@ const HomePage = () => {
         </Grid>
     </Stack>
 
-    const secondPage = <Stack sx={{
-        minHeight: '125vh',
-        width: '100vw',
-        position: 'relative', // relative sets this as the parent container for the absolute positions box can be in
-    }}>
-        <Box sx={{
-            position: 'absolute',
-            top: '-2px',
-            height: '5px',
-            width: '100vw',
-            backgroundColor: '#8C83A4', // This will fill in the gap between the two pages between the wave!
-        }} />
-        <Box
-            sx={{
-                position: 'absolute',
-                top: '0px',
-                width: '100vw',
-                zIndex: -1,
-                transform: 'rotate(180deg)'
-            }}
-        >
-            {getWaveAnimation('10vh', 0.25, 'forwards', 8, OnePeakWaveSvg)}
-            {getWaveAnimation('15vh', 0.25, 'forwards', 5, TwoPeakWaveSvg)}
-            {getWaveAnimation('18vh', 0.25, 'backwards', 9, TwoPeakWaveSvg)}
+    const campfireWidth = 2;
+    const campfireHeight = 2 * (7.8 / 26.65);
 
-            {getWaveAnimation('20vh', 0.25, 'backwards', 11, OnePeakWaveSvg)}
-            {getWaveAnimation('15vh', 0.25, 'forwards', 8, TwoPeakWaveSvg)}
-            {getWaveAnimation('25vh', 0.25, 'forwards', 15, TwoPeakWaveSvg)}
-        </Box >
-    </Stack>
+    const secondPage =
+        <Box sx={{
+            background: 'linear-gradient(180deg, rgb(24, 18, 43) 0%, rgb(3, 24, 53) 20%, rgb(40, 45, 65) 60%, rgba(211, 140, 96, 0.3) 100%)',
+            zIndex: 1,
+        }}>
+            <Stack sx={{
+                minHeight: '110vh',
+                width: '100vw',
+                position: 'relative', // relative sets this as the parent container for the absolute positions box can be in
+            }}>
+                <Box sx={{
+                    position: 'absolute',
+                    top: '-2px',
+                    height: '5px',
+                    width: '100vw',
+                    backgroundColor: '#8C83A4', // This will fill in the gap between the two pages between the wave!
+                }} />
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        top: '0px',
+                        width: '100vw',
+                        zIndex: -1,
+                        transform: 'rotate(180deg)'
+                    }}
+                >
+                    {getWaveAnimation('10vh', 0.25, 'forwards', 8, OnePeakWaveSvg)}
+                    {getWaveAnimation('15vh', 0.25, 'forwards', 5, TwoPeakWaveSvg)}
+                    {getWaveAnimation('18vh', 0.25, 'backwards', 9, TwoPeakWaveSvg)}
+
+                    {getWaveAnimation('20vh', 0.25, 'backwards', 11, OnePeakWaveSvg)}
+                    {getWaveAnimation('15vh', 0.25, 'forwards', 8, TwoPeakWaveSvg)}
+                    {getWaveAnimation('25vh', 0.25, 'forwards', 15, TwoPeakWaveSvg)}
+                </Box >
+                <Stack
+                    sx={{
+                        position: 'absolute',
+                        bottom: '0',
+                    }}
+                >
+                    <Stack direction='row' sx={{
+                        width: '100vw',
+                        alignItems: 'flex-end',
+                        justifyContent: 'space-between',
+                    }}>
+                        <Box width='10px'></Box>
+                        <TentSvg width={"209px"} height={"119px"} opacity={1}></TentSvg>
+                        <Box width='10px'></Box>
+                        <Box sx={{
+                            marginBottom: "-5px"
+                        }}>
+                            <Box sx={{ zIndex: -1, position: 'relative' }}> {/** Make it relative because zIndex only works with relative positions */}
+                                <CampFireAnimation />
+                            </Box>
+                        </Box>
+                        <MountainRocksSvg width={"85%"} height={"15vh"} opacity={1}></MountainRocksSvg>
+                    </Stack>
+                    <Box sx={{
+                        width: "100vw",
+                        height: "10vh"
+                    }}>
+                        <MountainBaseSvg width={"100%"} height={"10vh"} opacity={1}></MountainBaseSvg>
+                    </Box>
+                </Stack>
+            </Stack>
+        </Box>
 
     return (<>
         <Stack sx={{ overflowX: 'hidden' }}>
