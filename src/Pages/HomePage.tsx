@@ -1,9 +1,9 @@
-import { Box, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import OnePeakWaveSvg from "../components/OnePeakWaveSvg";
 import { getLogo, getRandomNumber, getRandomShootingStar, getSvgBox, getWaveAnimation } from "../functions/HelperFunction";
 import TwoPeakWaveSvg from "../components/TwoPeakWaveSvg";
 import DrawerButton from "../components/DrawerButton";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import LinksDisplay from "../components/LinksDisplay";
 import MountainSvg from "../components/MountainBaseSvg";
 import TentSvg from "../components/TentSvg";
@@ -15,6 +15,8 @@ import TwinklingStarsAnimation from "../components/TwinklingStarsAnimation";
 
 
 const HomePage = () => {
+
+    const toScrollToRef = useRef<HTMLDivElement>(null);
 
     const [starArray, setStarArray] = useState<JSX.Element[]>([]);
 
@@ -50,7 +52,9 @@ const HomePage = () => {
         <Box sx={{
             position: 'absolute',
             width: '100vw',
-            bottom: '0px'
+            bottom: '0px',
+            marginLeft: '15px',
+
         }}>
             <LinksDisplay />
         </Box>
@@ -88,10 +92,21 @@ const HomePage = () => {
                 justifyContent={'center'}
             >
                 {getLogo(45)}
-                {<Typography sx={{
-                    color: 'white',
-                    fontSize: '20px',
-                }}>Welcome Click to Learn More!</Typography>}
+                <Button
+                    onClick={() => toScrollToRef.current?.scrollIntoView()}
+                    sx={{
+                        color: '#635985',
+                        backgroundColor: '#292140',
+                        borderRadius: '20px',
+                        '&:hover': { //When you use &:hover, you’re saying: “Apply the following styles to the current selector when it’s being hovered.”
+                            backgroundColor: '#393055',
+                        },
+                    }}>
+                    <Typography sx={{
+                        color: 'white',
+                        fontSize: '20px',
+                    }}>{"Welcome Click to Learn More!"}</Typography>
+                </Button>
                 <Box style={{ height: '30vh', zIndex: 1 }}>
 
                 </Box>
@@ -138,8 +153,8 @@ const HomePage = () => {
 
     const getRandomTwinkle = (): JSX.Element => {
 
-        const topOffset = getRandomNumber(10, 50);
-        const leftOffset = getRandomNumber(5, 95);
+        const topOffset = getRandomNumber(10, 70);
+        const leftOffset = getRandomNumber(1, 99);
         const randomDuration = getRandomNumber(6, 15);
 
         const randomHeadWidthPx = getRandomNumber(5, 10);
@@ -250,10 +265,12 @@ const HomePage = () => {
                         </Box>
                         <MountainRocksSvg width={"85%"} height={"15vh"} opacity={1}></MountainRocksSvg>
                     </Stack>
-                    <Box sx={{
-                        width: "100vw",
-                        height: "10vh"
-                    }}>
+                    <Box
+                        ref={toScrollToRef}
+                        sx={{
+                            width: "100vw",
+                            height: "10vh"
+                        }}>
                         <MountainBaseSvg width={"100%"} height={"10vh"} opacity={1}></MountainBaseSvg>
                     </Box>
                 </Stack>

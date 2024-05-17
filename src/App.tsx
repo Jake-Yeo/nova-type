@@ -19,7 +19,7 @@ function App() {
       <BrowserRouter>
       <Backend></Backend>
         <Routes>
-          <Route index element={<TypingPage />} />
+          <Route index element={<HomePage />} />
           <Route path='/TypingPage' element={<TypingPage />} />
           {/* We need to pass down typingData to the history page because it needs to update when new info comes in */}
           <Route path='/HistoryPage' element={
