@@ -18,6 +18,8 @@ import DrawerButton from "../components/DrawerButton";
 import ShootingStarsAnimation from "../components/ShootingStarsAnimation";
 import zIndex from "@mui/material/styles/zIndex";
 import LinksDisplay from "../components/LinksDisplay";
+import MeteorShowerCloudOceanBackground from "../components/MeteorShowerCloudOceanBackground";
+import CampUnderTwilightBackground from "../components/CampUnderTwilightBackground";
 
 const SignupLoginPage = () => {
 
@@ -55,114 +57,42 @@ const SignupLoginPage = () => {
         }
     }
 
-    const [starArray, setStarArray] = useState<JSX.Element[]>([]);
-
-    const getMeteorShower = () => {
-        return (<>
-            <Box sx={{
-                position: 'fixed',
-                width: '100vw', // alter if don't work
-                height: '100vh', // alter if don't work
-            }}>
-                {starArray}
-            </Box>
-        </>)
-    }
-
-    useEffect(() => {
-        setTimeout(() => {
-            setStarArray([...starArray, getRandomShootingStar()]);
-        }, 300)
-    }, [starArray]);
-
     return (<>
-        <Stack // Please fix overflow on mobile, they cant scroll!
-            direction='column'
-            justifyContent='space-between'
-            alignItems={'center'}
-            height='100vh'
-            width='100vw'
-            sx={{
-                overflowX: 'hidden',
-                position: 'relative'
-            }}
-        >
-
-            <Grid
-                container
-                direction="row"
-                justifyContent="space-between"
-                alignItems="flex-start"
-                sx={{
-                    padding: '10px',
-                    paddingLeft: '100px',
-                    paddingTop: '30px',
-                    paddingBottom: '20px',
-                    paddingRight: '30px'
-                }}
-            >
-                <Box sx={{ opacity: 0 }}>
-                    {getLogo(30)}
-                </Box>
-                <DrawerButton />
-            </Grid>
-
-            <Grid item>
-                <Stack
-                    direction='column'
-                    alignItems={'center'}
-                    justifyContent={'center'}
-                >
-                    {getLogo(45)}
-                    {getSignupLoginButton()}
-                    <Box style={{ height: '30vh', zIndex: 1 }}>
-
-                    </Box>
-                </Stack>
-            </Grid>
-            <Grid item sx={{
-                position: 'absolute',
-                bottom: 0,
-                width: '100vw',
-                height: '100vh',
-                margin: 0, // Set margin to 0 to remove any default spacing
-                padding: 0, // Set padding to 0 to remove any default padding
-                zIndex: -2,
-            }}>{getMeteorShower()}</Grid>
-            <Grid item // important to use grid items if you want your animation to stay at the very bottom of the component
-                sx={{
-                    position: 'relative',
-                    width: '100vw',
-
-                }}
-            >
-                <Box
+        <CampUnderTwilightBackground>
+            <Box sx={{ height: '100vh', width: '100vw', zIndex: 1 }}>
+                <Grid
+                    container
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="flex-start"
                     sx={{
-                        position: 'absolute',
-                        bottom: 0,
-                        width: '100vw',
-                        margin: 0, // Set margin to 0 to remove any default spacing
-                        padding: 0, // Set padding to 0 to remove any default padding
-                        zIndex: -1,
+                        padding: '10px',
+                        paddingLeft: '100px',
+                        paddingTop: '30px',
+                        paddingBottom: '20px',
+                        paddingRight: '30px',
+                        top: 0,
+                        zIndex: 1,
                     }}
                 >
-                    {getWaveAnimation('10vh', 0.25, 'forwards', 8, OnePeakWaveSvg)}
-                    {getWaveAnimation('15vh', 0.25, 'forwards', 5, TwoPeakWaveSvg)}
-                    {getWaveAnimation('18vh', 0.25, 'backwards', 9, TwoPeakWaveSvg)}
-
-                    {getWaveAnimation('20vh', 0.25, 'backwards', 11, OnePeakWaveSvg)}
-                    {getWaveAnimation('15vh', 0.25, 'forwards', 8, TwoPeakWaveSvg)}
-                    {getWaveAnimation('25vh', 0.25, 'forwards', 15, TwoPeakWaveSvg)}
-                </Box >
-            </Grid>
-            <Box sx={{
-                position: 'absolute',
-                width: '100vw',
-                bottom: '0px'
-            }}>
-                <LinksDisplay />
+                    <Box sx={{ opacity: 0 }}>
+                        {getLogo(30)}
+                    </Box>
+                    <DrawerButton />
+                </Grid>
+                <Box style={{ height: '10vh' }}/>
+                <Grid item sx={{ zIndex: 1 }}>
+                    <Stack
+                        direction='column'
+                        alignItems={'center'}
+                        justifyContent={'center'}
+                    >
+                        {getLogo(45)}
+                        {getSignupLoginButton()}
+                    </Stack>
+                </Grid>
             </Box>
-        </Stack>
+        </CampUnderTwilightBackground>
     </>)
 }
 

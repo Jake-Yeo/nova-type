@@ -10,7 +10,7 @@ export interface smokeProps {
     scaleX: number,
     scaleY: number,
     rotationMultDeviation: number,
-    opacityAddDeviation: number
+    opacityAddDeviation: number,
 }
 
 const SmokeAnimation = ({translateXMultDeviation, translateYAddDeviation, blurAddDeviation, widthAddDeviation, animationTimeDeviation, scaleX, scaleY, rotationMultDeviation, opacityAddDeviation}: smokeProps) => {
