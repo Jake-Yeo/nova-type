@@ -12,9 +12,12 @@ import MountainBaseSvg from "../components/MountainBaseSvg";
 import MountainRocksSvg from "../components/MountainRocksSvg";
 import CampFireAnimation from "../components/CampFireAnimation";
 import TwinklingStarsAnimation from "../components/TwinklingStarsAnimation";
+import { useNavigate } from "react-router-dom";
 
 
 const HomePage = () => {
+
+    const navigate = useNavigate();
 
     const toScrollToRef = useRef<HTMLDivElement>(null);
 
@@ -98,6 +101,7 @@ const HomePage = () => {
                         color: '#635985',
                         backgroundColor: '#292140',
                         borderRadius: '20px',
+                        textTransform: 'none', // for some reason text in button was all caps... This stops that!
                         '&:hover': { //When you use &:hover, you’re saying: “Apply the following styles to the current selector when it’s being hovered.”
                             backgroundColor: '#393055',
                         },
@@ -153,7 +157,7 @@ const HomePage = () => {
 
     const getRandomTwinkle = (): JSX.Element => {
 
-        const topOffset = getRandomNumber(10, 90);
+        const topOffset = getRandomNumber(10, 88);
         const leftOffset = getRandomNumber(1, 99);
         const randomDuration = getRandomNumber(6, 15);
 
@@ -205,8 +209,29 @@ const HomePage = () => {
                 minHeight: '110vh',
                 width: '100vw',
                 position: 'relative', // relative sets this as the parent container for the absolute positions box can be in
-                overflow: 'hidden'
+                overflow: 'hidden',
+                justifyContent: 'center',
+                alignItems: 'center',
             }}>
+                <Typography sx={{ color: 'white', maxWidth: '70vw', textAlign: 'center', marginBottom: '10px' }}>Welcome to NovaType, a visually stunning typing experience set against a backdrop of a beautiful space themed environment, meant to help users improve typing accuracy and dexterity.</Typography>
+                <Button
+                    onClick={() => { navigate("/TypingPage") }}
+                    sx={{
+                        color: '#635985',
+                        backgroundColor: '#372F4E',
+                        borderRadius: '20px',
+                        textTransform: 'none', // for some reason text in button was all caps... This stops that!
+                        '&:hover': { //When you use &:hover, you’re saying: “Apply the following styles to the current selector when it’s being hovered.”
+                            backgroundColor: '#5B546E',
+                        },
+                    }}>
+                    <Typography sx={{
+                        color: 'white',
+                        fontSize: '20px',
+
+                        zIndex: 1000,
+                    }}>{"Click Here to Play!"}</Typography>
+                </Button>
                 <Box
                     sx={{
                         position: 'absolute',
@@ -261,7 +286,8 @@ const HomePage = () => {
                         ref={toScrollToRef}
                         sx={{
                             width: "100vw",
-                            height: "10vh"
+                            height: "10vh",
+                            zIndex: 100,
                         }}>
                         <MountainBaseSvg width={"100%"} height={"10vh"} opacity={1}></MountainBaseSvg>
                     </Box>
@@ -272,7 +298,7 @@ const HomePage = () => {
                         height: '100vh',
                         margin: 0, // Set margin to 0 to remove any default spacing
                         padding: 0, // Set padding to 0 to remove any default padding
-                        zIndex: 2,
+                        zIndex: 0,
                     }}>{getTwinkles()}</Grid>
                 </Stack>
             </Stack>

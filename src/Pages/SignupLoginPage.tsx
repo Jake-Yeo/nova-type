@@ -29,6 +29,7 @@ const SignupLoginPage = () => {
                     backgroundColor: '#292140',
                     borderRadius: '20px',
                     width: 'min-content',
+                    textTransform: 'none', // for some reason text in button was all caps... This stops that!
                     '&:hover': { //When you use &:hover, you’re saying: “Apply the following styles to the current selector when it’s being hovered.”
                         backgroundColor: '#393055',
                     },
@@ -43,6 +44,7 @@ const SignupLoginPage = () => {
                     backgroundColor: '#292140',
                     borderRadius: '20px',
                     width: 'min-content',
+                    textTransform: 'none', // for some reason text in button was all caps... This stops that!
                     '&:hover': { //When you use &:hover, you’re saying: “Apply the following styles to the current selector when it’s being hovered.”
                         backgroundColor: '#393055',
                     },
