@@ -153,7 +153,7 @@ const HomePage = () => {
 
     const getRandomTwinkle = (): JSX.Element => {
 
-        const topOffset = getRandomNumber(10, 70);
+        const topOffset = getRandomNumber(10, 90);
         const leftOffset = getRandomNumber(1, 99);
         const randomDuration = getRandomNumber(6, 15);
 
@@ -207,15 +207,6 @@ const HomePage = () => {
                 position: 'relative', // relative sets this as the parent container for the absolute positions box can be in
                 overflow: 'hidden'
             }}>
-                <Grid item sx={{
-                    position: 'absolute',
-                    bottom: 0,
-                    width: '100vw',
-                    height: '100vh',
-                    margin: 0, // Set margin to 0 to remove any default spacing
-                    padding: 0, // Set padding to 0 to remove any default padding
-                    zIndex: 2,
-                }}>{getTwinkles()}</Grid>
                 <Box
                     sx={{
                         position: 'absolute',
@@ -252,6 +243,7 @@ const HomePage = () => {
                         width: '100vw',
                         alignItems: 'flex-end',
                         justifyContent: 'space-between',
+                        zIndex: '100'
                     }}>
                         <Box width='10px'></Box>
                         <TentSvg width={"139px"} height={"79px"} opacity={1}></TentSvg>
@@ -273,6 +265,15 @@ const HomePage = () => {
                         }}>
                         <MountainBaseSvg width={"100%"} height={"10vh"} opacity={1}></MountainBaseSvg>
                     </Box>
+                    <Grid item sx={{
+                        position: 'absolute',
+                        bottom: 0,
+                        width: '100vw',
+                        height: '100vh',
+                        margin: 0, // Set margin to 0 to remove any default spacing
+                        padding: 0, // Set padding to 0 to remove any default padding
+                        zIndex: 2,
+                    }}>{getTwinkles()}</Grid>
                 </Stack>
             </Stack>
         </Box>
