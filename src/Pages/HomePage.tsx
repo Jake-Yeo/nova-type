@@ -63,7 +63,7 @@ const HomePage = () => {
                 paddingLeft: '100px',
                 paddingTop: '30px',
                 paddingBottom: '20px',
-                paddingRight: '30px'
+                paddingRight: '30px',
             }}
         >
             <Box sx={{ opacity: 0 }}>
@@ -132,6 +132,7 @@ const HomePage = () => {
         <Box sx={{
             background: 'linear-gradient(180deg, rgb(24, 18, 43) 0%, rgb(3, 24, 53) 20%, rgb(40, 45, 65) 60%, rgba(211, 140, 96, 0.3) 100%)',
             zIndex: 1,
+            overflow: 'hidden',
         }}>
             <Stack sx={{
                 minHeight: '110vh',
@@ -162,6 +163,7 @@ const HomePage = () => {
                     {getWaveAnimation('15vh', 0.25, 'forwards', 8, TwoPeakWaveSvg)}
                     {getWaveAnimation('25vh', 0.25, 'forwards', 15, TwoPeakWaveSvg)}
                 </Box >
+                {/**stack below causing double scroll bars */}
                 <Stack
                     sx={{
                         position: 'absolute',
@@ -174,12 +176,12 @@ const HomePage = () => {
                         justifyContent: 'space-between',
                     }}>
                         <Box width='10px'></Box>
-                        <TentSvg width={"209px"} height={"119px"} opacity={1}></TentSvg>
+                        <TentSvg width={"139px"} height={"79px"} opacity={1}></TentSvg>
                         <Box width='10px'></Box>
                         <Box sx={{
                             marginBottom: "-5px"
                         }}>
-                            <Box sx={{ zIndex: -1, position: 'relative' }}> {/** Make it relative because zIndex only works with relative positions */}
+                            <Box sx={{ zIndex: -1, position: 'relative', }}> {/** Make it relative because zIndex only works with relative positions */}
                                 <CampFireAnimation />
                             </Box>
                         </Box>
