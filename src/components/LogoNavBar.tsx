@@ -5,10 +5,23 @@ import DrawerItems from "./DrawerItems";
 import { getLogo, getSvgBox } from "../functions/HelperFunction";
 import DrawerButton from "./DrawerButton";
 
-const LogoNavBar = () => {
+interface Props {
+    hideLogo?: boolean
+}
+
+const LogoNavBar = ({ hideLogo }: Props) => {
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+    var logo = <Box sx={{ opacity: 1 }}>{getLogo(30)}</Box>
+
+    if (!hideLogo) {
+        hideLogo = false;
+    }
+
+    if (hideLogo == true) {
+        logo = <Box sx={{ opacity: 0 }}>{getLogo(30)}</Box>
+    }
 
     return (<>
         <Grid
@@ -24,8 +37,8 @@ const LogoNavBar = () => {
                 paddingRight: '30px'
             }}
         >
-            {getLogo(30)}
-            <DrawerButton/>
+            {logo}
+            <DrawerButton />
         </Grid>
     </>);
 }

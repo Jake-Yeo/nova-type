@@ -17,6 +17,7 @@ import MeteorShowerAnimation from "../components/MeteorShowerAnimation";
 import CloudOceanAnimation from "../components/CloudOceanAnimation";
 import MeteorShowerCloudOceanBackground from "../components/MeteorShowerCloudOceanBackground";
 import CampUnderTwilightBackground from "../components/CampUnderTwilightBackground";
+import LogoNavBar from "../components/LogoNavBar";
 
 
 const HomePage = () => {
@@ -42,25 +43,7 @@ const HomePage = () => {
             backgroundColor: '#8C83A4', // This will fill in the gap between the two pages between the wave!
             overflowX: 'hidden',
         }} />
-        <Grid
-            container
-            direction="row"
-            justifyContent="space-between"
-            alignItems="flex-start"
-            sx={{
-                padding: '10px',
-                paddingLeft: '100px',
-                paddingTop: '30px',
-                paddingBottom: '20px',
-                paddingRight: '30px',
-            }}
-        >
-            <Box sx={{ opacity: 0 }}>
-                {getLogo(30)}
-            </Box>
-            <DrawerButton />
-        </Grid>
-
+        <LogoNavBar hideLogo={true} />
         <Grid item>
             <Stack
                 direction='column'

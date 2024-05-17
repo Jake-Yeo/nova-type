@@ -60,27 +60,8 @@ const SignupLoginPage = () => {
     return (<>
         <CampUnderTwilightBackground>
             <Box sx={{ height: '100vh', width: '100vw', zIndex: 1 }}>
-                <Grid
-                    container
-                    direction="row"
-                    justifyContent="space-between"
-                    alignItems="flex-start"
-                    sx={{
-                        padding: '10px',
-                        paddingLeft: '100px',
-                        paddingTop: '30px',
-                        paddingBottom: '20px',
-                        paddingRight: '30px',
-                        top: 0,
-                        zIndex: 1,
-                    }}
-                >
-                    <Box sx={{ opacity: 0 }}>
-                        {getLogo(30)}
-                    </Box>
-                    <DrawerButton />
-                </Grid>
-                <Box style={{ height: '10vh' }}/>
+                <LogoNavBar hideLogo={true} />
+                <Box style={{ height: '10vh' }} />
                 <Grid item sx={{ zIndex: 1 }}>
                     <Stack
                         direction='column'
