@@ -1,6 +1,6 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import OnePeakWaveSvg from "../components/OnePeakWaveSvg";
-import { getLogo, getRandomShootingStar, getSvgBox, getWaveAnimation } from "../functions/HelperFunction";
+import { getLogo, getRandomNumber, getRandomShootingStar, getSvgBox, getWaveAnimation } from "../functions/HelperFunction";
 import TwoPeakWaveSvg from "../components/TwoPeakWaveSvg";
 import DrawerButton from "../components/DrawerButton";
 import { useEffect, useState } from "react";
@@ -11,6 +11,7 @@ import CampFireSvg from "../components/CampFireSvg";
 import MountainBaseSvg from "../components/MountainBaseSvg";
 import MountainRocksSvg from "../components/MountainRocksSvg";
 import CampFireAnimation from "../components/CampFireAnimation";
+import TwinklingStarsAnimation from "../components/TwinklingStarsAnimation";
 
 
 const HomePage = () => {
@@ -53,6 +54,14 @@ const HomePage = () => {
         }}>
             <LinksDisplay />
         </Box>
+        <Box sx={{
+            position: 'absolute',
+            bottom: '-1px',
+            height: '2px',
+            width: '100vw',
+            backgroundColor: '#8C83A4', // This will fill in the gap between the two pages between the wave!
+            overflowX: 'hidden',
+        }} />
         <Grid
             container
             direction="row"
@@ -125,27 +134,73 @@ const HomePage = () => {
         </Grid>
     </Stack>
 
-    const campfireWidth = 2;
-    const campfireHeight = 2 * (7.8 / 26.65);
+    const [twinkleArray, setTwinkleArray] = useState<JSX.Element[]>([]);
+
+    const getRandomTwinkle = (): JSX.Element => {
+
+        const topOffset = getRandomNumber(10, 50);
+        const leftOffset = getRandomNumber(5, 95);
+        const randomDuration = getRandomNumber(6, 15);
+
+        const randomHeadWidthPx = getRandomNumber(5, 10);
+        const randomRotateAddDeviation = getRandomNumber(1, 180);
+
+
+        return (<TwinklingStarsAnimation rotateAddDeviation={randomRotateAddDeviation} headWidthPx={randomHeadWidthPx} animationDuratonSecs={randomDuration} topOffsetVh={topOffset} leftOffsetVw={leftOffset} />);
+    }
+
+    const getTwinkles = () => {
+        return (<>
+            <Box sx={{
+                position: 'absolute', // means that it will stay put in its parents component
+                width: '100vw', // alter if don't work
+                height: '100vh', // alter if don't work
+            }}>
+                {twinkleArray}
+            </Box>
+        </>)
+    }
+
+    useEffect(() => {
+        setTimeout(() => {
+            setTwinkleArray([...twinkleArray, getRandomTwinkle()]);
+        }, 500)
+    }, [twinkleArray]);
+
+    /**
+     * 
+     *                 <Grid item sx={{
+                        position: 'absolute',
+                        bottom: 0,
+                        width: '100vw',
+                        height: '100vh',
+                        margin: 0, // Set margin to 0 to remove any default spacing
+                        padding: 0, // Set padding to 0 to remove any default padding
+                        zIndex: 2,
+                    }}>{getTwinkles()}</Grid>
+     */
 
     const secondPage =
         <Box sx={{
             background: 'linear-gradient(180deg, rgb(24, 18, 43) 0%, rgb(3, 24, 53) 20%, rgb(40, 45, 65) 60%, rgba(211, 140, 96, 0.3) 100%)',
             zIndex: 1,
-            overflow: 'hidden',
+            overflow: 'hidden', // this gets rid of the thing that fills in the gap between the two pages
         }}>
             <Stack sx={{
                 minHeight: '110vh',
                 width: '100vw',
                 position: 'relative', // relative sets this as the parent container for the absolute positions box can be in
+                overflow: 'hidden'
             }}>
-                <Box sx={{
+                <Grid item sx={{
                     position: 'absolute',
-                    top: '-2px',
-                    height: '5px',
+                    bottom: 0,
                     width: '100vw',
-                    backgroundColor: '#8C83A4', // This will fill in the gap between the two pages between the wave!
-                }} />
+                    height: '100vh',
+                    margin: 0, // Set margin to 0 to remove any default spacing
+                    padding: 0, // Set padding to 0 to remove any default padding
+                    zIndex: 2,
+                }}>{getTwinkles()}</Grid>
                 <Box
                     sx={{
                         position: 'absolute',
@@ -163,6 +218,14 @@ const HomePage = () => {
                     {getWaveAnimation('15vh', 0.25, 'forwards', 8, TwoPeakWaveSvg)}
                     {getWaveAnimation('25vh', 0.25, 'forwards', 15, TwoPeakWaveSvg)}
                 </Box >
+                <Box sx={{
+                    position: 'absolute',
+                    top: '-1px',
+                    height: '2px',
+                    width: '100vw',
+                    backgroundColor: '#8C83A4', // This will fill in the gap between the two pages between the wave!
+                    overflowX: 'hidden',
+                }} />
                 {/**stack below causing double scroll bars */}
                 <Stack
                     sx={{
@@ -198,11 +261,23 @@ const HomePage = () => {
         </Box>
 
     return (<>
-        <Stack sx={{ overflowX: 'hidden' }}>
+        <Stack sx={{ overflowX: 'hidden', position: 'relative' }}>
             {firstPage}
             {secondPage}
         </Stack>
     </>)
 }
+
+/** /// find out where to place this...
+ * 
+ *             <Box sx={{
+                position: 'absolute',
+                bottom: '-5px',
+                height: '5px',
+                width: '100vw',
+                backgroundColor: '#8C83A4', // This will fill in the gap between the two pages between the wave!
+                overflowX: 'hidden',
+            }} />
+ */
 
 export default HomePage
