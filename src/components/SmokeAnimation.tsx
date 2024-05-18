@@ -104,7 +104,7 @@ const SmokeAnimation = ({ translateXMultDeviation, translateYAddDeviation, blurA
             }
 
             // If both "animationId" and "cssId" are found, break out of the loop
-            if (numTagsFound == 3) {
+            if (numTagsFound == 3) {// this number is based on me manuallly checking how many style elements are created per shooting star in the dom. (I originally thought it was 8!)
                 break;
             }
         }

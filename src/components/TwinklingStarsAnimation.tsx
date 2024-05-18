@@ -20,6 +20,10 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
     const cssPosId = uuidv4();
     const cssNegId = uuidv4();
 
+    const boxWrapperId = uuidv4();
+
+
+
     const starHeadCssWidth = headWidthPx;
     const starHeadCssHeight = starHeadCssWidth * (4 / 30);
     const starHeadCssTransform = starHeadCssWidth * (84 / 30);
@@ -126,34 +130,6 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
         animation: `${headPosAnimation} ${animationTime}s ease-in-out infinite`
     }
 
-    // css strings
-
-    const starHeadNegCssString = css`
-    /* test */
-        position: absolute;
-        width: ${starHeadCssWidth}px;
-        height: ${starHeadCssHeight}px;
-        background: linear-gradient(-45deg, rgba(0, 0, 255, 0), white, rgba(0, 0, 255, 0));
-        border-radius: 100px;
-        transform: translate(${starHeadCssTransform}px) rotate(45deg);
-        filter: drop-shadow(0 0 6px white);
-        z-index: -10;
-        animation: ${headNegAnimation} ${animationTime}s ease-in-out infinite;
-    `
-
-    const starHeadPosCssString = css`
-    /* test */
-        position: absolute;
-        width: ${starHeadCssWidth}px;
-        height: ${starHeadCssHeight}px;
-        background: linear-gradient(-45deg, rgba(0, 0, 255, 0), white, rgba(0, 0, 255, 0));
-        border-radius: 100px;
-        transform: translate(${starHeadCssTransform}px) rotate(-45deg);
-        filter: drop-shadow(0 0 6px white);
-        z-index: -10;
-        animation: ${headPosAnimation} ${animationTime}s ease-in-out infinite;
-    `
-
     // Timer to remove element from dom after animation finishes
 
     const toDelete = useRef<HTMLElement>(null);
@@ -166,14 +142,14 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
         for (var i = styleTagsArray.length - 1; i >= 0; i--) {
             var styleTag = styleTags[i];
 
-            if (styleTag.innerHTML.includes(animationPosId) || styleTag.innerHTML.includes(animationNegId) || styleTag.innerHTML.includes(cssNegId) || styleTag.innerHTML.includes(cssPosId)) {
+            if (styleTag.innerHTML.includes(animationPosId) || styleTag.innerHTML.includes(animationNegId) || styleTag.innerHTML.includes(cssNegId) || styleTag.innerHTML.includes(cssPosId) || styleTag.innerHTML.includes(boxWrapperId)) {
                 numTagsFound++;
-                //   console.log(`Found animationPosId(Twinkling): ${animationPosId} or animationNegId(Twinkling): ${animationNegId} or cssNegId(Twinkling): ${cssNegId} or cssPosId(Twinkling): ${cssPosId} in a style tag, removing:", styleTag`);
+                // console.log(`Found animationPosId(Twinkling): ${animationPosId} or animationNegId(Twinkling): ${animationNegId} or cssNegId(Twinkling): ${cssNegId} or cssPosId(Twinkling): ${cssPosId} in a style tag, removing:", styleTag`);
                 styleTag.remove();
             }
 
             // If both "animationId" and "cssId" are found, break out of the loop
-            if (numTagsFound == 6) {
+            if (numTagsFound == 7) {// this number is based on me manuallly checking how many style elements are created per shooting star in the dom. (I originally thought it was 8!)
                 break;
             }
         }
@@ -193,20 +169,20 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
             purgeStyles(); // deletes all styles associated with this animation to prevent memory leaks
 
             toDelete.current?.remove(); // delete this element from the dom once the animation finishes!
-            
+
             clearTimeout(timer); // Clear the timer if the component unmounts before 5 seconds
         };
     }, [])
 
     return (
         <Box
-            //id={id}
             ref={toDelete}
             sx={{
+                id: boxWrapperId,
                 top: `${topOffsetVh}vh`,
                 left: `${leftOffsetVw}vw`,
                 position: 'absolute',
-                zIndex: -10,
+                zIndex: -11,
             }}
         >
             <Box sx={starHeadPosCss} /> {/** NEED REFS TO THIS TOO TO DELETE STYLE */}
