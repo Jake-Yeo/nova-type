@@ -41,6 +41,7 @@ const CampUnderTwilightBackground = ({ children, occasionalShootingStar = false 
     const getTwinkles = () => {
         return (<>
             <Box sx={{
+                id: 'getTwinkles',
                 position: 'absolute', // means that it will stay put in its parents component
                 width: '100vw', // alter if don't work
                 height: '100vh', // alter if don't work
@@ -102,7 +103,7 @@ const CampUnderTwilightBackground = ({ children, occasionalShootingStar = false 
                             <Box sx={{
                                 marginBottom: "-5px"
                             }}>
-                                <Box sx={{ zIndex: -1, position: 'relative', }}> {/** Make it relative because zIndex only works with relative positions */}
+                                <Box sx={{id:'CampFireAnimationBox', zIndex: -1, position: 'relative', }}> {/** Make it relative because zIndex only works with relative positions */}
                                     <CampFireAnimation />
                                 </Box>
                             </Box>
@@ -110,6 +111,7 @@ const CampUnderTwilightBackground = ({ children, occasionalShootingStar = false 
                         </Stack>
                         <Box
                             sx={{
+                                id: 'mountainBaseSvgBox',
                                 width: "100vw",
                                 height: "10vh",
                                 zIndex: 100,
@@ -117,6 +119,7 @@ const CampUnderTwilightBackground = ({ children, occasionalShootingStar = false 
                             <MountainBaseSvg width={"100%"} height={"10vh"} opacity={1}></MountainBaseSvg>
                         </Box>
                         <Grid item sx={{
+                            id: 'getTwinklesGrid',
                             position: 'absolute',
                             bottom: 0,
                             width: '100vw',

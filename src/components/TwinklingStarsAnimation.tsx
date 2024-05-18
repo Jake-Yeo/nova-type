@@ -158,32 +158,42 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
 
     const toDelete = useRef<HTMLElement>(null);
 
+    const purgeStyles = () => {
+        var styleTags = document.querySelectorAll('style[data-emotion="css"]');
+        var styleTagsArray = Array.from(styleTags);
+        var numTagsFound = 0;
+
+        for (var i = styleTagsArray.length - 1; i >= 0; i--) {
+            var styleTag = styleTags[i];
+
+            if (styleTag.innerHTML.includes(animationPosId) || styleTag.innerHTML.includes(animationNegId) || styleTag.innerHTML.includes(cssNegId) || styleTag.innerHTML.includes(cssPosId)) {
+                numTagsFound++;
+                //   console.log(`Found animationPosId(Twinkling): ${animationPosId} or animationNegId(Twinkling): ${animationNegId} or cssNegId(Twinkling): ${cssNegId} or cssPosId(Twinkling): ${cssPosId} in a style tag, removing:", styleTag`);
+                styleTag.remove();
+            }
+
+            // If both "animationId" and "cssId" are found, break out of the loop
+            if (numTagsFound == 6) {
+                break;
+            }
+        }
+    }
+
     useEffect(() => {
         const timer = setTimeout(() => {
 
-            var styleTags = document.querySelectorAll('style[data-emotion="css"]');
-            var styleTagsArray = Array.from(styleTags);
-            var numTagsFound = 0;
-
-            for (var i = styleTagsArray.length - 1; i >= 0; i--) {
-                var styleTag = styleTags[i];
-
-                if (styleTag.innerHTML.includes(animationPosId) || styleTag.innerHTML.includes(animationNegId) || styleTag.innerHTML.includes(cssNegId) || styleTag.innerHTML.includes(cssPosId)) {
-                    numTagsFound++;
-                 //   console.log(`Found animationPosId(Twinkling): ${animationPosId} or animationNegId(Twinkling): ${animationNegId} or cssNegId(Twinkling): ${cssNegId} or cssPosId(Twinkling): ${cssPosId} in a style tag, removing:", styleTag`);
-                    styleTag.remove();
-                }
-
-                // If both "animationId" and "cssId" are found, break out of the loop
-                if (numTagsFound == 4) {
-                    break;
-                }
-            }
+            purgeStyles(); // deletes all styles associated with this animation to prevent memory leaks
 
             toDelete.current?.remove(); // delete this element from the dom once the animation finishes!
+
         }, (animationDuratonSecs * 1000));
 
         return () => {
+
+            purgeStyles(); // deletes all styles associated with this animation to prevent memory leaks
+
+            toDelete.current?.remove(); // delete this element from the dom once the animation finishes!
+            
             clearTimeout(timer); // Clear the timer if the component unmounts before 5 seconds
         };
     }, [])

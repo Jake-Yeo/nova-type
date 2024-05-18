@@ -260,7 +260,7 @@ export const getWaveAnimation = (height: string, opacity: number, direction: str
         </Box></>)
 }
 
- export const getSvgBox = (width: string, height: string, path: string) => {
+export const getSvgBox = (width: string, height: string, path: string) => {
     return (
         <Box
             sx={{

@@ -181,7 +181,7 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
     }
 
     const starTailCss = {
-        id: "areyoustillhere",
+        id: starTailCssId,
         position: 'absolute',
         width: `${starTailCssWidth}px`,
         height: `${starTailCssHeight}px`,
@@ -196,31 +196,40 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
 
     const toDelete = useRef<HTMLElement>(null);
 
+    const purgeStyles = () => {
+        var styleTags = document.querySelectorAll('style[data-emotion="css"]');
+        var styleTagsArray = Array.from(styleTags);
+        var numTagsFound = 0;
+
+        for (var i = styleTagsArray.length - 1; i >= 0; i--) {
+            var styleTag = styleTags[i];
+
+            if (styleTag.innerHTML.includes(boxCssId) || styleTag.innerHTML.includes(starTailCssId) || styleTag.innerHTML.includes(starHeadPosCssId) || styleTag.innerHTML.includes(headNegAnimationId) || styleTag.innerHTML.includes(headPosAnimationId) || styleTag.innerHTML.includes(tailAnimationId) || styleTag.innerHTML.includes(starAnimationId) || styleTag.innerHTML.includes(starHeadNegCssId)) {
+                numTagsFound++;
+                //   console.log(`${boxCssId} removing:", styleTag`);
+                styleTag.remove();
+            }
+            // If both "animationId" and "cssId" are found, break out of the loop
+            if (numTagsFound == 12) { // this number is based on me manuallly checking how many style elements are created per shooting star in the dom. (I originally thought it was 8!)
+                break;
+            }
+        }
+    }
+
     useEffect(() => {
         const timer = setTimeout(() => {
 
-            var styleTags = document.querySelectorAll('style[data-emotion="css"]');
-            var styleTagsArray = Array.from(styleTags);
-            var numTagsFound = 0;
-
-            for (var i = styleTagsArray.length - 1; i >= 0; i--) {
-                var styleTag = styleTags[i];
-
-                if (styleTag.innerHTML.includes(boxCssId) || styleTag.innerHTML.includes(starTailCssId) || styleTag.innerHTML.includes(starHeadPosCssId)|| styleTag.innerHTML.includes(headNegAnimationId) || styleTag.innerHTML.includes(headPosAnimationId) || styleTag.innerHTML.includes(tailAnimationId) || styleTag.innerHTML.includes(starAnimationId) || styleTag.innerHTML.includes(starHeadNegCssId)) {
-                    numTagsFound++;
-                    console.log(`${boxCssId} removing:", styleTag`);
-                    styleTag.remove();
-                }
-                // If both "animationId" and "cssId" are found, break out of the loop
-                if (numTagsFound == 8) {
-                    break;
-                }
-            }
+            purgeStyles(); // delete all styles associated with this animation when it finishes
 
             toDelete.current?.remove();
         }, (animationDuratonSecs * 1000));
 
         return () => {
+
+            purgeStyles(); // delete all styles associated with this animation when it finishes
+
+            toDelete.current?.remove();
+
             clearTimeout(timer); // Clear the timer if the component unmounts before 5 seconds
         };
     }, [])
@@ -229,7 +238,7 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
         <Box
             ref={toDelete}
             sx={{
-                id: 'hawefawefi',
+                id: boxCssId,
                 top: `${topOffsetVh}vh`,
                 left: `${leftOffsetVw}vw`,
                 position: 'absolute',
