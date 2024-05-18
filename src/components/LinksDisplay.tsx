@@ -25,7 +25,7 @@ const LinksDisplay = () => {
                     }
                 }}
             >
-                {getSvgBox(30, 30, "./svgFiles/githubColor.svg")}
+                {getSvgBox('30px', '30px', "./svgFiles/githubColor.svg")}
                 {'\u00A0GitHub'}
             </Link>
         </Box>

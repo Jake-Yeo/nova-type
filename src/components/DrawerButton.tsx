@@ -20,7 +20,7 @@ const DrawerButton = () => {
                 },
             }}
         >
-            {getSvgBox(32, 32, "./svgFiles/menu.svg")}
+            {getSvgBox("32px", "32px", "./svgFiles/menu.svg")}
         </Button>
 
         <Drawer

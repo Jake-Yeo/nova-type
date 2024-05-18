@@ -1,6 +1,6 @@
 import { Box, Button, ButtonBase, ButtonTypeMap, Drawer, Grid, Stack, Typography } from "@mui/material";
 import { ClassNameConfigurator } from '@mui/base/utils';
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DrawerItems from "./DrawerItems";
 import { getLogo, getSvgBox } from "../functions/HelperFunction";
 import DrawerButton from "./DrawerButton";
@@ -13,14 +13,14 @@ const LogoNavBar = ({ hideLogo }: Props) => {
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-    var logo = <Box sx={{ opacity: 1 }}>{getLogo(30)}</Box>
+    var logo = <Box sx={{ opacity: 1 }}>{getLogo(1, 15)}</Box>
 
     if (!hideLogo) {
         hideLogo = false;
     }
 
     if (hideLogo == true) {
-        logo = <Box sx={{ opacity: 0 }}>{getLogo(30)}</Box>
+        logo = <Box sx={{ opacity: 0 }}>{getLogo(1, 15)}</Box>
     }
 
     return (<>

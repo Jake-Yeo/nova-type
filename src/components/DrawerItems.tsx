@@ -12,7 +12,7 @@ const DrawerItems = ({ setIsDrawerOpen }: prop) => {
     const getStyledListButton = (text: String, route: string, iconPath: string) => {
         return (<>
             <ListItemButton onClick={() => navigateTo(route)}>
-                {getSvgBox(32, 32, iconPath)}
+                {getSvgBox('32px', '32px', iconPath)}
                 <ListItemText
                     primary={<span style={{
                         color: 'White',

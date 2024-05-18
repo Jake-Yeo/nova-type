@@ -30,7 +30,7 @@ const RestartButton = () => {
                             backgroundColor: '#393055',
                         },
                     }}>
-                    {getSvgBox(40,40, "./svgFiles/restart.svg")}
+                    {getSvgBox('40px', "40px", "./svgFiles/restart.svg")}
                 </Button>
             </Grid>
         </>

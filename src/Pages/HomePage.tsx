@@ -50,7 +50,7 @@ const HomePage = () => {
                 alignItems={'center'}
                 justifyContent={'center'}
             >
-                {getLogo(45)}
+                {getLogo(2, 20)}
                 <Button
                     onClick={() => toScrollToRef.current?.scrollIntoView()}
                     sx={{

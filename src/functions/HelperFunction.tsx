@@ -161,26 +161,34 @@ export function getColouredSpan(char: String, colour: String, backgroundColor: S
     }}>{char}</span>;
 };
 
-export const getLogo = (fontSize: number) => {
+export const getLogo = (maxSizeVw: number, minSizePx: number) => {
 
-    const fontSizeMain = fontSize + "px";
-    const fontSizeSub = (fontSize * (14 / 30)) + "px";
-    const fontSizeSpace = (fontSize * (20 / 30)) + "px";
-    const widthOfLogo = (fontSize * (100 / 30));
-    const heightOfLogo = widthOfLogo * 0.611570247;
+    const fontSizeMainMax = maxSizeVw + "vw";
+    const fontSizeSubMax = (maxSizeVw * (14 / 30)) + "vw";
+    const fontSizeSpaceMax = (maxSizeVw * (20 / 30)) + "vw";
+    const widthOfLogoMax = (maxSizeVw * (100 / 30));
+    const heightOfLogoMax = widthOfLogoMax * 0.611570247;
+
+    const fontSizeMainMin = minSizePx + "px";
+    const fontSizeSubMin = (minSizePx * (14 / 30)) + "px";
+    const fontSizeSpaceMin = (minSizePx * (20 / 30)) + "px";
+    const widthOfLogoMin = (minSizePx * (100 / 30)); // pixels
+    const heightOfLogoMin = widthOfLogoMin * 0.611570247; //pixels
+
+
 
     return (
         <Stack direction={'row'} alignItems={'center'}>
-            {getSvgBox(widthOfLogo, heightOfLogo, "./svgFiles/novaTypeLogo.svg")}
+            {getSvgBox(`calc(${widthOfLogoMin + 'px' + ' + ' + widthOfLogoMax + "vw"})`, `calc(${heightOfLogoMin + 'px' + ' + ' + heightOfLogoMax + "vw"})`, "./svgFiles/novaTypeLogo.svg")}
             <Stack>
                 <Stack flexDirection={'row'}>
-                    <Typography fontSize={fontSizeSpace}>&nbsp;</Typography>
-                    <Typography color="white" fontSize={fontSizeMain} fontWeight={'bold'}>Nova</Typography>
-                    <Typography color="#9287B7" fontSize={fontSizeMain} fontWeight={'bold'}>Type</Typography>
+                    <Typography fontSize={`calc(${fontSizeSpaceMin + ' + ' + fontSizeSpaceMax})`}>&nbsp;</Typography>
+                    <Typography color="white" fontSize={`calc(${fontSizeMainMin + ' + ' + fontSizeMainMax})`} fontWeight={'bold'}>Nova</Typography>
+                    <Typography color="#9287B7" fontSize={`calc(${fontSizeMainMin + ' + ' + fontSizeMainMax})`} fontWeight={'bold'}>Type</Typography>
                 </Stack>
                 <Stack flexDirection={'row'}>
-                    <Typography fontSize={fontSizeSpace}>&nbsp;</Typography>
-                    <Typography color="#635985" fontSize={fontSizeSub} fontWeight={'bold'}>Make a Wish</Typography>
+                    <Typography fontSize={`calc(${fontSizeSpaceMin + ' + ' + fontSizeSpaceMax})`}>&nbsp;</Typography>
+                    <Typography color="#635985" fontSize={`calc(${fontSizeSubMin + ' + ' + fontSizeSubMax})`} fontWeight={'bold'}>Make a Wish</Typography>
                 </Stack>
             </Stack>
         </Stack>
@@ -252,7 +260,7 @@ export const getWaveAnimation = (height: string, opacity: number, direction: str
         </Box></>)
 }
 
-export const getSvgBox = (width: number, height: number, path: string) => {
+ export const getSvgBox = (width: string, height: string, path: string) => {
     return (
         <Box
             sx={{

@@ -68,7 +68,7 @@ const SignupLoginPage = () => {
                         alignItems={'center'}
                         justifyContent={'center'}
                     >
-                        {getLogo(45)}
+                        {getLogo(2, 20)}
                         {getSignupLoginButton()}
                     </Stack>
                 </Grid>
