@@ -7,13 +7,21 @@ import { ReactNode, useEffect, useState } from "react"
 import { getRandomNumber } from "../functions/HelperFunction"
 import TwinklingStarsAnimation from "./TwinklingStarsAnimation"
 import CloudOceanAnimation from "./CloudOceanAnimation"
+import MeteorShowerAnimation from "./MeteorShowerAnimation"
 
 interface Props {
-    children?: ReactNode // this allows us to pass in child elements like so <MeteorShowerCloudOceanBackground>hi there!</MeteorShowerCloudOceanBackground>
+    children?: ReactNode, // this allows us to pass in child elements like so <MeteorShowerCloudOceanBackground>hi there!</MeteorShowerCloudOceanBackground>
+    occasionalShootingStar?: boolean
 }
 
 
-const CampUnderTwilightBackground = ({ children }: Props) => {
+const CampUnderTwilightBackground = ({ children, occasionalShootingStar = false }: Props) => {
+
+    var shootingStarAnimation = <></>;
+
+    if (occasionalShootingStar) {
+        shootingStarAnimation = <MeteorShowerAnimation shootingStarInterval={2000}></MeteorShowerAnimation>
+    }
 
     const [twinkleArray, setTwinkleArray] = useState<JSX.Element[]>([]);
 
@@ -53,7 +61,7 @@ const CampUnderTwilightBackground = ({ children }: Props) => {
             <Box sx={{
                 background: 'linear-gradient(180deg, rgb(24, 18, 43) 0%, rgb(3, 24, 53) 20%, rgb(40, 45, 65) 60%, rgba(211, 140, 96, 0.3) 100%)',
                 zIndex: 1,
-                overflow: 'hidden', // this gets rid of the thing that fills in the gap between the two pages
+                overflow: 'hidden', // this gets rid of the element that fills in the gap between the two pages
             }}>
                 <Stack sx={{
                     minHeight: '100vh',
@@ -70,7 +78,7 @@ const CampUnderTwilightBackground = ({ children }: Props) => {
                             position: 'absolute',
                             top: '0px',
                             width: '100vw',
-                            zIndex: 0,
+                            zIndex: 2,
                             transform: 'rotate(180deg)'
                         }}
                     >
@@ -116,7 +124,7 @@ const CampUnderTwilightBackground = ({ children }: Props) => {
                             margin: 0, // Set margin to 0 to remove any default spacing
                             padding: 0, // Set padding to 0 to remove any default padding
                             zIndex: 0,
-                        }}>{getTwinkles()}</Grid>
+                        }}>{getTwinkles()}{shootingStarAnimation}</Grid>
                     </Stack>
                 </Stack>
             </Box>

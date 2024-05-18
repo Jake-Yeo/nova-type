@@ -6,7 +6,7 @@ import { ReactNode } from "react"
 
 
 interface Props {
-    children?: ReactNode
+    children?: ReactNode,
 }
 
 const MeteorShowerCloudOceanBackground = ({children}: Props) => { // this allows us to pass in child elements like so <MeteorShowerCloudOceanBackground>hi there!</MeteorShowerCloudOceanBackground>

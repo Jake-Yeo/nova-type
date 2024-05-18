@@ -2,7 +2,12 @@ import { Box, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getRandomShootingStar } from "../functions/HelperFunction";
 
-const MeteorShowerAnimation = () => {
+interface Props {
+    shootingStarInterval?: number
+}
+
+const MeteorShowerAnimation = ({shootingStarInterval = 300}: Props) => { // sets the default value to 300
+
     const [starArray, setStarArray] = useState<JSX.Element[]>([]);
 
     const getMeteorShower = () => {
@@ -20,7 +25,7 @@ const MeteorShowerAnimation = () => {
     useEffect(() => {
         setTimeout(() => {
             setStarArray([...starArray, getRandomShootingStar()]);
-        }, 300)
+        }, shootingStarInterval)
     }, [starArray]);
 
     return (<>

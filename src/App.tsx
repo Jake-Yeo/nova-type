@@ -10,6 +10,7 @@ import firebase from 'firebase/compat';
 import LoadingPage from './Pages/LoadingPage';
 import HomePage from './Pages/HomePage';
 import { Typography } from '@mui/material';
+import AboutPage from './Pages/AboutPage';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
           <Route path='/SignupLoginPage' element={<SignupLoginPage />} />
           <Route path='/HomePage' element={<HomePage/>}/>
           <Route path='/LoadingPage' element={<LoadingPage/>}></Route>
+          <Route path='/AboutPage' element={<AboutPage/>}></Route>
           <Route path='*' element={<Typography sx={{color: 'white'}}>404 error</Typography>} />
         </Routes>
       </BrowserRouter>

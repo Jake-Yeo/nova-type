@@ -10,7 +10,7 @@ interface ShootingStarsProps {
     rotateAddDeviation: number,
 }
 
-const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetVh, leftOffsetVw, rotateAddDeviation}: ShootingStarsProps) => {
+const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetVh, leftOffsetVw, rotateAddDeviation }: ShootingStarsProps) => {
 
     const starHeadCssWidth = headWidthPx;
     const starHeadCssHeight = starHeadCssWidth * (4 / 30);
@@ -27,7 +27,7 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
         }
     
         30% {
-            transform: translate(${-headWidthAnimeAspect/2}px) rotate(${45 + rotateAddDeviation}deg);
+            transform: translate(${-headWidthAnimeAspect / 2}px) rotate(${45 + rotateAddDeviation}deg);
             width: ${headWidthAnimeAspect}px;
         }
 
@@ -61,7 +61,7 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
         }
     
         30% {
-            transform: translate(${-headWidthAnimeAspect/2}px) rotate(${-45 + rotateAddDeviation}deg);
+            transform: translate(${-headWidthAnimeAspect / 2}px) rotate(${-45 + rotateAddDeviation}deg);
             width: ${headWidthAnimeAspect}px;
         }
 
@@ -114,11 +114,11 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
 
     // Timer to remove element from dom after animation finishes
 
-    const [render, setRender] = useState(true);
+    const toDelete = useRef<HTMLElement>(null);
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            setRender(false);
+            toDelete.current?.remove(); // delete this element from the dom once the animation finishes!
         }, (animationDuratonSecs * 1000));
 
         return () => {
@@ -126,9 +126,9 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
         };
     }, [])
 
-    if (render) { // effectivly same as deleting element. If render if false, then the element dissapears from dom I'm pretty sure
         return (
             <Box
+                ref={toDelete}
                 sx={{
                     top: `${topOffsetVh}vh`,
                     left: `${leftOffsetVw}vw`,
@@ -140,11 +140,6 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
                 <Box sx={starHeadNegCss} />
             </Box>
         )
-    } else {
-        return (<></>)
     }
-
-
-}
 
 export default TwinklingStarsAnimation;

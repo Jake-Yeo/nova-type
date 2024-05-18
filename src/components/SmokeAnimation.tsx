@@ -1,5 +1,5 @@
 import { Box, keyframes } from "@mui/material"
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export interface smokeProps {
     translateXMultDeviation: number,
@@ -81,11 +81,11 @@ const SmokeAnimation = ({translateXMultDeviation, translateYAddDeviation, blurAd
         width: ${70 + widthAddDeviation}px;
     }
     `
-    const [render, setRender] = useState(true);
+    const toDelete = useRef<HTMLElement>(null);
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            setRender(false);
+            toDelete.current?.remove(); // delete this element from the dom once the animation finishes!
         }, (animationTime * 1000));
 
         return () => {
@@ -93,15 +93,12 @@ const SmokeAnimation = ({translateXMultDeviation, translateYAddDeviation, blurAd
         };
     }, [])
 
-    if (render) { // effectivly same as deleting element. If render if false, then the element dissapears from dom I'm pretty sure
         return (
-            <Box sx={{ position: 'absolute', zIndex: 2, width: '30px', height: '50px', marginLeft: '0px', top: '0px', animation: `${smokeAnimation} ${animationTime}s linear infinite`, animationFillMode: 'forwards', overflowY: 'hidden',}}> {/** smoke animation */}
+            <Box ref={toDelete} sx={{ position: 'absolute', zIndex: 2, width: '30px', height: '50px', marginLeft: '0px', top: '0px', animation: `${smokeAnimation} ${animationTime}s linear infinite`, animationFillMode: 'forwards', overflowY: 'hidden',}}> {/** smoke animation */}
                 <img src='./svgFiles/smoke.png' alt="Your GIF" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </Box>
         )
-    } else {
-        return (<></>)
-    }
+
 }
 
 export default SmokeAnimation

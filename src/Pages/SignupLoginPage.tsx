@@ -58,8 +58,8 @@ const SignupLoginPage = () => {
     }
 
     return (<>
-        <CampUnderTwilightBackground>
-            <Box sx={{ height: '100vh', width: '100vw', zIndex: 1 }}>
+        <CampUnderTwilightBackground occasionalShootingStar={true}>
+            <Box sx={{ height: '100vh', width: '100vw', zIndex: 3 }}>
                 <LogoNavBar hideLogo={true} />
                 <Box style={{ height: '10vh' }} />
                 <Grid item sx={{ zIndex: 1 }}>

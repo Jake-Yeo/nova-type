@@ -9,15 +9,11 @@ interface Props {
     hideLogo?: boolean
 }
 
-const LogoNavBar = ({ hideLogo }: Props) => {
+const LogoNavBar = ({ hideLogo = false }: Props) => {
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
     var logo = <Box sx={{ opacity: 1 }}>{getLogo(1, 15)}</Box>
-
-    if (!hideLogo) {
-        hideLogo = false;
-    }
 
     if (hideLogo == true) {
         logo = <Box sx={{ opacity: 0 }}>{getLogo(1, 15)}</Box>

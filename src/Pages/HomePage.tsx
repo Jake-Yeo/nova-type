@@ -31,14 +31,13 @@ const HomePage = () => {
             position: 'absolute',
             width: '100vw',
             bottom: '0px',
-            marginLeft: '15px',
         }}>
             <LinksDisplay />
         </Box>
         <Box sx={{
             position: 'absolute',
-            bottom: '-1px',
-            height: '2px',
+            bottom: '0px',
+            height: '1px',
             width: '100vw',
             backgroundColor: '#8C83A4', // This will fill in the gap between the two pages between the wave!
             overflowX: 'hidden',
@@ -74,7 +73,7 @@ const HomePage = () => {
     </MeteorShowerCloudOceanBackground>
 
     const secondPage =
-        <CampUnderTwilightBackground>
+        <CampUnderTwilightBackground occasionalShootingStar={true}>
             <Typography sx={{ color: 'white', maxWidth: '70vw', textAlign: 'center', marginBottom: '10px' }}>Welcome to NovaType, a visually stunning typing experience set against a backdrop of a beautiful space themed environment, meant to help users improve typing accuracy and dexterity.</Typography>
             <Button
                 onClick={() => { navigate("/TypingPage") }}
@@ -97,8 +96,8 @@ const HomePage = () => {
             </Button>
             <Box sx={{
                 position: 'absolute',
-                top: '-1px',
-                height: '2px',
+                top: '0px',
+                height: '0px',
                 width: '100vw',
                 backgroundColor: '#8C83A4', // This will fill in the gap between the two pages between the wave!
                 overflowX: 'hidden',

@@ -170,11 +170,11 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
 
     // Timer to remove element from dom after animation finishes
 
-    const [render, setRender] = useState(true);
+    const toDelete = useRef<HTMLElement>(null);
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            setRender(false);
+            toDelete.current?.remove();
         }, (animationDuratonSecs * 1000));
 
         return () => {
@@ -182,9 +182,9 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
         };
     }, [])
 
-    if (render) { // effectivly same as deleting element. If render if false, then the element dissapears from dom I'm pretty sure
         return (
             <Box
+            ref={toDelete}
                 sx={{
                     top: `${topOffsetVh}vh`,
                     left: `${leftOffsetVw}vw`,
@@ -198,11 +198,6 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
                 <Box sx={starHeadNegCss} />
             </Box>
         )
-    } else {
-        return (<></>)
     }
-
-
-}
 
 export default ShootingStarsAnimation;
