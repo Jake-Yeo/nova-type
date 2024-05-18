@@ -1,5 +1,7 @@
-import { Box, keyframes } from "@mui/material"
+import { Box, css, keyframes } from "@mui/material"
 import { useEffect, useRef, useState } from "react";
+// @ts-ignore
+import { v4 as uuidv4 } from 'uuid';
 
 export interface smokeProps {
     translateXMultDeviation: number,
@@ -13,9 +15,11 @@ export interface smokeProps {
     opacityAddDeviation: number,
 }
 
-const SmokeAnimation = ({translateXMultDeviation, translateYAddDeviation, blurAddDeviation, widthAddDeviation, animationTimeDeviation, scaleX, scaleY, rotationMultDeviation, opacityAddDeviation}: smokeProps) => {
+const SmokeAnimation = ({ translateXMultDeviation, translateYAddDeviation, blurAddDeviation, widthAddDeviation, animationTimeDeviation, scaleX, scaleY, rotationMultDeviation, opacityAddDeviation }: smokeProps) => {
 
     const animationTime = animationTimeDeviation;
+    const animationId = uuidv4();
+    const cssId = uuidv4();
     const smokeAnimation = keyframes`
 
     0% {
@@ -80,11 +84,37 @@ const SmokeAnimation = ({translateXMultDeviation, translateYAddDeviation, blurAd
         opacity: 0;
         width: ${70 + widthAddDeviation}px;
     }
+
+    id: ${animationId}
     `
     const toDelete = useRef<HTMLElement>(null);
 
     useEffect(() => {
         const timer = setTimeout(() => {
+
+            var styleTags = document.querySelectorAll('style[data-emotion="css"]');
+            var styleTagsArray = Array.from(styleTags);
+            var numTagsFound = 0;
+
+            var animationToRemove;
+            var styleToRemove;
+
+            for (var i = styleTagsArray.length - 1; i >= 0; i--) {
+                var styleTag = styleTags[i];
+
+                if (styleTag.innerHTML.includes(cssId) || styleTag.innerHTML.includes(animationId)) {
+                    numTagsFound++;
+                   // console.log(`Found animationId(smoke): ${animationId} or cssId(smoke): ${cssId} in a style tag, removing:", styleTag`);
+                    styleTag.remove();
+                }
+
+                // If both "animationId" and "cssId" are found, break out of the loop
+                if (numTagsFound == 2) {
+                    break;
+                }
+            }
+
+
             toDelete.current?.remove(); // delete this element from the dom once the animation finishes!
         }, (animationTime * 1000));
 
@@ -93,11 +123,26 @@ const SmokeAnimation = ({translateXMultDeviation, translateYAddDeviation, blurAd
         };
     }, [])
 
-        return (
-            <Box ref={toDelete} sx={{ position: 'absolute', zIndex: 2, width: '30px', height: '50px', marginLeft: '0px', top: '0px', animation: `${smokeAnimation} ${animationTime}s linear infinite`, animationFillMode: 'forwards', overflowY: 'hidden',}}> {/** smoke animation */}
-                <img src='./svgFiles/smoke.png' alt="Your GIF" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </Box>
-        )
+    const boxCssString = /*#__PURE__*/ css({
+        position: 'absolute',
+        zIndex: 2,
+        width: '30px',
+        height: '50px',
+        marginLeft: '0px',
+        top: '0px',
+        animation: `${smokeAnimation} ${animationTime}s linear infinite`,
+        animationFillMode: 'forwards',
+        overflowY: 'hidden',
+    })
+
+    return (
+        <Box
+            ref={toDelete}
+            sx={{ id: `${cssId}`, position: 'absolute', zIndex: 2, width: '30px', height: '50px', marginLeft: '0px', top: '0px', animation: `${smokeAnimation} ${animationTime}s linear infinite`, animationFillMode: 'forwards', overflowY: 'hidden', }}
+        > {/** smoke animation */}
+            <img src='./svgFiles/smoke.png' alt="Your GIF" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        </Box>
+    )
 
 }
 

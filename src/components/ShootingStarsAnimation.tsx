@@ -1,6 +1,9 @@
-import { Box, keyframes } from "@mui/material";
+
+import { Box, css, keyframes } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { useEffect, useRef, useState } from "react";
+// @ts-ignore
+import { v4 as uuidv4 } from 'uuid';
 
 interface ShootingStarsProps {
     headWidthPx: number,
@@ -10,7 +13,17 @@ interface ShootingStarsProps {
     leftOffsetVw: number
 }
 
-const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTravelVh, topOffsetVh, leftOffsetVw}: ShootingStarsProps) => {
+const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTravelVh, topOffsetVh, leftOffsetVw }: ShootingStarsProps) => {
+
+    const headNegAnimationId = uuidv4();
+    const headPosAnimationId = uuidv4();
+    const tailAnimationId = uuidv4();
+    const starAnimationId = uuidv4();
+
+    const starHeadNegCssId = uuidv4();
+    const starHeadPosCssId = uuidv4();
+    const starTailCssId = uuidv4();
+    const boxCssId = uuidv4();
 
     const starHeadCssWidth = headWidthPx;
     const starTailCssHeight = starHeadCssWidth * (4 / 30);
@@ -57,6 +70,8 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
             width: 0px;
             filter: drop-shadow(0 0 20px white);
         }
+
+        id: ${headNegAnimationId}
         `;
 
     var headPosAnimation = keyframes`
@@ -91,6 +106,8 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
             width: 0px;
             filter: drop-shadow(0 0 20px white);
         }
+
+        id: ${headPosAnimationId}
         `;
 
     var tailAnimation = keyframes`
@@ -122,6 +139,8 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
             width: 0px;
             filter: drop-shadow(0 0 20px white);
         }
+
+        id: ${tailAnimationId}
       `;
 
     var starAnimation = keyframes`
@@ -131,9 +150,12 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
       100% {
         transform: translateX(${starTranslateAnimeAspect}vh) translateY(${starTranslateAnimeAspect}vh) rotate(45deg);
       }
+
+      id: ${starAnimationId}
       `
 
     const starHeadNegCss = {
+        id: starHeadNegCssId,
         position: 'absolute',
         width: `${starHeadCssWidth}px`,
         height: `${starHeadCssHeight}px`,
@@ -146,6 +168,7 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
     }
 
     const starHeadPosCss = {
+        id: starHeadPosCssId,
         position: 'absolute',
         width: `${starHeadCssWidth}px`,
         height: `${starHeadCssHeight}px`,
@@ -158,6 +181,7 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
     }
 
     const starTailCss = {
+        id: "areyoustillhere",
         position: 'absolute',
         width: `${starTailCssWidth}px`,
         height: `${starTailCssHeight}px`,
@@ -174,6 +198,25 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
 
     useEffect(() => {
         const timer = setTimeout(() => {
+
+            var styleTags = document.querySelectorAll('style[data-emotion="css"]');
+            var styleTagsArray = Array.from(styleTags);
+            var numTagsFound = 0;
+
+            for (var i = styleTagsArray.length - 1; i >= 0; i--) {
+                var styleTag = styleTags[i];
+
+                if (styleTag.innerHTML.includes(boxCssId) || styleTag.innerHTML.includes(starTailCssId) || styleTag.innerHTML.includes(starHeadPosCssId)|| styleTag.innerHTML.includes(headNegAnimationId) || styleTag.innerHTML.includes(headPosAnimationId) || styleTag.innerHTML.includes(tailAnimationId) || styleTag.innerHTML.includes(starAnimationId) || styleTag.innerHTML.includes(starHeadNegCssId)) {
+                    numTagsFound++;
+                    console.log(`${boxCssId} removing:", styleTag`);
+                    styleTag.remove();
+                }
+                // If both "animationId" and "cssId" are found, break out of the loop
+                if (numTagsFound == 8) {
+                    break;
+                }
+            }
+
             toDelete.current?.remove();
         }, (animationDuratonSecs * 1000));
 
@@ -182,22 +225,23 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
         };
     }, [])
 
-        return (
-            <Box
+    return (
+        <Box
             ref={toDelete}
-                sx={{
-                    top: `${topOffsetVh}vh`,
-                    left: `${leftOffsetVw}vw`,
-                    position: 'absolute',
-                    animation: `${starAnimation} ${animationTime}s ease-in-out infinite`,
-                    zIndex: -10,
-                }}
-            >
-                <Box sx={starTailCss} />
-                <Box sx={starHeadPosCss} />
-                <Box sx={starHeadNegCss} />
-            </Box>
-        )
-    }
+            sx={{
+                id: 'hawefawefi',
+                top: `${topOffsetVh}vh`,
+                left: `${leftOffsetVw}vw`,
+                position: 'absolute',
+                animation: `${starAnimation} ${animationTime}s ease-in-out infinite`,
+                zIndex: -10,
+            }}
+        >
+            <Box sx={starTailCss} /> {/** NEED REFS TO THIS TOO TO DELETE STYLE */}
+            <Box sx={starHeadPosCss} /> {/** NEED REFS TO THIS TOO TO DELETE STYLE */}
+            <Box sx={starHeadNegCss} /> {/** NEED REFS TO THIS TOO TO DELETE STYLE */}
+        </Box>
+    )
+}
 
 export default ShootingStarsAnimation;

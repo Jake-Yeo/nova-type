@@ -4,3 +4,12 @@ npm install @types/react-window
 npm install @mui/material @emotion/react @emotion/styled 
 npm install react-bootstrap bootstrap
 npm install @svgr/webpack --save-dev
+npm install uuid // api documentation here https://www.npmjs.com/package/uuid
+
+try first one, if does not work try second
+npm install -D @types/uuid
+npm i --save-dev @types/uuid
+
+npm install --save @emotion/react // used for dead code elimination
+
+npm install --save-dev @emotion/babel-plugin
