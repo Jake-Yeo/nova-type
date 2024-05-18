@@ -76,7 +76,8 @@ const HomePage = () => {
         <CampUnderTwilightBackground occasionalShootingStar={true}>
             <Typography sx={{ color: 'white', maxWidth: '70vw', textAlign: 'center', marginBottom: '10px' }}>Welcome to NovaType, a visually stunning typing experience set against a backdrop of a beautiful space themed environment, meant to help users improve typing accuracy and dexterity.</Typography>
             <Button
-                onClick={() => { navigate("/TypingPage") }}
+                onClick={() => { 
+                    navigate("/TypingPage") }}
                 sx={{
                     color: '#635985',
                     backgroundColor: '#372F4E',
@@ -89,8 +90,6 @@ const HomePage = () => {
                 <Typography sx={{
                     color: 'white',
                     fontSize: '20px',
-
-
                     zIndex: 1000,
                 }}>{"Click Here to Play!"}</Typography>
             </Button>

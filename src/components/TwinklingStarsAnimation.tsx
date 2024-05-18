@@ -2,6 +2,7 @@
 import { Box, css, keyframes } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 // @ts-ignore
 import { v4 as uuidv4 } from 'uuid';
 
@@ -168,9 +169,9 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
 
             purgeStyles(); // deletes all styles associated with this animation to prevent memory leaks
 
-            toDelete.current?.remove(); // delete this element from the dom once the animation finishes!
-
             clearTimeout(timer); // Clear the timer if the component unmounts before 5 seconds
+
+            toDelete.current?.remove(); // delete this element from the dom once the animation finishes!
         };
     }, [])
 

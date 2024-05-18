@@ -206,7 +206,7 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
 
             if (styleTag.innerHTML.includes(boxCssId) || styleTag.innerHTML.includes(starTailCssId) || styleTag.innerHTML.includes(starHeadPosCssId) || styleTag.innerHTML.includes(headNegAnimationId) || styleTag.innerHTML.includes(headPosAnimationId) || styleTag.innerHTML.includes(tailAnimationId) || styleTag.innerHTML.includes(starAnimationId) || styleTag.innerHTML.includes(starHeadNegCssId)) {
                 numTagsFound++;
-                //   console.log(`${boxCssId} removing:", styleTag`);
+                console.log(`${boxCssId} removing:", styleTag`);
                 styleTag.remove();
             }
             // If both "animationId" and "cssId" are found, break out of the loop
@@ -220,7 +220,6 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
         const timer = setTimeout(() => {
 
             purgeStyles(); // delete all styles associated with this animation when it finishes
-
             toDelete.current?.remove();
         }, (animationDuratonSecs * 1000));
 

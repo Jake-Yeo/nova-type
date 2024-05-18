@@ -11,5 +11,3 @@ npm install -D @types/uuid
 npm i --save-dev @types/uuid
 
 npm install --save @emotion/react // used for dead code elimination
-
-npm install --save-dev @emotion/babel-plugin
