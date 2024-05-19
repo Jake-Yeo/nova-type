@@ -4,6 +4,7 @@ import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { useEffect, useRef, useState } from "react";
 // @ts-ignore
 import { v4 as uuidv4 } from 'uuid';
+import { globalStyleId } from "../functions/HelperFunction";
 
 interface ShootingStarsProps {
     headWidthPx: number,
@@ -72,6 +73,8 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
         }
 
         id: ${headNegAnimationId}
+
+        globalId: ${globalStyleId}
         `;
 
     var headPosAnimation = keyframes`
@@ -108,6 +111,8 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
         }
 
         id: ${headPosAnimationId}
+
+        globalId: ${globalStyleId}
         `;
 
     var tailAnimation = keyframes`
@@ -141,6 +146,8 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
         }
 
         id: ${tailAnimationId}
+
+        globalId: ${globalStyleId}
       `;
 
     var starAnimation = keyframes`
@@ -152,9 +159,12 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
       }
 
       id: ${starAnimationId}
+
+      globalId: ${globalStyleId}
       `
 
     const starHeadNegCss = {
+        globalId: globalStyleId,
         id: starHeadNegCssId,
         position: 'absolute',
         width: `${starHeadCssWidth}px`,
@@ -168,6 +178,7 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
     }
 
     const starHeadPosCss = {
+        globalId: globalStyleId,
         id: starHeadPosCssId,
         position: 'absolute',
         width: `${starHeadCssWidth}px`,
@@ -181,6 +192,7 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
     }
 
     const starTailCss = {
+        globalId: globalStyleId,
         id: starTailCssId,
         position: 'absolute',
         width: `${starTailCssWidth}px`,
@@ -206,7 +218,7 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
 
             if (styleTag.innerHTML.includes(boxCssId) || styleTag.innerHTML.includes(starTailCssId) || styleTag.innerHTML.includes(starHeadPosCssId) || styleTag.innerHTML.includes(headNegAnimationId) || styleTag.innerHTML.includes(headPosAnimationId) || styleTag.innerHTML.includes(tailAnimationId) || styleTag.innerHTML.includes(starAnimationId) || styleTag.innerHTML.includes(starHeadNegCssId)) {
                 numTagsFound++;
-                console.log(`${boxCssId} removing:", styleTag`);
+                //console.log(`${boxCssId} removing:", styleTag`);
                 styleTag.remove();
             }
             // If both "animationId" and "cssId" are found, break out of the loop
@@ -225,8 +237,6 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
 
         return () => {
 
-            purgeStyles(); // delete all styles associated with this animation when it finishes
-
             toDelete.current?.remove();
 
             clearTimeout(timer); // Clear the timer if the component unmounts before 5 seconds
@@ -237,6 +247,7 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
         <Box
             ref={toDelete}
             sx={{
+                globalId: globalStyleId,
                 id: boxCssId,
                 top: `${topOffsetVh}vh`,
                 left: `${leftOffsetVw}vw`,

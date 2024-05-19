@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // @ts-ignore
 import { v4 as uuidv4 } from 'uuid';
+import { globalStyleId } from "../functions/HelperFunction";
 
 interface ShootingStarsProps {
     headWidthPx: number,
@@ -67,6 +68,8 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
         }
 
         id: ${animationNegId}
+
+        globalId: ${globalStyleId}
         `;
 
     var headPosAnimation = keyframes`
@@ -103,9 +106,12 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
         }
 
         id: ${animationPosId}
+
+        globalId: ${globalStyleId}
         `;
 
     const starHeadNegCss = {
+        globalId: globalStyleId,
         id: cssNegId,
         position: 'absolute',
         width: `${starHeadCssWidth}px`,
@@ -119,6 +125,7 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
     }
 
     const starHeadPosCss = {
+        globalId: globalStyleId,
         id: cssPosId,
         position: 'absolute',
         width: `${starHeadCssWidth}px`,
@@ -167,8 +174,6 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
 
         return () => {
 
-            purgeStyles(); // deletes all styles associated with this animation to prevent memory leaks
-
             clearTimeout(timer); // Clear the timer if the component unmounts before 5 seconds
 
             toDelete.current?.remove(); // delete this element from the dom once the animation finishes!
@@ -179,6 +184,7 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
         <Box
             ref={toDelete}
             sx={{
+                globalId: globalStyleId,
                 id: boxWrapperId,
                 top: `${topOffsetVh}vh`,
                 left: `${leftOffsetVw}vw`,

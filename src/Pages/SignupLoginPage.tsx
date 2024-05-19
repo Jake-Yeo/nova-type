@@ -13,7 +13,7 @@ import { TypingDataContext } from "../components/TypeFeedAreaDisplay";
 import { useNavigate } from "react-router-dom";
 import TwoPeakWaveSvg, { WavePropsType } from "../components/TwoPeakWaveSvg";
 import OnePeakWaveSvg from "../components/OnePeakWaveSvg";
-import { getLogo, getRandomShootingStar, getWaveAnimation } from "../functions/HelperFunction";
+import { getLogo, getRandomShootingStar, getWaveAnimation, purgeAllStylesWithGlobalId } from "../functions/HelperFunction";
 import DrawerButton from "../components/DrawerButton";
 import ShootingStarsAnimation from "../components/ShootingStarsAnimation";
 import zIndex from "@mui/material/styles/zIndex";
@@ -22,6 +22,12 @@ import MeteorShowerCloudOceanBackground from "../components/MeteorShowerCloudOce
 import CampUnderTwilightBackground from "../components/CampUnderTwilightBackground";
 
 const SignupLoginPage = () => {
+
+    useEffect(() => {
+        return (() => {
+            purgeAllStylesWithGlobalId(); // basically remove all style elements relating to the animations which were generating (although styles dissapear when the timer ends, if the page switches before the timer ends, then the style will not be deleted)
+        })
+    }, [])
 
     var getSignupLoginButton = () => {
         if (auth.currentUser != null) { // for some reason using isUserLoggedIn doesen't work, idk... But we still need the state because setting isUserLoggedIn re-renders this component

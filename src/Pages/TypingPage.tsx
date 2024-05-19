@@ -5,10 +5,16 @@ import TypeFeedAreaDisplay from "../components/TypeFeedAreaDisplay"
 import LinksDisplay from "../components/LinksDisplay"
 import OnePeakWaveSvg from "../components/OnePeakWaveSvg"
 import TwoPeakWaveSvg from "../components/TwoPeakWaveSvg"
-import { getRandomShootingStar, getWaveAnimation } from "../functions/HelperFunction"
+import { getRandomShootingStar, getWaveAnimation, purgeAllStylesWithGlobalId } from "../functions/HelperFunction"
 import { useEffect, useState } from "react"
 
 const TypingPage = () => {
+
+    useEffect(() => {
+        return (() => {
+            purgeAllStylesWithGlobalId(); // basically remove all style elements relating to the animations which were generating (although styles dissapear when the timer ends, if the page switches before the timer ends, then the style will not be deleted)
+        })
+    }, [])
 
     return (<>
         <Stack // Please fix overflow on mobile, they cant scroll!

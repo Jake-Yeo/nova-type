@@ -2,6 +2,7 @@ import { Box, css, keyframes } from "@mui/material"
 import { useEffect, useRef, useState } from "react";
 // @ts-ignore
 import { v4 as uuidv4 } from 'uuid';
+import { globalStyleId } from "../functions/HelperFunction";
 
 export interface smokeProps {
     translateXMultDeviation: number,
@@ -86,6 +87,8 @@ const SmokeAnimation = ({ translateXMultDeviation, translateYAddDeviation, blurA
     }
 
     id: ${animationId}
+
+    globalId: ${globalStyleId}
     `
     const toDelete = useRef<HTMLElement>(null);
 
@@ -120,30 +123,16 @@ const SmokeAnimation = ({ translateXMultDeviation, translateYAddDeviation, blurA
 
         return () => {
 
-            purgeStyles(); // delete all styles associated with this animation when it finishes
-
             toDelete.current?.remove(); // delete this element from the dom once the animation finishes!
 
             clearTimeout(timer); // Clear the timer if the component unmounts before 5 seconds
         };
     }, [])
 
-    const boxCssString = /*#__PURE__*/ css({
-        position: 'absolute',
-        zIndex: 2,
-        width: '30px',
-        height: '50px',
-        marginLeft: '0px',
-        top: '0px',
-        animation: `${smokeAnimation} ${animationTime}s linear infinite`,
-        animationFillMode: 'forwards',
-        overflowY: 'hidden',
-    })
-
     return (
         <Box
             ref={toDelete}
-            sx={{ id: `${cssId}`, position: 'absolute', zIndex: 2, width: '30px', height: '50px', marginLeft: '0px', top: '0px', animation: `${smokeAnimation} ${animationTime}s linear infinite`, animationFillMode: 'forwards', overflowY: 'hidden', }}
+            sx={{globalId: globalStyleId, id: cssId, position: 'absolute', zIndex: 2, width: '30px', height: '50px', marginLeft: '0px', top: '0px', animation: `${smokeAnimation} ${animationTime}s linear infinite`, animationFillMode: 'forwards', overflowY: 'hidden', }}
         > {/** smoke animation */}
             <img src='./svgFiles/smoke.png' alt="Your GIF" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </Box>

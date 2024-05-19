@@ -1,9 +1,17 @@
 import { Box, Stack, Typography } from "@mui/material"
+import { useEffect } from "react";
+import { purgeAllStylesWithGlobalId } from "../functions/HelperFunction";
 
 const LoadingPage = () => {
 
     const width = 65;
     const height = width * 1 / 2;
+
+    useEffect(() => {
+        return (() => {
+            purgeAllStylesWithGlobalId(); // basically remove all style elements relating to the animations which were generating (although styles dissapear when the timer ends, if the page switches before the timer ends, then the style will not be deleted)
+        })
+    }, [])
 
     return (<>
         <Stack justifyContent={'center'}

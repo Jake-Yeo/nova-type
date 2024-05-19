@@ -1,6 +1,6 @@
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import OnePeakWaveSvg from "../components/OnePeakWaveSvg";
-import { getLogo, getRandomNumber, getRandomShootingStar, getSvgBox, getWaveAnimation } from "../functions/HelperFunction";
+import { getLogo, getRandomNumber, getRandomShootingStar, getSvgBox, getWaveAnimation, purgeAllStylesWithGlobalId } from "../functions/HelperFunction";
 import TwoPeakWaveSvg from "../components/TwoPeakWaveSvg";
 import DrawerButton from "../components/DrawerButton";
 import { useEffect, useRef, useState } from "react";
@@ -76,8 +76,9 @@ const HomePage = () => {
         <CampUnderTwilightBackground occasionalShootingStar={true}>
             <Typography sx={{ color: 'white', maxWidth: '70vw', textAlign: 'center', marginBottom: '10px' }}>Welcome to NovaType, a visually stunning typing experience set against a backdrop of a beautiful space themed environment, meant to help users improve typing accuracy and dexterity.</Typography>
             <Button
-                onClick={() => { 
-                    navigate("/TypingPage") }}
+                onClick={() => {
+                    navigate("/TypingPage")
+                }}
                 sx={{
                     color: '#635985',
                     backgroundColor: '#372F4E',
@@ -103,6 +104,12 @@ const HomePage = () => {
             }} />
             <div ref={toScrollToRef}></div>
         </CampUnderTwilightBackground>
+
+    useEffect(() => {
+        return (() => {
+            purgeAllStylesWithGlobalId(); // basically remove all style elements relating to the animations which were generating (although styles dissapear when the timer ends, if the page switches before the timer ends, then the style will not be deleted)
+        })
+    }, [])
 
     return (<>
         <Stack sx={{ overflowX: 'hidden', position: 'relative' }}>

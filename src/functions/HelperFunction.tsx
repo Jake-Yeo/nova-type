@@ -3,6 +3,24 @@ import { TypingData, TypingDataContext } from "../components/TypeFeedAreaDisplay
 import { Box, keyframes, Stack, Typography } from "@mui/material";
 import { WavePropsType } from "../components/TwoPeakWaveSvg";
 import ShootingStarsAnimation from "../components/ShootingStarsAnimation";
+import { v4 as uuidv4 } from 'uuid';
+
+export const globalStyleId: string = uuidv4();
+
+export function purgeAllStylesWithGlobalId() {
+
+    var styleTags = document.querySelectorAll('style[data-emotion="css"]');
+    var styleTagsArray = Array.from(styleTags);
+
+    for (var i = styleTagsArray.length - 1; i >= 0; i--) {
+        var styleTag = styleTags[i];
+
+        if (styleTag.innerHTML.includes(globalStyleId)) { // having a global id that is shared among all styles that must be removed is very efficient! No longer need a nested for loop!
+            styleTag.remove();
+            console.log('removed style element from dom');
+        }
+    }
+}
 
 export async function getNewSentence(typingData: TypingData): Promise<string> {
 
