@@ -6,12 +6,10 @@ import { getLogo, getSvgBox } from "../functions/HelperFunction";
 import DrawerButton from "./DrawerButton";
 
 interface Props {
-    hideLogo?: boolean
+    hideLogo?: boolean,
 }
 
 const LogoNavBar = ({ hideLogo = false }: Props) => {
-
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
     var logo = <Box sx={{ opacity: 1 }}>{getLogo(1, 15)}</Box>
 

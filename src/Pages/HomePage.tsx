@@ -64,6 +64,7 @@ const HomePage = () => {
                     <Typography sx={{
                         color: 'white',
                         fontSize: '20px',
+                        zIndex: 10
                     }}>{"Welcome Click to Learn More!"}</Typography>
                 </Button>
                 <Box style={{ height: '43vh', zIndex: 1 }}>

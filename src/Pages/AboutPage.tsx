@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import CampUnderTwilightBackground from "../components/CampUnderTwilightBackground"
 import { purgeAllStylesWithGlobalId } from "../functions/HelperFunction";
+import LogoNavBar from "../components/LogoNavBar";
+import LinksDisplay from "../components/LinksDisplay";
+import { Box, Stack } from "@mui/material";
 
 const AboutPage = () => {
 
@@ -12,7 +15,14 @@ const AboutPage = () => {
 
     return (<>
         <CampUnderTwilightBackground occasionalShootingStar={true}>
+            <Box sx={{ height: '100vh', width: '100vw', zIndex: 3 }}>
+                <LogoNavBar hideLogo={true} />
+                <Box style={{ height: '10vh' }} />
 
+            </Box>
+            <Box sx={{ position: 'absolute', zIndex: 1000, bottom: 0, width: '100vw' }}>
+                <LinksDisplay darkMode={true}/>
+            </Box>
         </CampUnderTwilightBackground>
     </>)
 }

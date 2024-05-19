@@ -1,7 +1,17 @@
 import { Box, Link } from "@mui/material"
 import { getSvgBox } from "../functions/HelperFunction"
 
-const LinksDisplay = () => {
+interface Props {
+    darkMode?: boolean
+}
+
+const LinksDisplay = ({darkMode = false}: Props) => {
+
+    var noHoverTextColor = "#18122B";
+
+    if (darkMode) {
+        noHoverTextColor = '#8C83A4'
+    }
 
     return (<>
         <Box
@@ -14,7 +24,7 @@ const LinksDisplay = () => {
                 sx={{
                     paddingLeft: '10px',
                     paddingBottom: '10px',
-                    color: '#18122B',
+                    color: noHoverTextColor,
                     flex: '1',
                     display: 'flex',
                     width: 'fit-content',

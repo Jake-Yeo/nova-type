@@ -79,6 +79,9 @@ const SignupLoginPage = () => {
                     </Stack>
                 </Grid>
             </Box>
+            <Box sx={{ position: 'absolute', zIndex: 1000, bottom: 0, width: '100vw' }}>
+                <LinksDisplay darkMode={true} />
+            </Box>
         </CampUnderTwilightBackground>
     </>)
 }
