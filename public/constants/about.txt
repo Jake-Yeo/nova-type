@@ -1,0 +1,42 @@
+<Title>
+What is NovaType?
+<Paragraph>
+    Behind the scenes, NovaType is a fullstack website that was developed over the course of a month, where I dedicated
+around three to four hours a day typing it up to completion. It uses TypeScript and React for the frontend while using FireBase for the backend.
+Furthermore, it allowed me to apply and polish my previously learned skills, such as Object-Oriented-Programing, data-structures,
+and algorithm time complexity analysis which was particularly handy when dealing with memory leaks caused by the emotion library in React.
+To the user, it's a typing game that provids them with a series of random texts to type out. Through its responsive scenery,
+visual cues, and cloud saving capabilites, users are provided with a relaxing typing game which activly helps them improve their typing skills.  
+Not only that, it serves to bring a serene experience for all users through my self-developed dynamic background animations.
+It was a personal project I started to help me learn the aforementioned programming concepts and languages for future use and application in both work and class.
+<Title>
+Important Challenges and Solutions for Future Applications
+<Memory Leaks Caused by Animated Backgrounds with Randomly Generated Features>
+<Paragraph>
+    Throughout this project, I encountered numerous challenges, however, one notable challenge I faced were the memory leaks which were lagging and crashing my
+website. It started after I implemented my animated backgrounds. I noticed that if I left the website running for a few minutes it would become unbearably
+laggy and freeze. My first course of action was checking the dom to see what was happining during runtime. I saw that numerous MUI boxes were being created but not
+delted. Originally I though conditional rendering would've deleted these from the dom automatically, but I suppose not. To fix this, I used the useRef hook
+to remove the Box from the dom when it unmounted.
+<Paragraph>
+    However, when I refresed the site to check again, I still encountered the same problem. Checking the dom again, I saw tons of Style elements being created per
+second that were not being deleted. Seeing this, I was certain that this was what was crashing my site. So I did some research on these elements and discovered
+that they were created by emotion and were injected into the DOM and cached for later use. One problem is that the background was procedually generated, so
+every style injected would only ever be used once for around thirty seconds at most and then never be touched again. Another problem was that emotion didn't
+implement any procedures to remove these styles from the DOM. In fact, these Style elements were ambiguous, having no names or ID's that could trace them back to a
+element they were used in. Even worse the user can't even alter the id's of the style to query them later on.
+<Paragraph>
+    To fix this I found out I could just add my own ID's into the styling itself. This way, the ID could be found in the innerhtml of the style element. then
+I could fiter to get all the style elements created by emotion, and delete all the style elements that included the ID in it's innerhtml. So I would add the ID's
+to all keyframe and css type constants I had created. So I would run a function that would run once each animation ended and would also run when every animation unmounted
+just in case the timer never ends but the page changed then the styling would never be deleted
+<Title>
+What would I do differently in the future?
+
+Talk about how the animations you created caused a ton of memory leaks, also note how conditional rendering didn't remove the element from the dom which also slowed down the site
+Talk about how emotion works with style injecting, and how they don't provide a way to delete injected styles, causing memory leaks
+Talk about how you dealt with these memory leaks.
+talk about how fixing the memory leaks created lag spikes when switching pages
+Talk about how you fixed these lag spikes
+Talk about how chrome still had memory leaks because of the cache
+talk about how

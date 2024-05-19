@@ -3,7 +3,7 @@ import CampUnderTwilightBackground from "../components/CampUnderTwilightBackgrou
 import { purgeAllStylesWithGlobalId } from "../functions/HelperFunction";
 import LogoNavBar from "../components/LogoNavBar";
 import LinksDisplay from "../components/LinksDisplay";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 
 const AboutPage = () => {
 
@@ -14,16 +14,65 @@ const AboutPage = () => {
     }, [])
 
     return (<>
-        <CampUnderTwilightBackground occasionalShootingStar={true}>
-            <Box sx={{ height: '100vh', width: '100vw', zIndex: 3 }}>
-                <LogoNavBar hideLogo={true} />
-                <Box style={{ height: '10vh' }} />
-
+        <Stack>
+            <Box sx={{ position: 'fixed', zIndex: 3 }}> {/** Make it fixed because I want the text to scroll up and above from the ground */}
+                <CampUnderTwilightBackground occasionalShootingStar={true} >
+                    <Box sx={{
+                        height: '100vh',
+                        width: '100vw',
+                        overflowY: 'auto',
+                        zIndex: 1,
+                        justifyContent: 'center',
+                        display: 'flex',
+                        scrollbarWidth: 'initial', // For Firefox
+                        scrollbarColor: '#B6AAD7 transparent', // For Firefox
+                        msScrollbarArrowColor: "transparent",
+                    }}>
+                        <Typography sx={{ width: '60vw', color: 'white', zIndex: 4, marginBottom: '20vh' }}>aweiofjawpefj
+                            ipoaewfjipoae
+                            wjfipoaejfp
+                            oaewjfaewjfo
+                            ipoaewfjipoae
+                            wjfipoaejfp
+                            oaewjfaewjfo
+                            aewifjawipfjipoaewfjipoae
+                            wjfipoaejfp
+                            oaewjfaewjfo
+                            aewifjawipfjipoaewfjipoae
+                            wjfipoaejfp
+                            oaewjfaewjfo
+                            aewifjawipfjipoaewfjipoae
+                            wjfipoaejfp
+                            oaewjfaewjfo
+                            aewifjawipfjipoaewfjipoae
+                            wjfipoaejfp
+                            oaewjfaewjfo
+                            aewifjawipfjipoaewfjipoae
+                            wjfipoaejfp
+                            oaewjfaewjfo
+                            aewifjawipfjipoaewfjipoae
+                            wjfipoaejfp
+                            oaewjfaewjfo
+                            aewifjawipfjipoaewfjipoae
+                            wjfipoaejfp
+                            oaewjfaewjfo
+                            aewifjawipfjipoaewfjipoae
+                            wjfipoaejfp
+                            oaewjfaewjfo
+                            aewifjawipfj
+                            aewifjawipfj
+                            aewipfjeawoifjaiowfjawioefj</Typography>
+                    </Box>
+                    <Box sx={{ width: '100vw', zIndex: 3, position: 'absolute', top: 0 }}>
+                        <LogoNavBar hideLogo={true} />
+                        <Box style={{ height: '10vh' }} />
+                    </Box>
+                </CampUnderTwilightBackground>
             </Box>
-            <Box sx={{ position: 'absolute', zIndex: 1000, bottom: 0, width: '100vw' }}>
-                <LinksDisplay darkMode={true}/>
+            <Box sx={{ position: 'fixed', zIndex: 1000, bottom: 0, width: '100vw' }}>
+                <LinksDisplay darkMode={true} />
             </Box>
-        </CampUnderTwilightBackground>
+        </Stack>
     </>)
 }
 

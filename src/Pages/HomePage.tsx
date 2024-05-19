@@ -113,7 +113,10 @@ const HomePage = () => {
     }, [])
 
     return (<>
-        <Stack sx={{ overflowX: 'hidden', position: 'relative' }}>
+        <Stack sx={{
+            overflowX: 'hidden',
+            position: 'relative',
+        }}>
             {firstPage}
             {secondPage}
         </Stack>

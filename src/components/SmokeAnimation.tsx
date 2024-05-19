@@ -19,8 +19,7 @@ export interface smokeProps {
 const SmokeAnimation = ({ translateXMultDeviation, translateYAddDeviation, blurAddDeviation, widthAddDeviation, animationTimeDeviation, scaleX, scaleY, rotationMultDeviation, opacityAddDeviation }: smokeProps) => {
 
     const animationTime = animationTimeDeviation;
-    const animationId = uuidv4();
-    const cssId = uuidv4();
+    const uuid = uuidv4();
     const smokeAnimation = keyframes`
 
     0% {
@@ -86,7 +85,7 @@ const SmokeAnimation = ({ translateXMultDeviation, translateYAddDeviation, blurA
         width: ${70 + widthAddDeviation}px;
     }
 
-    id: ${animationId}
+    id: ${uuid}
 
     globalId: ${globalStyleId}
     `
@@ -100,9 +99,9 @@ const SmokeAnimation = ({ translateXMultDeviation, translateYAddDeviation, blurA
         for (var i = styleTagsArray.length - 1; i >= 0; i--) {
             var styleTag = styleTags[i];
 
-            if (styleTag.innerHTML.includes(cssId) || styleTag.innerHTML.includes(animationId)) {
+            if (styleTag.innerHTML.includes(uuid)) {
                 numTagsFound++;
-                // console.log(`Found animationId(smoke): ${animationId} or cssId(smoke): ${cssId} in a style tag, removing:", styleTag`);
+                //console.log(`Found animationId(smoke): ${uuid} in a style tag, removing:", styleTag`);
                 styleTag.remove();
             }
 
@@ -132,7 +131,7 @@ const SmokeAnimation = ({ translateXMultDeviation, translateYAddDeviation, blurA
     return (
         <Box
             ref={toDelete}
-            sx={{globalId: globalStyleId, id: cssId, position: 'absolute', zIndex: 2, width: '30px', height: '50px', marginLeft: '0px', top: '0px', animation: `${smokeAnimation} ${animationTime}s linear infinite`, animationFillMode: 'forwards', overflowY: 'hidden', }}
+            sx={{globalId: globalStyleId, id: uuid, position: 'absolute', zIndex: 2, width: '30px', height: '50px', marginLeft: '0px', top: '0px', animation: `${smokeAnimation} ${animationTime}s linear infinite`, animationFillMode: 'forwards', overflowY: 'hidden', }}
         > {/** smoke animation */}
             <img src='./svgFiles/smoke.png' alt="Your GIF" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </Box>

@@ -113,7 +113,7 @@ const HistoryList = () => {
                     msScrollbarArrowColor: "transparent",
                 }}
             >
-                {({ index, style }) => (
+                {({ index, style }) => (    
                     <ListItemComponent index={index} style={{
                         ...style,
                         paddingRight: '200px',

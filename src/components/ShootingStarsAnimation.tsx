@@ -16,15 +16,7 @@ interface ShootingStarsProps {
 
 const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTravelVh, topOffsetVh, leftOffsetVw }: ShootingStarsProps) => {
 
-    const headNegAnimationId = uuidv4();
-    const headPosAnimationId = uuidv4();
-    const tailAnimationId = uuidv4();
-    const starAnimationId = uuidv4();
-
-    const starHeadNegCssId = uuidv4();
-    const starHeadPosCssId = uuidv4();
-    const starTailCssId = uuidv4();
-    const boxCssId = uuidv4();
+    const uuid = uuidv4();
 
     const starHeadCssWidth = headWidthPx;
     const starTailCssHeight = starHeadCssWidth * (4 / 30);
@@ -72,7 +64,7 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
             filter: drop-shadow(0 0 20px white);
         }
 
-        id: ${headNegAnimationId}
+        id: ${uuid}
 
         globalId: ${globalStyleId}
         `;
@@ -110,7 +102,7 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
             filter: drop-shadow(0 0 20px white);
         }
 
-        id: ${headPosAnimationId}
+        id: ${uuid}
 
         globalId: ${globalStyleId}
         `;
@@ -145,7 +137,7 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
             filter: drop-shadow(0 0 20px white);
         }
 
-        id: ${tailAnimationId}
+        id: ${uuid}
 
         globalId: ${globalStyleId}
       `;
@@ -158,14 +150,14 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
         transform: translateX(${starTranslateAnimeAspect}vh) translateY(${starTranslateAnimeAspect}vh) rotate(45deg);
       }
 
-      id: ${starAnimationId}
+      id: ${uuid}
 
       globalId: ${globalStyleId}
       `
 
     const starHeadNegCss = {
         globalId: globalStyleId,
-        id: starHeadNegCssId,
+        id: uuid,
         position: 'absolute',
         width: `${starHeadCssWidth}px`,
         height: `${starHeadCssHeight}px`,
@@ -179,7 +171,7 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
 
     const starHeadPosCss = {
         globalId: globalStyleId,
-        id: starHeadPosCssId,
+        id: uuid,
         position: 'absolute',
         width: `${starHeadCssWidth}px`,
         height: `${starHeadCssHeight}px`,
@@ -193,7 +185,7 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
 
     const starTailCss = {
         globalId: globalStyleId,
-        id: starTailCssId,
+        id: uuid,
         position: 'absolute',
         width: `${starTailCssWidth}px`,
         height: `${starTailCssHeight}px`,
@@ -216,9 +208,9 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
         for (var i = styleTagsArray.length - 1; i >= 0; i--) {
             var styleTag = styleTags[i];
 
-            if (styleTag.innerHTML.includes(boxCssId) || styleTag.innerHTML.includes(starTailCssId) || styleTag.innerHTML.includes(starHeadPosCssId) || styleTag.innerHTML.includes(headNegAnimationId) || styleTag.innerHTML.includes(headPosAnimationId) || styleTag.innerHTML.includes(tailAnimationId) || styleTag.innerHTML.includes(starAnimationId) || styleTag.innerHTML.includes(starHeadNegCssId)) {
+            if (styleTag.innerHTML.includes(uuid)) {
                 numTagsFound++;
-                //console.log(`${boxCssId} removing:", styleTag`);
+               // console.log(`${uuid} removing:", styleTag`);
                 styleTag.remove();
             }
             // If both "animationId" and "cssId" are found, break out of the loop
@@ -248,7 +240,7 @@ const ShootingStarsAnimation = ({ headWidthPx, animationDuratonSecs, xyDistTrave
             ref={toDelete}
             sx={{
                 globalId: globalStyleId,
-                id: boxCssId,
+                id: uuid,
                 top: `${topOffsetVh}vh`,
                 left: `${leftOffsetVw}vw`,
                 position: 'absolute',

@@ -17,12 +17,7 @@ interface ShootingStarsProps {
 
 const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetVh, leftOffsetVw, rotateAddDeviation }: ShootingStarsProps) => {
 
-    const animationPosId = uuidv4();
-    const animationNegId = uuidv4();
-    const cssPosId = uuidv4();
-    const cssNegId = uuidv4();
-
-    const boxWrapperId = uuidv4();
+    const uuid = uuidv4();
 
 
 
@@ -67,7 +62,7 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
             filter: drop-shadow(0 0 20px white);
         }
 
-        id: ${animationNegId}
+        id: ${uuid}
 
         globalId: ${globalStyleId}
         `;
@@ -105,14 +100,14 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
             filter: drop-shadow(0 0 20px white);
         }
 
-        id: ${animationPosId}
+        id: ${uuid}
 
         globalId: ${globalStyleId}
         `;
 
     const starHeadNegCss = {
         globalId: globalStyleId,
-        id: cssNegId,
+        id: uuid,
         position: 'absolute',
         width: `${starHeadCssWidth}px`,
         height: `${starHeadCssHeight}px`,
@@ -126,7 +121,7 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
 
     const starHeadPosCss = {
         globalId: globalStyleId,
-        id: cssPosId,
+        id: uuid,
         position: 'absolute',
         width: `${starHeadCssWidth}px`,
         height: `${starHeadCssHeight}px`,
@@ -150,9 +145,9 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
         for (var i = styleTagsArray.length - 1; i >= 0; i--) {
             var styleTag = styleTags[i];
 
-            if (styleTag.innerHTML.includes(animationPosId) || styleTag.innerHTML.includes(animationNegId) || styleTag.innerHTML.includes(cssNegId) || styleTag.innerHTML.includes(cssPosId) || styleTag.innerHTML.includes(boxWrapperId)) {
+            if (styleTag.innerHTML.includes(uuid) ) {
                 numTagsFound++;
-                // console.log(`Found animationPosId(Twinkling): ${animationPosId} or animationNegId(Twinkling): ${animationNegId} or cssNegId(Twinkling): ${cssNegId} or cssPosId(Twinkling): ${cssPosId} in a style tag, removing:", styleTag`);
+                //console.log(`Found animationPosId(Twinkling) ${uuid}: in a style tag, removing:", styleTag`);
                 styleTag.remove();
             }
 
@@ -185,7 +180,7 @@ const TwinklingStarsAnimation = ({ headWidthPx, animationDuratonSecs, topOffsetV
             ref={toDelete}
             sx={{
                 globalId: globalStyleId,
-                id: boxWrapperId,
+                id: uuid,
                 top: `${topOffsetVh}vh`,
                 left: `${leftOffsetVw}vw`,
                 position: 'absolute',
