@@ -28,40 +28,86 @@ const AboutPage = () => {
                         scrollbarColor: '#B6AAD7 transparent', // For Firefox
                         msScrollbarArrowColor: "transparent",
                     }}>
-                        <Typography sx={{ width: '60vw', color: 'white', zIndex: 4, marginBottom: '20vh' }}>aweiofjawpefj
-                            ipoaewfjipoae
-                            wjfipoaejfp
-                            oaewjfaewjfo
-                            ipoaewfjipoae
-                            wjfipoaejfp
-                            oaewjfaewjfo
-                            aewifjawipfjipoaewfjipoae
-                            wjfipoaejfp
-                            oaewjfaewjfo
-                            aewifjawipfjipoaewfjipoae
-                            wjfipoaejfp
-                            oaewjfaewjfo
-                            aewifjawipfjipoaewfjipoae
-                            wjfipoaejfp
-                            oaewjfaewjfo
-                            aewifjawipfjipoaewfjipoae
-                            wjfipoaejfp
-                            oaewjfaewjfo
-                            aewifjawipfjipoaewfjipoae
-                            wjfipoaejfp
-                            oaewjfaewjfo
-                            aewifjawipfjipoaewfjipoae
-                            wjfipoaejfp
-                            oaewjfaewjfo
-                            aewifjawipfjipoaewfjipoae
-                            wjfipoaejfp
-                            oaewjfaewjfo
-                            aewifjawipfjipoaewfjipoae
-                            wjfipoaejfp
-                            oaewjfaewjfo
-                            aewifjawipfj
-                            aewifjawipfj
-                            aewipfjeawoifjaiowfjawioefj</Typography>
+                        <Box sx={{ width: '60vw', color: 'white', zIndex: 4, marginTop: '20vh' }}>
+                            <Typography>
+                                What is NovaType?
+                            </Typography>
+                            <Typography>
+                                Behind the scenes, NovaType is a full-stack website developed over the course of one month, with three to five hours of daily effort.
+                                It utilizes TypeScript and React for the frontend and Firebase for the backend. This project allowed me to polish my skills in Object-Oriented
+                                Programming, data structures, and algorithm time complexity analysis, which has been particularly useful in addressing memory leaks caused by the Emotion library in React.
+                                To the user, NovaType is a typing game offering a series of random texts to type out.
+                                With its responsive scenery, visual cues, and cloud-saving capabilities, it provides a relaxing experience that
+                                actively helps users improve their typing skills. Additionally, it offers a serene experience through my self-developed dynamic background animations.
+                                NovaType was a personal project that helped my understanding of these programming concepts while delivering an enjoyable user experience.
+                            </Typography>
+                            <Typography>{'\u00A0'}</Typography>
+                            <Typography>
+                                Challenges and Solutions for Future Applications
+                            </Typography>
+                            <Typography>
+                                Throughout this project, I faced several challenges, one of the most significant being memory leaks that caused the website to lag and crash.
+                                This issue arose after I implemented the animated backgrounds. I observed that if the website ran for a few minutes, it would become unbearably slow
+                                and eventually freeze. Upon inspecting the DOM during runtime, I found that numerous MUI components were being created by my animations but were not being removed. Initially,
+                                I assumed that conditional rendering {"(returning an empty fragment when the animation ended)"} would automatically clean up these elements, but it did not.
+                                To address this, I used the useRef hook to make sure I had a reference to these components.
+                                This allowed me to programatically remove the Box wrapping the animated components from the DOM when it unmounted.
+                            </Typography>
+                            <Typography>{'\u00A0'}</Typography>
+                            <Typography>
+                                However, upon refreshing the site, the problem persisted. This time, I noticed that numerous {"<style>"}
+                                    elements were being created every second without being removed. It became clear that these were causing
+                                    the site to crash. After researching, I found that these styles were generated by the Emotion library,
+                                    which injected them into the DOM and cached them for later use.
+                                    The issue was compounded by the fact that my background was procedurally generated, meaning each style was only used
+                                    once for a max of thirty seconds and then never used again. Unfortunately, Emotion did not have a built-in mechanism to remove these styles from the DOM.
+                            </Typography>
+                            <Typography>{'\u00A0'}</Typography>
+                            <Typography>img</Typography>
+                            <Typography>
+                                To make matters worse, these {"<style>"} elements were ambiguous, with data attributes like 'data-s=""' and randomly generated hash class names such as 'css-1phd689' which
+                                in its current state made these {"<style>"} elements impossible to track, query, and remove from the DOM when an animation completed.
+                            </Typography>
+                            <Typography>
+                                To fix this I found out I could just add my own ID's into the styling itself.
+                            </Typography>
+                            <Typography>img</Typography>
+                            <Typography>
+                                This way, the ID could be found in the innerhtml of the Emotion injected style elements.
+                            </Typography>
+                            <Typography>img</Typography>
+                            <Typography>
+                                Then I could filter out all the style elements created by Emotion and delete those containing a specific ID in their innerHTML.
+                                For instance, in my twinkling stars animation, there are three style elements to delete from the DOM. Two of these handle the four diffraction
+                                spikes of the star, while the third style element is used on the box that wraps these diffraction spikes together, creating the appearance of a
+                                twinkling star. I assigned the same ID to each of these style elements so they could be easily removed when their animation ends.
+                                This allowed me to run a function called {"purgeStyles()"}, which queries all Emotion style elements together, then looping through and deleting those with the given ID.
+                            </Typography>
+                            <Typography>
+                                However, I also had to handle the case where the user switches the page before the animation ends. In this case, the style elements wouldn't be removed from the DOM.
+                                So I re-ran the {"purgeStyles()"} function everytime an animation unmounted.
+                                This approach, however, proved to be inefficient. Deleting hundreds of style elements
+                                {"(around 400)"} when the user switched pages meant unmounting about 100 animation components. Consequently, the purgeStyles
+                                function—which is slow due to querying and looping through hundreds of elements—had to run approximately 100 times, causing significant lag spikes,
+                                especially when the user exited the welcome page.
+                            </Typography>
+                            <Typography>
+                                The core issue was that if I wanted to query and loop through elements just once, I would need to track hundreds of ID's since I gave most Emotion injected style elements
+                                a unique ID. This would end up being pretty tedious and annoying. To resolve this, I found I could just add a global ID to all Emotion style elements.
+                                This global ID remained consistent across all animation styles that needed deletion, regardless of the specific animation.
+                                By implementing this global ID, I could query and loop through the elements once, searching for a single global ID instead of multiple unique IDs.
+                                This allowed me to run a function called {"purgeAllStylesWithGlobalId()"}, which handles the deletions in a single operation when the user switches pages,
+                                rather than executing the {"purgeStyles()"} function hundreds of times. This optimization significantly improved performance and eliminated the lag spikes.
+                            </Typography>
+                            <Typography>
+                                Although this solution worked well when the site was hosted locally, I encountered the same previous memory leak problems when I deployed it using Firebase.
+                                Upon inspecting the DOM, I noticed that the injected Emotion style elements were not appearing. It turned out this was due to a peculiarity
+                                with Chrome, where Emotion optimizes performance by not rendering injected style elements in the DOM.
+                                I found a way to force Chrome to render these elements by creating a custom cache with the 'speedy' option set to false in index.tsx, as shown below:
+                            </Typography>
+                            <Typography>img</Typography>
+                            <Box sx={{height: '20vh'}}></Box>
+                        </Box>
                     </Box>
                     <Box sx={{ width: '100vw', zIndex: 3, position: 'absolute', top: 0 }}>
                         <LogoNavBar hideLogo={true} />
