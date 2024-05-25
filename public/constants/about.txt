@@ -24,19 +24,20 @@ the site to crash. After researching, I found that these styles were generated b
 which injected them into the DOM and cached them for later use.
 The issue was compounded by the fact that my background was procedurally generated, meaning each style was only used
 once for a max of thirty seconds and then never used again. Unfortunately, Emotion did not have a built-in mechanism to remove these styles from the DOM.
-<Img>
-./example
 <Paragraph>
-To make matters worse, these style elements were ambiguous, with data attributes like 'data-s=""' and randomly generated hash class names such as 'css-1phd689' which
+To make matters worse, these style elements were ambiguous (as shown below), with data attributes like 'data-s=""' and randomly generated hash class names such as 'css-1mzk4k0' which
 in its current state made these style elements impossible to track, query, and remove from the DOM when an animation completed.
-<Paragraph>
-    To fix this I found out I could just add my own ID's into the styling itself.
 <Img>
-./example.png
+./svgFiles/ambigStyle.png
 <Paragraph>
-    This way, the ID could be found in the innerhtml of the Emotion injected style elements.
+    To fix this I found out I could just add my own ID's into the styling itself (as shown below).
 <Img>
-./example.png
+./svgFiles/idExample.png
+<Paragraph>
+    Here we see that at the top of each of these css styles, I gave them an 'id' variable with a randomly generated UUID that allowed me to track these styles in the DOM.
+This way, these IDs can be found in the innerhtml of the Emotion injected style elements (as shown below).
+<Img>
+./svgFiles/idInStyleDomExample.png
 <Paragraph>
     Then I could filter out all the style elements created by Emotion and delete those containing a specific ID in their innerHTML.
 For instance, in my twinkling stars animation, there are three style elements to delete from the DOM. Two of these handle the four diffraction
@@ -63,8 +64,6 @@ Upon inspecting the DOM, I noticed that the injected Emotion style elements were
 with Chrome, where Emotion optimizes performance by not rendering injected style elements in the DOM.
 I found a way to force Chrome to render these elements by creating a custom cache with the 'speedy' option set to false in index.tsx, as shown below:
 <Img>
-./example.png
-<link>
-stackoverflow.com
+./svgFiles/cacheExample.png
 
 

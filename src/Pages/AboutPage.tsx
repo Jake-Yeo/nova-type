@@ -9,6 +9,7 @@ async function parseAboutTxt() {
 
     const title = '<Title>';
     const paragraph = '<Paragraph>'
+    const img = '<Img>'
     var wrapper = '';
 
     const arrayOfElements: ReactElement[] = [];
@@ -21,14 +22,22 @@ async function parseAboutTxt() {
         if (wrapper == title) {
             return <>
                 <Typography sx={{ fontSize: '25px', textDecoration: 'underline' }}>{sentencesToWrap}</Typography>
-                <Typography sx={{fontSize: '5px'}}>{'\u00A0'}</Typography>
+                <Typography sx={{ fontSize: '5px' }}>{'\u00A0'}</Typography>
             </>;
         }
         if (wrapper == paragraph) {
             return <>
-                <Typography>{sentencesToWrap}</Typography>
+                <Typography>{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{sentencesToWrap}</Typography>
                 <Typography>{'\u00A0'}</Typography>
             </>;
+        }
+        if (wrapper == img) {
+            return <>
+                <Box>
+                    <img src={sentencesToWrap} alt="Example" style={{ width: '100%', objectFit: 'cover', }} />
+                    <Typography>{'\u00A0'}</Typography>
+                </Box>
+            </>
         }
         return <></>;
     }
