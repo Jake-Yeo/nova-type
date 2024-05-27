@@ -98,8 +98,7 @@ const AboutPage = () => {
                         </Box>
                     </Box>
                     <Box sx={{ width: '100vw', zIndex: 3, position: 'absolute', top: 0 }}>
-                        <LogoNavBar hideLogo={true} />
-                        <Box style={{ height: '10vh' }} />
+                        <LogoNavBar/>
                     </Box>
                 </CampUnderTwilightBackground>
             </Box>

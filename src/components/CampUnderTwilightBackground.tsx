@@ -80,7 +80,8 @@ const CampUnderTwilightBackground = ({ children, occasionalShootingStar = false 
                             top: '0px',
                             width: '100vw',
                             zIndex: 2,
-                            transform: 'rotate(180deg)'
+                            transform: 'rotate(180deg)',
+                            pointerEvents: 'none',
                         }}
                     >
                         <CloudOceanAnimation heightSubtraction={7}></CloudOceanAnimation>

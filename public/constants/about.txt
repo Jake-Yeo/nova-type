@@ -65,5 +65,4 @@ with Chrome, where Emotion optimizes performance by not rendering injected style
 I found a way to force Chrome to render these elements by creating a custom cache with the 'speedy' option set to false in index.tsx, as shown below:
 <Img>
 ./svgFiles/cacheExample.png
-
-
+<Paragraph>

@@ -51,7 +51,7 @@ const HomePage = () => {
             >
                 {getLogo(2, 20)}
                 <Button
-                    onClick={() => toScrollToRef.current?.scrollIntoView()}
+                    onClick={() => toScrollToRef.current?.scrollIntoView({ behavior: 'smooth' as ScrollBehavior, })}
                     sx={{
                         color: '#635985',
                         backgroundColor: '#292140',
@@ -113,13 +113,20 @@ const HomePage = () => {
     }, [])
 
     return (<>
-        <Stack sx={{
-            overflowX: 'hidden',
-            position: 'relative',
-        }}>
+        <div className="scrollCss"
+            key='scrollPane'
+            contentEditable={false}
+            style={{
+                height: '100vh',
+                width: '100vw',
+                overflowX: 'hidden',
+                overflowY: 'hidden',
+            }}
+        >
             {firstPage}
             {secondPage}
-        </Stack>
+        </div>
+
     </>)
 }
 

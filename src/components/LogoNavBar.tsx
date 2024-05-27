@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import DrawerItems from "./DrawerItems";
 import { getLogo, getSvgBox } from "../functions/HelperFunction";
 import DrawerButton from "./DrawerButton";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     hideLogo?: boolean,
@@ -11,7 +12,19 @@ interface Props {
 
 const LogoNavBar = ({ hideLogo = false }: Props) => {
 
-    var logo = <Box sx={{ opacity: 1 }}>{getLogo(1, 15)}</Box>
+    const navigate = useNavigate();
+
+    var logo =
+        <Button disableRipple
+            sx={{
+                textTransform: 'none', // for some reason text in button was all caps... This stops that!
+                backgroundColor: 'transparent',
+                '&:hover': { //When you use &:hover, you’re saying: “Apply the following styles to the current selector when it’s being hovered.”
+                    backgroundColor: 'transparent',
+                },
+            }} onClick={() => {navigate('/HomePage')}}>
+            <Box sx={{ opacity: 1 }}>{getLogo(1, 15)}</Box>
+        </Button>
 
     if (hideLogo == true) {
         logo = <Box sx={{ opacity: 0 }}>{getLogo(1, 15)}</Box>
