@@ -8,6 +8,8 @@ import RestartButton from "./RestartButton";
 import RealTimeStatDisplay from "./RealTimeStatDisplay";
 import SettingsIsland from "./SettingsIsland";
 import { currentUser } from "../objects/User";
+import { SettingsDataType } from "../objects/Settings";
+import { updateOnlineSettings } from "../functions/Backend";
 
 export type TypingData = {
     typedSoFar: String,
@@ -160,6 +162,24 @@ const TypeFeedAreaDisplay = () => {
         }
         setInitialSentence(); // call the asynchronous function setInitalSentence
     }, []);
+
+    useEffect(() => {
+
+        const newSettings: SettingsDataType  = {
+            fontSize: currentUser.getSettings().getFontSize(),
+            wordCount: currentUser.getSettings().getWordCount(),
+            numbersEnabled: numbersEnabled,
+            sentencesEnabled: sentencesEnabled,
+            wordsEnabled: wordsEnabled,
+            symbolsEnabled: symbolsEnabled,
+            lowercaseEnabled: lowercaseEnabled
+        }
+
+        currentUser.setSettings(newSettings); // This hook will change the data in the currentUser object when the data changes!
+
+        updateOnlineSettings().then(() => {console.log("Finished updating online settings!")}); // we put this here because it was running before the currentUser updated in the WordTypesRadioButton
+
+    }, [numbersEnabled, sentencesEnabled, wordsEnabled, symbolsEnabled, lowercaseEnabled])
 
 
     /// Star animation code

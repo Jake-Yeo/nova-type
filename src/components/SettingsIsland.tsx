@@ -8,7 +8,7 @@ import { useContext } from "react"
 const SettingsIsland = () => {
 
     const typingData = useContext(TypingDataContext);
-
+//
     return (
         <>
             <Paper
