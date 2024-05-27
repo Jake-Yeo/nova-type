@@ -131,7 +131,7 @@ const SmokeAnimation = ({ translateXMultDeviation, translateYAddDeviation, blurA
     return (
         <Box
             ref={toDelete}
-            sx={{globalId: globalStyleId, id: uuid, position: 'absolute', zIndex: 2, width: '30px', height: '50px', marginLeft: '0px', top: '0px', animation: `${smokeAnimation} ${animationTime}s linear infinite`, animationFillMode: 'forwards', overflowY: 'hidden', }}
+            sx={{globalId: globalStyleId, id: uuid, position: 'absolute', zIndex: 2, width: '30px', height: '50px', marginLeft: '0px', top: '0px', animation: `${smokeAnimation} ${animationTime}s linear infinite`, animationFillMode: 'forwards', overflowY: 'hidden', pointerEvents: 'none',}}
         > {/** smoke animation */}
             <img src='./svgFiles/smoke.png' alt="Your GIF" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </Box>

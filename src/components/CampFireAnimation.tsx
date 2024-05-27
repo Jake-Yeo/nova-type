@@ -5,7 +5,6 @@ import SmokeAnimation, { smokeProps } from "./SmokeAnimation";
 import { getRandomNumber } from "../functions/HelperFunction";
 
 const CampFireAnimation = () => {
-    //test
     const [smokeArray, setSmokeArray] = useState<JSX.Element[]>([]);
 
     const getRandomSmokeAnimation = (): JSX.Element => {

@@ -17,6 +17,19 @@ const LinksDisplay = ({ darkMode = false }: Props) => {
 
     return (<>
         <Stack direction='row' justifyContent={'space-between'}>
+            <Typography sx={{
+                position: 'absolute',
+                paddingLeft: '10px',
+                paddingBottom: '10px',
+                color: textColor,
+                display: 'flex',
+                width: '100vw',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'row',
+                zIndex: 0,
+                pointerEvents: 'none', // https://stackoverflow.com/questions/16773989/when-div-with-absolute-position-is-added-cannot-click-on-links makes it so that the text does not obstruct any clicks
+            }}>Copyright © {currentYear} Jake Yeo</Typography>
             <Box
                 sx={{
                     display: 'inline-block',
@@ -33,7 +46,7 @@ const LinksDisplay = ({ darkMode = false }: Props) => {
                         width: 'fit-content',
                         alignItems: 'center',
                         flexDirection: 'row',
-                        zIndex: 3,
+                        zIndex: 4,
                         '&:hover': {
                             color: 'white',
                         }
@@ -43,18 +56,6 @@ const LinksDisplay = ({ darkMode = false }: Props) => {
                     {'\u00A0GitHub'}
                 </Link>
             </Box>
-            <Typography sx={{
-                position: 'absolute',
-                paddingLeft: '10px',
-                paddingBottom: '10px',
-                color: textColor,
-                display: 'flex',
-                width: '100vw',
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexDirection: 'row',
-                zIndex: 2,
-            }}>Copyright © {currentYear} Jake Yeo</Typography>
         </Stack>
     </>)
 }
