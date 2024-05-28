@@ -24,7 +24,10 @@ var startTime = 0;
 
 export function setFocusToTypingArea() {
   myForm.current?.focus(); // ? checks if myForm.current is not null before performing .focus()
-  console.log(myForm.current?.value)
+}
+
+export function setBlurToTypingArea() {
+  myForm.current?.blur(); // ? checks if myForm.current is not null before performing .focus()
 }
 
 export var restartPractice = () => { };
@@ -46,7 +49,6 @@ const TypingArea = () => {
 
   const getNewText = async (): Promise<void> => {
     isGettingNewText = true; // asynchronous function, stop the user from typing while we get new text.
-    pauseAndResetAllIntervalFuncs();
     const newSentence: String = await getNewSentence(typingData);
     //console.log("New sentence is:", newSentence);
     typingData.setToType(newSentence.toString());
@@ -61,20 +63,23 @@ const TypingArea = () => {
     protocolWhenUserStartsTypingDone = false;
     userHasTyped = true; // indicate that if the user types after getting new text that the user did type
     startTime = (new Date()).getTime();
-    startAllIntervalFuncs(); // also start all interval functions (ex counter functions that run every second)
     protocolWhenUserStartsTypingDone = true;
+    startAllIntervalFuncs(); // also start all interval functions (ex counter functions that run every second)
   }
 
-  const protocolWhenUserFinishesPrompt = (typedPrompt: string) => {
-    getNewText();
+  const protocolWhenUserFinishesPrompt = async (typedPrompt: string) => {
+    pauseAndResetAllIntervalFuncs();
+    await getNewText();
     typingData.setTypedSoFar("");
     currentUser.pushTypingStat(new TypingStat({ wpm: +typingData.wpm, accuracy: +typingData.accuracy, generatedPrompt: typingData.toType.valueOf(), typedPrompt: typedPrompt, duration: +typingData.duration, startTime: startTime, endTime: (new Date()).getTime() }));
     updateOnlineTypingStats().then(() => {
-      console.log("Finished updating online typing stats");
+     // console.log("Finished updating online typing stats");
+     setFocusToTypingArea(); // refocus so that user can continue typing uninterupted when the new text is gotten
     }); // Then is basically a callback function?
   }
 
   const pauseAndResetAllIntervalFuncs = () => { // wrapping it in a function so it's easier to understand 
+    setBlurToTypingArea(); // prevent user from typing anymore characters in the typing area which messes up the timer and the word count!
     typingData.setTimersArePaused(true);
   }
 
@@ -137,10 +142,10 @@ const TypingArea = () => {
     if (!isStarAnimationThrottled) {
       starData.setStarArray([...starData.starArray, getRandomShootingStar()]);
       isStarAnimationThrottled = true;
-      setTimeout(()=>{isStarAnimationThrottled = false;}, 300);
+      setTimeout(() => { isStarAnimationThrottled = false; }, 300);
     }
 
-    if (typingData.toType.length == e.target.value.length) { // this means user has finished typing
+    if (typingData.toType.length <= e.target.value.length) { // this means user has finished typing
       // We pass in e.target.value instead of typingData.typedSoFar because for some reason typingData.typedSoFar is always missing the last character
       protocolWhenUserFinishesPrompt(e.target.value); // what to do when user finishes typing
       //console.log("got new text and reset it");

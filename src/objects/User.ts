@@ -71,7 +71,7 @@ export class User {
         for (let typingStat of this.getTypingStats()) {
             typingStatsJson.push(typingStat.toDoc());
         }
-        console.log(typingStatsJson);
+        //console.log(typingStatsJson);
         return { typingStats: typingStatsJson };
     }
 }

@@ -16,7 +16,7 @@ const Backend = () => {
             const checkIfUserLogInOrLogOut = async () => {
                 if (auth.currentUser) {
                     navigate('/LoadingPage'); // go to the loading page first! (Also because I have no clue, I'm too lazy to find out how to connect a state variable from here to the other pages... But going to a loading page and going back to the previous page re-renders the previous page. So it's alot easier anyway. Probably not good code tho)
-                    console.log('logged in');
+                    //console.log('logged in');
                     // maybe start a loading animation here
                     await initializeOnSignupOrLogin(); // await waits for this function to finish or else refreshTypeFeedAreaDisplay will run before initialization finishes!
                     await refreshTypeFeedAreaDisplay();
@@ -26,7 +26,7 @@ const Backend = () => {
                     // maybe stop the loading animation here
                 } else {
                     navigate('/LoadingPage');
-                    console.log('logged out');
+                    //console.log('logged out');
                     await currentUser.reset();
                     await refreshTypeFeedAreaDisplay();
                     navigate(-1);
@@ -124,12 +124,12 @@ export async function initializeOnSignupOrLogin() {
 
         currentUser.overrideWithTypingStatData(typingStatsData);
 
-        console.log('Succesfully initialized users data!');
+        //console.log('Succesfully initialized users data!');
 
     } catch (err) {
-        console.log('First time log in, setting up user data');
+        //console.log('First time log in, setting up user data');
         await firstTimeUserDataSetup();
-        console.log('Succesfully set up users data!');
+        //console.log('Succesfully set up users data!');
         return;
     }
 }
@@ -138,7 +138,7 @@ export async function initializeOnSignupOrLogin() {
 export async function updateOnlineSettings() {
 
     if (!isUserLoggedIn()) {
-        console.log("Can't update user not logged in!");
+        //console.log("Can't update user not logged in!");
         return
     }
 
@@ -159,7 +159,7 @@ export async function updateOnlineSettings() {
 export async function updateOnlineHistorySettings() {
 
     if (!isUserLoggedIn()) {
-        console.log("Can't update user not logged in!");
+        //console.log("Can't update user not logged in!");
         return
     }
 
@@ -179,7 +179,7 @@ export async function updateOnlineHistorySettings() {
 export async function updateOnlineTypingStats() {
 
     if (!isUserLoggedIn()) {
-        console.log("Can't update user not logged in!");
+        //console.log("Can't update user not logged in!");
         return
     }
 
@@ -199,7 +199,7 @@ export async function updateOnlineTypingStats() {
 async function batchedUpdateAll() {
 
     if (!isUserLoggedIn()) {
-        console.log("Can't update user not logged in!");
+        //console.log("Can't update user not logged in!");
         return
     }
 
@@ -237,7 +237,7 @@ async function getOnlineSettingsData(): Promise<SettingsDataType> {
 
     if (settingSnapshot.exists) {
         const dirtySettingData = settingSnapshot.data() ?? {};
-        console.log(dirtySettingData);
+        //console.log(dirtySettingData);
         const settingData: SettingsDataType = { ...dirtySettingData } as SettingsDataType;
         return (settingData);
     } else {
@@ -253,7 +253,7 @@ async function getOnlineHistorySettingsData(): Promise<HistorySettingsDataType> 
 
     if (historySettingSnapshot.exists) {
         const dirtyHistorySettingData = historySettingSnapshot.data() ?? {};
-        console.log(historySettingSnapshot);
+        //console.log(historySettingSnapshot);
         const historySettingsData: HistorySettingsDataType = { ...dirtyHistorySettingData } as HistorySettingsDataType;
         return (historySettingsData);
     } else {
@@ -269,7 +269,7 @@ async function getOnlineTypingStatsData(): Promise<TypingStatDataType[]> {
 
     if (typingStatSnapshot.exists) {
         const typingStatData = typingStatSnapshot.data();
-        console.log(typingStatData);
+        //console.log(typingStatData);
         const typingStatsArray: TypingStatDataType[] = Object.values(typingStatData ?? {}).at(0);
         return typingStatsArray;
     } else {
