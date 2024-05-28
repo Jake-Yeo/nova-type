@@ -49,7 +49,7 @@ const ToTypeDisplay = () => {
         key='scrollPane'
         contentEditable={false}
         style={{
-          height: '150px',
+          height: '30vh',
           width: `${+typingData.scrollPaneWidth}vw`, // + converts a data type object Number to primitive type number
           overflow: 'hidden',
           whiteSpace: 'normal', // Enable text wrap

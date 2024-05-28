@@ -88,6 +88,24 @@ const HistoryList = () => {
         return listItemComponentSize.at(index) || 0; // This is the getSize function
     };
 
+    const [height, setHeight] = useState(window.innerHeight * 0.5);
+
+    useEffect(() => {
+        const handleResize = () => {
+            // Calculate the desired height here, for example, 80% of window height
+            setHeight(window.innerHeight * 0.5);
+        };
+
+        // Initial calculation
+        handleResize();
+
+        // Add event listener for resize
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup listener on component unmount
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     return (<>
         <Box
             sx={{
@@ -100,7 +118,7 @@ const HistoryList = () => {
         >
             <VariableSizeList
                 ref={listRef}
-                height={400}
+                height={height}
                 width={`${width}vw`}
                 itemSize={(index: number) => getSize(index)}
                 itemCount={currentUser.getTypingStats().length}
@@ -122,7 +140,7 @@ const HistoryList = () => {
             </VariableSizeList >
             <HistoryListFontSlider setFontSize={setFontSize}></HistoryListFontSlider>
         </Box >
-        
+
     </>)
 }
 
