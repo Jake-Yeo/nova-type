@@ -40,15 +40,13 @@ const HistoryPage = () => {
             >
                 <LogoNavBar></LogoNavBar>
                 {historyPageContents}
-
-                <Box sx={{
-                    position: 'absolute',
+            </Stack>
+            <Box sx={{
                     width: '100vw',
                     bottom: '0px'
                 }}>
                     <LinksDisplay />
                 </Box>
-            </Stack>
         </MeteorShowerCloudOceanBackground>
     </>)
 }
