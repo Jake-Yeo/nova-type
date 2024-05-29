@@ -34,7 +34,7 @@ const HistoryPage = () => {
                 sx={{ overflowX: 'hidden' }}
                 justifyContent={"flex-start"}
                 width={"100vw"}
-                height={"100vh"}
+                height={"90vh"}
                 alignItems={"center"}
                 position={'relative'}
             >
@@ -42,11 +42,11 @@ const HistoryPage = () => {
                 {historyPageContents}
             </Stack>
             <Box sx={{
-                    width: '100vw',
-                    bottom: '0px'
-                }}>
-                    <LinksDisplay />
-                </Box>
+                width: '100vw',
+                bottom: '0px'
+            }}>
+                <LinksDisplay />
+            </Box>
         </MeteorShowerCloudOceanBackground>
     </>)
 }

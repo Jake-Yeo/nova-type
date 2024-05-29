@@ -87,7 +87,6 @@ const HistoryListFontSlider = ({ setFontSize }: Props) => {
                     updateOnlineHistorySettings().then(() => { console.log("Finished updating online history settings!") });
                 }}
             >
-                {/* gutterBottom just adds padding to the bottom of Font Size */}
             </Slider>
         </Box>
     </>)
