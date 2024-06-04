@@ -87,6 +87,8 @@ Jake Yeo - jakeyeozh@gmail.com
 
 Project Link: [https://github.com/Jake-Yeo/nova-type](https://github.com/your_username/repo_name)
 
+LinkedIn: [https://www.linkedin.com/in/jake-yeo]()
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
